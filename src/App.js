@@ -1,25 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import firebase from './firebase';
+import cardList from './cards.json'
 
-function App() {
+import AllCards from './components/AllCards'
+
+const App =() => {
+  const cards = cardList.cards;
+  console.log(cards);
+  // const [cards, setCards] = React.useState([]);
+
+  // React.useEffect(() => {
+  //   const fetchData = async () => {
+  //     const db = firebase.firestore();
+  //     const data = await db.collection("cards").get();
+  //     setCards(data.docs.map(doc => doc.data()));
+  //   }
+  //   fetchData();
+  // }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <span className="App">
+      <AllCards cards={cards}/>
+    </span>
   );
 }
 

@@ -1,0 +1,1210 @@
+{
+    "cards" :[
+        {
+            "id": 1,
+            "type": "property",
+            "name": "MickeyD's",
+            "value": 1,
+            "color": "brown",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 2
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "type": "property",
+            "name": "Arsenio's",
+            "value": 1,
+            "color": "brown",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 2
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "type": "property",
+            "name": "Channel Store",
+            "value": 4,
+            "color": "blue",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 3
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 8
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "type": "property",
+            "name": "Gucci Store",
+            "value": 4,
+            "color": "blue",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 3
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 8
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "type": "property",
+            "name": "Irvine Spectrum",
+            "value": 4,
+            "color": "green",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 4
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 7
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "type": "property",
+            "name": "South Coast Plaza",
+            "value": 4,
+            "color": "green",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 4
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 7
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "type": "property",
+            "name": "Gold Chain",
+            "value": 4,
+            "color": "green",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 4
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 7
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "type": "property",
+            "name": "Popeye's",
+            "value": 1,
+            "color": "lightcyan",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 3
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "type": "property",
+            "name": "Panda Bowl",
+            "value": 1,
+            "color": "lightcyan",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 3
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "type": "property",
+            "name": "Carl's",
+            "value": 1,
+            "color": "lightcyan",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 3
+                }
+            ]
+        },
+        {
+            "id": 11,
+            "type": "property",
+            "name": "In n Out",
+            "value": 2,
+            "color": "orange",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 3
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 5
+                }
+            ]
+        },
+        {
+            "id": 12,
+            "type": "property",
+            "name": "Five Guys",
+            "value": 2,
+            "color": "orange",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 3
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 5
+                }
+            ]
+        },
+        {
+            "id": 13,
+            "type": "property",
+            "name": "The Habit",
+            "value": 2,
+            "color": "orange",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 3
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 5
+                }
+            ]
+        },
+        {
+            "id": 14,
+            "type": "property",
+            "name": "Cane's",
+            "value": 2,
+            "color": "hotpink",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 4
+                }
+            ]
+        },
+        {
+            "id": 15,
+            "type": "property",
+            "name": "Chik-Fil-A",
+            "value": 2,
+            "color": "hotpink",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 4
+                }
+            ]
+        },
+        {
+            "id": 16,
+            "type": "property",
+            "name": "Wendy's",
+            "value": 2,
+            "color": "hotpink",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 4
+                }
+            ]
+        },
+        {
+            "id": 17,
+            "type": "property",
+            "name": "7-11",
+            "value": 2,
+            "color": "black",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 3
+                },
+                {
+                    "propertiesNeeded": 4,
+                    "rentAmt": 4
+                }
+            ]
+        },
+        {
+            "id": 18,
+            "type": "property",
+            "name": "Liquor Store",
+            "value": 2,
+            "color": "black",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 3
+                },
+                {
+                    "propertiesNeeded": 4,
+                    "rentAmt": 4
+                }
+            ]
+        },
+        {
+            "id": 19,
+            "type": "property",
+            "name": "Dollar Store",
+            "value": 2,
+            "color": "black",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 3
+                },
+                {
+                    "propertiesNeeded": 4,
+                    "rentAmt": 4
+                }
+            ]
+        },
+        {
+            "id": 20,
+            "type": "property",
+            "name": "Budget Mart",
+            "value": 2,
+            "color": "black",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 3
+                },
+                {
+                    "propertiesNeeded": 4,
+                    "rentAmt": 4
+                }
+            ]
+        },
+        {
+            "id": 21,
+            "type": "property",
+            "name": "Alberton's",
+            "value": 2,
+            "color": "red",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 3
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 6
+                }
+            ]
+        },
+        {
+            "id": 22,
+            "type": "property",
+            "name": "Ralph's",
+            "value": 2,
+            "color": "red",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 3
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 6
+                }
+            ]
+        },
+        {
+            "id": 23,
+            "type": "property",
+            "name": "ALDI",
+            "value": 2,
+            "color": "red",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 3
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 6
+                }
+            ]
+        },
+        {
+            "id": 24,
+            "type": "property",
+            "name": "Costco",
+            "value": 2,
+            "color": "honeydew",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 2
+                }
+            ]
+        },
+        {
+            "id": 25,
+            "type": "property",
+            "name": "Sam's Club",
+            "value": 2,
+            "color": "honeydew",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 1
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 2
+                }
+            ]
+        },
+        {
+            "id": 26,
+            "type": "property",
+            "name": "Kanye West",
+            "value": 3,
+            "color": "yellow",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 4
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 6
+                }
+            ]
+        },
+        {
+            "id": 27,
+            "type": "property",
+            "name": "Drake",
+            "value": 3,
+            "color": "yellow",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 4
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 6
+                }
+            ]
+        },
+        {
+            "id": 28,
+            "type": "property",
+            "name": "Lil Uzi",
+            "value": 3,
+            "color": "yellow",
+            "rentRules": [
+                {
+                    "propertiesNeeded": 1,
+                    "rentAmt": 2
+                },
+                {
+                    "propertiesNeeded": 2,
+                    "rentAmt": 4
+                },
+                {
+                    "propertiesNeeded": 3,
+                    "rentAmt": 6
+                }
+            ]
+        },
+        {
+            "id": 29,
+            "type": "property-wild",
+            "side1": {
+                "id": 3
+            },
+            "side2": {
+                "id": 5
+            },
+            "value": 4
+        },
+        {
+            "id": 30,
+            "type": "property-wild",
+            "side1": {
+                "id": 1
+            },
+            "side2": {
+                "id": 8
+            },
+            "value": 1
+        },
+        {
+            "id": 31,
+            "type": "property-wild",
+            "side1": {
+                "id": 11
+            },
+            "side2": {
+                "id": 14
+            },
+            "value": 2
+        },
+        {
+            "id": 32,
+            "type": "property-wild",
+            "side1": {
+                "id": 11
+            },
+            "side2": {
+                "id": 14
+            },
+            "value": 2
+        },
+        {
+            "id": 33,
+            "type": "property-wild",
+            "side1": {
+                "id": 5
+            },
+            "side2": {
+                "id": 17
+            },
+            "value": 4
+        },
+        {
+            "id": 34,
+            "type": "property-wild",
+            "side1": {
+                "id": 8
+            },
+            "side2": {
+                "id": 17
+            },
+            "value": 4
+        },
+        {
+            "id": 35,
+            "type": "property-wild",
+            "side1": {
+                "id": 24
+            },
+            "side2": {
+                "id": 17
+            },
+            "value": 2
+        },
+        {
+            "id": 36,
+            "type": "property-wild",
+            "side1": {
+                "id": 26
+            },
+            "side2": {
+                "id": 21
+            },
+            "value": 3
+        },
+        {
+            "id": 37,
+            "type": "property-wild",
+            "side1": {
+                "id": 26
+            },
+            "side2": {
+                "id": 21
+            },
+            "value": 3
+        },
+        {
+            "id": 38,
+            "type": "property-wild-any",
+            "value": -1
+        },
+        {
+            "id": 39,
+            "type": "property-wild-any",
+            "value": -1
+        },
+        {
+            "id": 40,
+            "type": "rent-any",
+            "value": 3
+        },
+        {
+            "id": 41,
+            "type": "rent-any",
+            "value": 3
+        },
+        {
+            "id": 42,
+            "type": "rent-any",
+            "value": 3
+        },
+        {
+            "id": 43,
+            "type": "rent",
+            "side1": {
+                "id": 5
+            },
+            "side2": {
+                "id": 3
+            },
+            "value": 1
+        },
+        {
+            "id": 44,
+            "type": "rent",
+            "side1": {
+                "id": 5
+            },
+            "side2": {
+                "id": 3
+            },
+            "value": 1
+        },
+        {
+            "id": 45,
+            "type": "rent",
+            "side1": {
+                "id": 1
+            },
+            "side2": {
+                "id": 8
+            },
+            "value": 1
+        },
+        {
+            "id": 46,
+            "type": "rent",
+            "side1": {
+                "id": 1
+            },
+            "side2": {
+                "id": 8
+            },
+            "value": 1
+        },
+        {
+            "id": 47,
+            "type": "rent",
+            "side1": {
+                "id": 14
+            },
+            "side2": {
+                "id": 11
+            },
+            "value": 1
+        },
+        {
+            "id": 48,
+            "type": "rent",
+            "side1": {
+                "id": 14
+            },
+            "side2": {
+                "id": 11
+            },
+            "value": 1
+        },
+        {
+            "id": 49,
+            "type": "rent",
+            "side1": {
+                "id": 17
+            },
+            "side2": {
+                "id": 24
+            },
+            "value": 1
+        },
+        {
+            "id": 50,
+            "type": "rent",
+            "side1": {
+                "id": 17
+            },
+            "side2": {
+                "id": 24
+            },
+            "value": 1
+        },
+        {
+            "id": 51,
+            "type": "rent",
+            "side1": {
+                "id": 21
+            },
+            "side2": {
+                "id": 26
+            },
+            "value": 1
+        },
+        {
+            "id": 52,
+            "type": "rent",
+            "side1": {
+                "id": 21
+            },
+            "side2": {
+                "id": 26
+            },
+            "value": 1
+        },
+        {
+            "id": 53,
+            "type": "money",
+            "value": 10,
+            "color": "goldenrod"
+        },
+        {
+            "id": 54,
+            "type": "money",
+            "value": 1,
+            "color": "wheat"
+        },
+        {
+            "id": 55,
+            "type": "money",
+            "value": 1,
+            "color": "wheat"
+        },
+        {
+            "id": 56,
+            "type": "money",
+            "value": 1,
+            "color": "wheat"
+        },
+        {
+            "id": 57,
+            "type": "money",
+            "value": 1,
+            "color": "wheat"
+        },
+        {
+            "id": 58,
+            "type": "money",
+            "value": 1,
+            "color": "wheat"
+        },
+        {
+            "id": 59,
+            "type": "money",
+            "value": 1,
+            "color": "wheat"
+        },
+        {
+            "id": 60,
+            "type": "money",
+            "value": 2,
+            "color": "linen"
+        },
+        {
+            "id": 61,
+            "type": "money",
+            "value": 2,
+            "color": "linen"
+        },
+        {
+            "id": 62,
+            "type": "money",
+            "value": 2,
+            "color": "linen"
+        },
+        {
+            "id": 63,
+            "type": "money",
+            "value": 2,
+            "color": "linen"
+        },
+        {
+            "id": 64,
+            "type": "money",
+            "value": 2,
+            "color": "linen"
+        },
+        {
+            "id": 65,
+            "type": "money",
+            "value": 3,
+            "color": "palegoldenrod"
+        },
+        {
+            "id": 66,
+            "type": "money",
+            "value": 3,
+            "color": "palegoldenrod"
+        },
+        {
+            "id": 67,
+            "type": "money",
+            "value": 3,
+            "color": "palegoldenrod"
+        },
+        {
+            "id": 68,
+            "type": "money",
+            "value": 4,
+            "color": "lightsteelblue"
+        },
+        {
+            "id": 69,
+            "type": "money",
+            "value": 4,
+            "color": "lightsteelblue"
+        },
+        {
+            "id": 70,
+            "type": "money",
+            "value": 4,
+            "color": "lightsteelblue"
+        },
+        {
+            "id": 71,
+            "type": "money",
+            "value": 5,
+            "color": "mediumorchid"
+        },
+        {
+            "id": 72,
+            "type": "money",
+            "value": 5,
+            "color": "mediumorchid"
+        },
+        {
+            "id": 73,
+            "type": "action",
+            "action-type": "deal-breaker",
+            "name": "Deal Breaker",
+            "value": 5,
+            "color": "mediumpurple"
+        },
+        {
+            "id": 74,
+            "type": "action",
+            "action-type": "deal-breaker",
+            "name": "Deal Breaker",
+            "value": 5,
+            "color": "mediumpurple"
+        },
+        {
+            "id": 75,
+            "type": "action",
+            "action-type": "debt-collector",
+            "name": "Debt Collector",
+            "value": 3,
+            "color": "oldlace"
+        },
+        {
+            "id": 76,
+            "type": "action",
+            "action-type": "debt-collector",
+            "name": "Debt Collector",
+            "value": 3,
+            "color": "oldlace"
+        },
+        {
+            "id": 77,
+            "type": "action",
+            "action-type": "debt-collector",
+            "name": "Debt Collector",
+            "value": 3,
+            "color": "oldlace"
+        },
+        {
+            "id": 78,
+            "type": "action",
+            "action-type": "double-the-rent",
+            "name": "Double The Rent",
+            "value": 1,
+            "color": "moccasin"
+        },
+        {
+            "id": 79,
+            "type": "action",
+            "action-type": "double-the-rent",
+            "name": "Double The Rent",
+            "value": 1,
+            "color": "moccasin"
+        },
+        {
+            "id": 80,
+            "type": "action",
+            "action-type": "forced-deal",
+            "name": "Forced Deal",
+            "value": 3,
+            "color": "lemonchiffon"
+        },
+        {
+            "id": 81,
+            "type": "action",
+            "action-type": "forced-deal",
+            "name": "Forced Deal",
+            "value": 3,
+            "color": "lemonchiffon"
+        },
+        {
+            "id": 82,
+            "type": "action",
+            "action-type": "forced-deal",
+            "name": "Forced Deal",
+            "value": 3,
+            "color": "lemonchiffon"
+        },
+        {
+            "id": 83,
+            "type": "action",
+            "action-type": "hotel",
+            "name": "Hotel",
+            "value": 4,
+            "color": "darkturquoise"
+        },
+        {
+            "id": 84,
+            "type": "action",
+            "action-type": "hotel",
+            "name": "Hotel",
+            "value": 4,
+            "color": "darkturquoise"
+        },
+        {
+            "id": 85,
+            "type": "action",
+            "action-type": "house",
+            "name": "House",
+            "value": 3,
+            "color": "floralwhite"
+        },
+        {
+            "id": 86,
+            "type": "action",
+            "action-type": "house",
+            "name": "House",
+            "value": 3,
+            "color": "floralwhite"
+        },
+        {
+            "id": 87,
+            "type": "action",
+            "action-type": "house",
+            "name": "House",
+            "value": 3,
+            "color": "floralwhite"
+        },
+        {
+            "id": 88,
+            "type": "action",
+            "action-type": "birthday",
+            "name": "It's My Birthday!",
+            "value": 2,
+            "color": "khaki"
+        },
+        {
+            "id": 89,
+            "type": "action",
+            "action-type": "birthday",
+            "name": "It's My Birthday!",
+            "value": 2,
+            "color": "khaki"
+        },
+        {
+            "id": 90,
+            "type": "action",
+            "action-type": "birthday",
+            "name": "It's My Birthday!",
+            "value": 2,
+            "color": "khaki"
+        },
+        {
+            "id": 91,
+            "type": "action",
+            "action-type": "just-say-no",
+            "name": "Just Say No!",
+            "value": 4,
+            "color": "paleturquoise"
+        },
+        {
+            "id": 92,
+            "type": "action",
+            "action-type": "just-say-no",
+            "name": "Just Say No!",
+            "value": 4,
+            "color": "paleturquoise"
+        },
+        {
+            "id": 93,
+            "type": "action",
+            "action-type": "just-say-no",
+            "name": "Just Say No!",
+            "value": 4,
+            "color": "paleturquoise"
+        },
+        {
+            "id": 94,
+            "type": "action",
+            "action-type": "pass-go",
+            "name": "Pass Go, Draw 2",
+            "value": 1,
+            "color": "papayawhip"
+        },
+        {
+            "id": 95,
+            "type": "action",
+            "action-type": "pass-go",
+            "name": "Pass Go, Draw 2",
+            "value": 1,
+            "color": "papayawhip"
+        },
+        {
+            "id": 96,
+            "type": "action",
+            "action-type": "pass-go",
+            "name": "Pass Go, Draw 2",
+            "value": 1,
+            "color": "papayawhip"
+        },
+        {
+            "id": 97,
+            "type": "action",
+            "action-type": "pass-go",
+            "name": "Pass Go, Draw 2",
+            "value": 1,
+            "color": "papayawhip"
+        },
+        {
+            "id": 98,
+            "type": "action",
+            "action-type": "pass-go",
+            "name": "Pass Go, Draw 2",
+            "value": 1,
+            "color": "papayawhip"
+        },
+        {
+            "id": 99,
+            "type": "action",
+            "action-type": "pass-go",
+            "name": "Pass Go, Draw 2",
+            "value": 1,
+            "color": "papayawhip"
+        },
+        {
+            "id": 100,
+            "type": "action",
+            "action-type": "pass-go",
+            "name": "Pass Go, Draw 2",
+            "value": 1,
+            "color": "papayawhip"
+        },
+        {
+            "id": 101,
+            "type": "action",
+            "action-type": "pass-go",
+            "name": "Pass Go, Draw 2",
+            "value": 1,
+            "color": "papayawhip"
+        },
+        {
+            "id": 102,
+            "type": "action",
+            "action-type": "pass-go",
+            "name": "Pass Go, Draw 2",
+            "value": 1,
+            "color": "papayawhip"
+        },
+        {
+            "id": 103,
+            "type": "action",
+            "action-type": "pass-go",
+            "name": "Pass Go, Draw 2",
+            "value": 1,
+            "color": "papayawhip"
+        },
+        {
+            "id": 104,
+            "type": "action",
+            "action-type": "sly-deal",
+            "name": "Sly Deal",
+            "value": 3,
+            "color": "cornsilk"
+        },
+        {
+            "id": 105,
+            "type": "action",
+            "action-type": "sly-deal",
+            "name": "Sly Deal",
+            "value": 3,
+            "color": "cornsilk"
+        },
+        {
+            "id": 106,
+            "type": "action",
+            "action-type": "sly-deal",
+            "name": "Sly Deal",
+            "value": 3,
+            "color": "cornsilk"
+        }
+    ]
+}
