@@ -1,15 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Card extends Component {
+const Card = (props) => {
 
-    render() {
-        return (
-            <span className="Card" style={{padding: "5px", width: "300px", height: "300px", backgroundColor: this.props.card.color, float: "left"}}>
-                {/* Num: {this.props.num} | Type: {this.props.type} */}
-                {console.log(this.props.card)}
-            </span>
-        );
-    }
+    return (
+        <div className="Card" style={{margin: "10px", padding: "10px", width: "130px", height: "180px", backgroundColor: props.card.color, float: "left", border: "1px solid black"}}>        
+            {props.card.id}
+            <hr/>
+            {props.card.type}
+            <hr/>
+            {props.card.type === "rent" &&               
+                <>
+                    
+                    <div style={{color: props.referenceCards.card1.color, fontWeight: "bold"}}>
+                        side1 id: {props.card.side1.id}
+                    </div>
+                    <div style={{color: props.referenceCards.card2.color, fontWeight: "bold"}}>
+                        side2 id: {props.card.side2.id}
+                    </div>
+                </>
+            }
+            
+            {props.card.type === "money" && 
+                <>
+                    <span>
+                        ${props.card.value}
+                    </span>
+                </>
+            }
+        </div>
+    );
 }
 
 export default Card;
