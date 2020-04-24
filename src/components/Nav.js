@@ -11,7 +11,7 @@ const Nav = () => {
 
     return (
         <nav>
-            <h1>NavBar</h1>
+            <h1>Jayropoly Deal</h1>
             <ul className="nav-links">
                 <Link style={navStyle} to="/">
                     <li>Home</li>

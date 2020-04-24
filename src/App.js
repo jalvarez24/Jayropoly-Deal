@@ -6,7 +6,18 @@ import Nav from './components/Nav'
 import Home from './components/Home'
 import cardList from './cards.json'
 import AllCards from './components/AllCards'
-import CreateGameContainer from './components/CreateGameContainer'
+import LobbyContainer from './components/LobbyContainer'
+import {v4 as uuidv4} from 'uuid';
+
+const VerifyUser = () => {  
+  if(localStorage.getItem("userId") === null) {
+    localStorage.setItem("userId", uuidv4().substring(0,8));
+  }
+  else{
+    //Cookie already set
+  }
+  return null;
+}
 
 const App =() => {
   const cards = cardList.cards;
@@ -30,12 +41,13 @@ const App =() => {
 
   return (
     <Router>
-      <CreateGameContainer cards={cards}/>
+      <VerifyUser />
       <Nav />
       <span className="App">
         <Switch>
           <Route path="/" exact component={Home}/>
           <Route path="/cards" component={() => <AllCards cards={cards}/>} />
+          <Route path="/lobby" component={() => <LobbyContainer cards={cards}/>} />
         </Switch>
       </span>
     </Router>
