@@ -1,22 +1,21 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import cardList from '../cards.json'
 import Card from './Card'
 
-class AllCards extends Component {
+export default function AllCards() {
 
-    render() {
-        return this.props.cards.map((card) => (
-            <Card key={card.id} card={card} 
+    const [cards, setCards] = useState(cardList.cards);
 
-            //reference cards need for rent to reference 
-            //each half (each a property) individual props
-            referenceCards={card.type === 'rent' ?
-                                {card1: this.props.cards[card.side1.id - 1],
-                                card2: this.props.cards[card.side2.id - 1]}:
-                                undefined}
-            />
-        ));
-    }
+    return cards.map((card) => (
+        <Card key={card.id} card={card}
 
+        //reference cards need for rent to reference 
+        //each half (each a property) individual props
+        referenceCards={
+            card.type === 'rent' ?
+            {card1: cards[card.side1.id - 1], card2: cards[card.side2.id - 1]}:
+            undefined
+        }
+        />
+    ));
 }
-
-export default AllCards;
