@@ -1,37 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import firebase from '../firebase';
-import Card from './Chat'
+import Chat from './Chat'
 import cardsList from '../cards.json'
-import {v4 as uuidv4} from 'uuid';
 
 const cards = cardsList.cards;
 
-function usePlayerList() {
-  const [playerList, setPlayerList] = useState({});
-  const [hostId, setHostId] = useState("");
-
-  useEffect(() => {
-    // let players =  firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}/players`);
-    let gameRef =  firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
-    gameRef.on("value", (snapshot) => {
-      setHostId(snapshot.child('hostId').val());
-      let newList = {};
-      snapshot.child('players').forEach((player)=> {
-        newList[player.key] = player.child('name').val();  
-      })
-      setPlayerList(newList);
-    })
-  }, []);
-
-
-  return {playerList, hostId};
-}
-
 export default function Lobby() {
 
-  const {playerList, hostId} = usePlayerList();
+  function GetPlayerList() {
+    const [playerList, setPlayerList] = useState({});
+    const [hostId, setHostId] = useState("");
+  
+    useEffect(() => {
+      // let players =  firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}/players`);
+      let gameRef =  firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
+      gameRef.on("value", (snapshot) => {
+        setHostId(snapshot.child('hostId').val());
+        let newList = {};
+        snapshot.child('players').forEach((player)=> {
+          newList[player.key] = player.child('name').val();  
+        })
+        setPlayerList(newList);
+      })
 
-  const [gameId, setGameId] = useState(localStorage.getItem("gameId"));
+      //disconnect on unmount
+      return () => {
+        gameRef.off();
+      }
+
+    }, []);
+  
+  
+    return {playerList, hostId};
+  }
+
+  const {playerList, hostId} = GetPlayerList();
+
+  const [gameId] = useState(localStorage.getItem("gameId"));
 
   function shuffleDeck(cards) {
     let cardsCopy = cards;
@@ -80,7 +85,7 @@ export default function Lobby() {
               }   
           </ul>
       </div>
-      <Card gameId={gameId} playerList={playerList}/>
+      <Chat gameId={gameId} playerList={playerList}/>
       <div>
           <button id="start-game-button" disabled={playerList.length < 2}>
               Start Game

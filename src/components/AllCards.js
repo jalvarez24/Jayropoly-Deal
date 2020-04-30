@@ -4,7 +4,7 @@ import Card from './Card'
 
 export default function AllCards() {
 
-    const [cards, setCards] = useState(cardList.cards);
+    const [cards] = useState(cardList.cards);
 
     return cards.map((card) => (
         <Card key={card.id} card={card}

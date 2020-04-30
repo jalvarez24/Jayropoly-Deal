@@ -1,27 +1,38 @@
 import React, {useState, useEffect} from 'react'
 import firebase from '../firebase';
 
-function UseMessages() {
-    const [messages, setMessages] = useState([]);
-
-    useEffect(() => {
-        let messagesRef =  firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}/messages`);
-        messagesRef.on("value", (snapshot) => {       
-            let newData = [];    
-            if(snapshot.exists()) {
-                Object.keys(snapshot.val()).map((key) => {
-                    newData.push({...snapshot.val()[key], key: key});
-                })
-            }
-            setMessages(newData);
-        })    
-    }, [])
-
-    return messages
-}
-
 export default function Popup(props) {
-    const messages = UseMessages();
+
+    function GetMessages() {
+        const [messages, setMessages] = useState([]);
+    
+        useEffect(() => {
+            let messagesRef = firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}/messages`);
+            messagesRef.on("value", (snapshot) => {       
+                let newData = [];    
+                if(snapshot.exists()) {
+                    Object.keys(snapshot.val()).forEach((key) => {
+                        newData.push({...snapshot.val()[key], key: key});
+                    })
+                }   
+                setMessages(newData);
+            })
+
+            //disconnect on unmount
+            return () => {
+                messagesRef.off();
+            }
+
+        }, [])
+        return messages
+    }
+
+    //makes sure chat list is always scrolled to most recent message
+    useEffect(() => {
+        scrollToBottom(); 
+    })
+
+    const messages = GetMessages();
     
     const [messageText, setMessageText] = useState("");
 
@@ -42,21 +53,27 @@ export default function Popup(props) {
         e.preventDefault();        
     }
 
+    function scrollToBottom() {
+        let obj = document.getElementById("messages");
+        if(obj)
+            obj.scrollTop = obj.scrollHeight;  
+    }
+
     return (
         <div style={{backgroundColor: "lightblue", padding: "20px", width: "300px", textAlign: "center"}}>
             <h3>Chat:</h3>
-            {
+            <ul id="messages" style={{listStyleType: "none", margin: 0,padding: 0, height:"175px", width: "300px", overflowX: "scroll", backgroundColor: "aqua"}}>
+                {
                 messages.length ?
-                <ul style={{listStyleType: "none", margin: 0,padding: 0, height:"200px", width: "300px", overflowX: "scroll", backgroundColor: "aqua"}}>
-                    {messages.map((msg) => (
-                        <li key={msg.key}>
-                            <span style={{fontWeight: "bold"}}>{props.playerList[msg.userId]}</span>: {msg.message}
-                        </li>
-                    ))}
-                </ul>
+                messages.map((msg) => (
+                    <li key={msg.key}>
+                        <span style={{fontWeight: "bold"}}>{props.playerList[msg.userId]}</span>: {msg.message}
+                    </li>
+                ))
                 :
                 <span>No Messages</span>
-            }
+                }
+            </ul>          
             <form onSubmit={(e) => {e.preventDefault()}}>
                 <div style={{paddingTop: "10px"}}>
                     <input id="message_input" style={{marginRight: "5px"}} type="text" placeholder="Enter new message" autoComplete="off" required

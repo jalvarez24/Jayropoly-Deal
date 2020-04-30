@@ -2,7 +2,7 @@ import React from 'react';
 import '../App.css';
 import {Link} from 'react-router-dom';
 
-const Nav = () => {
+export default function Nav() {
 
     const navStyle = {
         color: "purple",
@@ -14,7 +14,7 @@ const Nav = () => {
             <h1>Jayropoly Deal</h1>
             <ul className="nav-links">
                 <Link style={navStyle} to="/">
-                    <li>Home</li>
+                        <li>Home</li>       
                 </Link>
                 <Link style={navStyle} to="/cards">
                     <li>Cards</li>
@@ -23,5 +23,3 @@ const Nav = () => {
         </nav>
     );
 }
-
-export default Nav;
