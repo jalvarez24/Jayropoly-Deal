@@ -11,14 +11,14 @@ export default function Nav() {
 
     return (
         <nav>
-            <h1>Jayropoly Deal</h1>
+            <h1>I GOT IT FAM!</h1>
             <ul className="nav-links">
                 <Link style={navStyle} to="/">
                         <li>Home</li>       
                 </Link>
-                <Link style={navStyle} to="/cards">
+                {/* <Link style={navStyle} to="/cards">
                     <li>Cards</li>
-                </Link>
+                </Link> */}
             </ul>
         </nav>
     );

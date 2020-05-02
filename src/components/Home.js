@@ -11,12 +11,8 @@ export default function Home() {
   const [username, setUsername] = useState(localStorage.getItem("username") === null ? "" : localStorage.getItem("username"));
   //string
   const [joinLobbyId, setJoinLobbyId] = useState("");
-  //string
-  const [invalidNameMessage, setInvalidNameMessage] = useState("");
-  //string
-  const [invalidLobbyMessage, setInvalidLobbyMessage] = useState("");
   //bool
-  const [returningUser] = useState(localStorage.getItem("username") !== null);
+  const [returningUser, setReturningUser] = useState(localStorage.getItem("username") !== null);
   
   const [redirect, setRedirect] = useState(() => {
     // if(localStorage.getItem("inGame") !== null) {
@@ -53,6 +49,10 @@ export default function Home() {
   }
 
   function joinLobby() {
+    if(joinLobbyId === "") {
+      showErrorMessage("Enter lobby id to join  a friend.")
+      return;
+    }
     document.getElementById('username')
 
     let userId = localStorage.getItem('userId');
@@ -71,25 +71,62 @@ export default function Home() {
             setRedirect('/lobby');
           }
           else {
-            setInvalidLobbyMessage("Lobby does not exist. Try again.");
+            showErrorMessage("Lobby does not exist. Try again.")
           }
         });   
+  }
+
+  function changeName() {
+    localStorage.removeItem("username");
+    setUsername("");
+    setReturningUser(null);
+  }
+
+  function preventEnter(keyEvent) {
+    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+      keyEvent.preventDefault();
+    }
+  }
+
+  //for displaying errors:
+  const [errorOn, setErrorOn] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  function showErrorMessage(msg, howLong = 3) {
+    console.log("called");
+    if(errorOn) return;
+    setErrorOn(true);
+    setErrorMessage(msg);
+    let interval = setInterval(() => {
+      setErrorOn();
+      setErrorMessage("");
+      stopInverval();
+    }, howLong * 1000);
+
+    function stopInverval() {
+      clearInterval(interval);
+    }
   }
 
     return( 
       <div>
         {
           redirect?
-
           <Redirect to={redirect}/>
           :
           <>
-          <h1>Welcome to the Game</h1>
-          <form onSubmit={(e) => {e.preventDefault()}}>
+          <h1>Welcome to <span style={{color: "gold"}}>I GOT IT FAM</span></h1>
+          <form onSubmit={(e) => {e.preventDefault()}} onKeyDown={preventEnter}>
             <div>
               {
               returningUser ?
-              <span>Welcome back {username}</span>
+              <>
+                <h4>Username: {username}</h4>
+                <button style={{marginLeft: "10px"}} onClick={changeName}>
+                  Change Username
+                </button>
+                
+              </>
               :
               <>
                 <span>Enter a name to play: </span>
@@ -98,23 +135,33 @@ export default function Home() {
               }
             </div> 
             <hr/>
-            <div>
-              <span>Join a friend, enter their lobby code: </span>
+            <div className="menu-option">
+              <span>Join a friend, enter their lobby id: </span>
               <div>
                 <input onChange={(e) => { setJoinLobbyId(e.target.value.trim())}} type="text"/>
-                <button onClick={username !== "" ? joinLobby : null}>Join Friend</button>
+                {
+                username === "" ? 
+                <>
+                  <button onClick={() => showErrorMessage("Username required.")}>Join Friend</button> 
+                </> :
+                <>
+                  <button onClick={joinLobby}>Join Friend</button> 
+                </>
+                }
               </div>
             </div>
-            <div>
-              <span>Join a random game: <button id="random-game-button">Join Random</button></span>
+            <div className="menu-option">
+              <span>Join a random game: 
+                <button id="random-game-button" disabled>Join Random</button>
+                <span style={{backgroundColor: "lightgrey"}}>Coming Soon!</span>
+              </span>
             </div>
-            <div>
+            <div className="menu-option">
               <span>Create a new lobby and invite friends: 
                 {
                 username === "" ? 
                 <>
-                  <button onClick={() => {setInvalidNameMessage("Invalid Username Detected!")}}>Create Lobby</button> 
-                  <div><span style={{color: "red"}}>{invalidNameMessage}</span></div>
+                  <button onClick={() => showErrorMessage("Username required.")}>Create Lobby</button> 
                 </> :
                   <Link to="/lobby">
                     {
@@ -125,16 +172,10 @@ export default function Home() {
                     <button onClick={createLobby}>Create Lobby</button>
                   </Link>
                 }
-                <div style={
-                  invalidLobbyMessage === "" ?
-                  {display: "none"}:
-                  {display: "block"}
-                }>
-                  <span style={{color: "red"}}>{invalidLobbyMessage}</span>
-                </div>
               </span>
             </div>
           </form>
+          <span id="errorMessage" style={{color: "red"}}>{errorMessage}</span>
           </>
           }
       </div>

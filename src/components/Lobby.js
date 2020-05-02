@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import firebase from '../firebase';
+import {Link, Redirect} from 'react-router-dom';
 import Chat from './Chat'
 import cardsList from '../cards.json'
 
@@ -7,21 +8,31 @@ const cards = cardsList.cards;
 
 export default function Lobby() {
 
+  const [redirect, setRedirect] = useState(null);
+
   function GetPlayerList() {
     const [playerList, setPlayerList] = useState({});
     const [hostId, setHostId] = useState("");
   
     useEffect(() => {
-      // let players =  firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}/players`);
       let gameRef =  firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
       gameRef.on("value", (snapshot) => {
-        setHostId(snapshot.child('hostId').val());
-        let newList = {};
-        snapshot.child('players').forEach((player)=> {
-          newList[player.key] = player.child('name').val();  
-        })
-        setPlayerList(newList);
+        if(!snapshot.exists()) {
+          localStorage.removeItem("gameId");
+          localStorage.removeItem("inLobby");
+          localStorage.removeItem("inGame");
+          setRedirect("/");
+        }
+        else{
+          setHostId(snapshot.child('hostId').val());
+          let newList = {};
+          snapshot.child('players').forEach((player)=> {
+            newList[player.key] = player.child('name').val();  
+          })
+          setPlayerList(newList);
+        }
       })
+
 
       //disconnect on unmount
       return () => {
@@ -29,7 +40,6 @@ export default function Lobby() {
       }
 
     }, []);
-  
   
     return {playerList, hostId};
   }
@@ -58,6 +68,41 @@ export default function Lobby() {
     return cards;
   };
 
+  function endLobby() {
+    //update the database, delete entire instance of the lobby
+    let gameRef = firebase.database().ref().child(`lobbies/${gameId}`);
+
+    gameRef.once("value")
+      .then(function(snapshot) {
+        if(snapshot.exists()) gameRef.remove();          
+        else {
+          console.log("Unable to end lobby.");
+          return;
+        }
+      });  
+  }
+
+  function exitLobby() {
+    //update the database!!!
+    let playerListRef = firebase.database().ref().child(`lobbies/${gameId}/players`);
+
+    playerListRef.once("value")
+        .then(function(snapshot) {
+          if(snapshot.exists()) playerListRef.child(localStorage.getItem("userId")).remove();          
+          else {
+            console.log("unable to remove player in db.");
+            return;
+          }
+        });   
+    //update localStorage
+    localStorage.removeItem("inLobby");
+    localStorage.removeItem("inGame");
+    localStorage.removeItem("gameId");
+           
+    //redirect back '/' (home)
+    setRedirect('/');
+  }
+
   function startGame() {
     //create new game in games table, with:
       // list of players
@@ -68,7 +113,9 @@ export default function Lobby() {
   let count = 1;
 
   return (
-    
+    redirect?
+    <Redirect to={redirect}/>
+    :
     <div id="lobby" style={{width: "500px"}}>
       <div style={{backgroundColor: "lightgrey", padding: "20px"}}>
           <h3>Invite Yours Friends! They can join lobby with code: </h3>
@@ -87,7 +134,14 @@ export default function Lobby() {
       </div>
       <Chat gameId={gameId} playerList={playerList}/>
       <div>
-          <button id="start-game-button" disabled={playerList.length < 2}>
+        {
+          hostId === localStorage.getItem("userId")?
+          <button onClick={endLobby}>End Lobby </button> 
+          :
+          <button onClick={exitLobby}>Exit Lobby </button> 
+        }
+        
+          <button disabled={Object.keys(playerList).length < 2}>
               Start Game
           </button>
       </div>

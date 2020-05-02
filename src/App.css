@@ -18,3 +18,15 @@ nav {
   align-items: center;
   list-style: none;
 }
+
+.menu-option {
+  margin-bottom: 10px;
+}
+
+.menu-option button {
+  margin-left: 10px;
+}
+
+.menu-option span {
+  margin-left: 10px;
+}

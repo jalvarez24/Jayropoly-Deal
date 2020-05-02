@@ -67,7 +67,17 @@ export default function Popup(props) {
                 messages.length ?
                 messages.map((msg) => (
                     <li key={msg.key}>
-                        <span style={{fontWeight: "bold"}}>{props.playerList[msg.userId]}</span>: {msg.message}
+                        {
+                            props.playerList[msg.userId]?
+
+                            <span style={{fontWeight: "bold"}}>
+                                {props.playerList[msg.userId]}
+                            </span>:
+                             <span style={{fontStyle: "italic", color: "red"}}>
+                                {"Player left"}
+                             </span>
+                        }
+                        : {msg.message}
                     </li>
                 ))
                 :
