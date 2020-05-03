@@ -121,9 +121,10 @@ export default function Lobby() {
           <h3>Invite Yours Friends! They can join lobby with code: </h3>
           <h2>{gameId}</h2>
       </div>
-      <div style={{backgroundColor: "lightgreen", padding: "20px"}}>
-        <h3>Players in Lobby</h3>
-          <ul style={{listStyleType: "none", padding: 0, margin: 0, width: "200px", backgroundColor: "aquamarine"}}>
+      <div style={{backgroundColor: "lightgreen", padding: "10px", textAlign: "center"}}>
+        <h3 style={{marginTop: 0, marginBottom: "4px"}}>Players in Lobby</h3>
+        <nav style={{textAlign: "center", width: "50%", margin: "auto"}}>
+          <ul style={{listStyleType: "none", margin: 0,padding: 0, backgroundColor: "aquamarine"}}>
               {     
               Object.entries(playerList).map(([key, value]) => {
                 
@@ -131,6 +132,7 @@ export default function Lobby() {
               })
               }   
           </ul>
+        </nav>
       </div>
       <Chat gameId={gameId} playerList={playerList}/>
       <div>

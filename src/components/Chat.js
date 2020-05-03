@@ -60,9 +60,10 @@ export default function Popup(props) {
     }
 
     return (
-        <div style={{backgroundColor: "lightblue", padding: "20px", width: "300px", textAlign: "center"}}>
-            <h3>Chat:</h3>
-            <ul id="messages" style={{listStyleType: "none", margin: 0,padding: 0, height:"175px", width: "300px", overflowX: "scroll", backgroundColor: "aqua"}}>
+        <div style={{backgroundColor: "lightblue", padding: "10px", width: "300px", textAlign: "center"}}>
+            <h3 style={{marginTop: 0, marginBottom: "4px"}}>Chat:</h3>
+            <nav style={{textAlign: "center"}}>
+            <ul id="messages" style={{listStyleType: "none", margin: 0,padding: 0, overflowX: "scroll", backgroundColor: "aqua"}}>
                 {
                 messages.length ?
                 messages.map((msg) => (
@@ -83,7 +84,8 @@ export default function Popup(props) {
                 :
                 <span>No Messages</span>
                 }
-            </ul>          
+            </ul>    
+            </nav>      
             <form onSubmit={(e) => {e.preventDefault()}}>
                 <div style={{paddingTop: "10px"}}>
                     <input id="message_input" style={{marginRight: "5px"}} type="text" placeholder="Enter new message" autoComplete="off" required

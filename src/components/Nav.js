@@ -10,7 +10,7 @@ export default function Nav() {
     }
 
     return (
-        <nav>
+        <nav className="navBar">
             <h1>I GOT IT FAM!</h1>
             <ul className="nav-links">
                 <Link style={navStyle} to="/">
