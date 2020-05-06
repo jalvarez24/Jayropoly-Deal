@@ -15,15 +15,14 @@ export default function Home() {
   const [returningUser, setReturningUser] = useState(localStorage.getItem("username") !== null);
   
   const [redirect, setRedirect] = useState(() => {
-    // if(localStorage.getItem("inGame") !== null) {
-    //   return "game";
-    // }
-    // else 
-    if(localStorage.getItem("inLobby") !== null)
-      return '/lobby'
+
+    let game = localStorage.getItem("inGame");
+    let lobby = localStorage.getItem("inLobby");
+
+    if(lobby  && lobby === "true") return '/lobby'
+    else if (game && game === "true") return '/game' 
     return null;
   });
-
 
   function createLobby() {
     let gameId = uuidv4().substring(0,5);
@@ -41,6 +40,7 @@ export default function Home() {
 
     let gameInfo = {
       hostId: userId,
+      gameStarted: false
     }
     let rootRef = firebase.database().ref();
     let lobbiesRef = rootRef.child('lobbies');
@@ -58,13 +58,18 @@ export default function Home() {
     let userId = localStorage.getItem('userId');
     let username = localStorage.getItem('username');
 
-    let gameRef = firebase.database().ref().child(`lobbies/${joinLobbyId}`);
+    let lobbyRef = firebase.database().ref().child(`lobbies/${joinLobbyId}`);
 
-    gameRef.once("value")
+    lobbyRef.once("value")
         .then(function(snapshot) {
           if(snapshot.exists()) {
-            gameRef.child('players').child(userId).set({name: username});
+            let playerCount = snapshot.child('players').numChildren();
+            if(playerCount >= 6){
+              showErrorMessage(`Lobby is full! [${playerCount}/6]`);
+              return;
+            }
 
+            lobbyRef.child('players').child(userId).set({name: username});
             localStorage.setItem("inLobby", true);
             localStorage.setItem("inGame", false);
             localStorage.setItem("gameId", joinLobbyId);
@@ -115,13 +120,14 @@ export default function Home() {
           <Redirect to={redirect}/>
           :
           <>
-          <h1>Welcome to <span style={{color: "gold"}}>I GOT IT FAM</span></h1>
+          <div className="home">
+          <h1>Welcome to <span style={{color: "#3a43ef", fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"}}>I GOT IT FAM!</span></h1>
           <form onSubmit={(e) => {e.preventDefault()}} onKeyDown={preventEnter}>
             <div>
               {
               returningUser ?
               <>
-                <h4>Username: {username}</h4>
+                <h4 style={{marginBottom: "1vh"}}>Username: {username}</h4>
                 <button style={{marginLeft: "10px"}} onClick={changeName}>
                   Change Username
                 </button>
@@ -130,7 +136,10 @@ export default function Home() {
               :
               <>
                 <span>Enter a name to play: </span>
-                <input  onChange={(e) => {setUsername(e.target.value.trim())}} type="text" required/>
+                <div style={{position: "relative", display: "inline"}}>
+                  <input onChange={(e) => {setUsername(e.target.value.trim())}} type="text" placeholder="Name" required/>
+                  <span className="focus-border"></span>
+                </div>
               </>
               }
             </div> 
@@ -138,7 +147,10 @@ export default function Home() {
             <div className="menu-option">
               <span>Join a friend, enter their lobby id: </span>
               <div>
-                <input onChange={(e) => { setJoinLobbyId(e.target.value.trim())}} type="text"/>
+                <div style={{position: "relative", display: "inline"}}>
+                  <input onChange={(e) => { setJoinLobbyId(e.target.value.trim())}} type="text" placeholder="Lobby "/>
+                  <span className="focus-border"></span>
+                </div>
                 {
                 username === "" ? 
                 <>
@@ -153,7 +165,7 @@ export default function Home() {
             <div className="menu-option">
               <span>Join a random game: 
                 <button id="random-game-button" disabled>Join Random</button>
-                <span style={{backgroundColor: "lightgrey"}}>Coming Soon!</span>
+                <span style={{backgroundColor: "lightblue"}}>Coming Soon!</span>
               </span>
             </div>
             <div className="menu-option">
@@ -175,6 +187,7 @@ export default function Home() {
               </span>
             </div>
           </form>
+          </div>
           <span id="errorMessage" style={{color: "red"}}>{errorMessage}</span>
           </>
           }

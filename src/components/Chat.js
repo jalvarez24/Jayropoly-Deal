@@ -60,7 +60,7 @@ export default function Popup(props) {
     }
 
     return (
-        <div style={{backgroundColor: "lightblue", padding: "10px", width: "300px", textAlign: "center"}}>
+        <div style={{backgroundColor: "lightblue", padding: "10px", width: "300px", textAlign: "center", margin: "auto"}}>
             <h3 style={{marginTop: 0, marginBottom: "4px"}}>Chat:</h3>
             <nav style={{textAlign: "center"}}>
             <ul id="messages" style={{listStyleType: "none", margin: 0,padding: 0, overflowX: "scroll", backgroundColor: "aqua"}}>

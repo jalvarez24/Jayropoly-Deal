@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-// import firebase from './firebase';
 import Nav from './components/Nav';
 import Home from './components/Home';
-import AllCards from './components/AllCards';
 import Lobby from './components/Lobby';
 import Game from './components/Game';
+import Instructions from './components/Instructions';
 import {v4 as uuidv4} from 'uuid';
 
 function VerifyUser() {  
@@ -15,8 +14,6 @@ function VerifyUser() {
   }
   return null;
 }
-
-let cardsOn = false;
 
 export default function App() {
   return (
@@ -28,6 +25,7 @@ export default function App() {
           <Route path="/" exact component={Home}/>
           <Route path="/lobby" component={Lobby}/>
           <Route path="/game" component={Game}/>
+          <Route path="/instructions" component={Instructions}/>
         </Switch>
       </div>
     </Router>

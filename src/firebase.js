@@ -1,14 +1,14 @@
 import firebase from 'firebase'; 
 
 const  config = {
-    apiKey: "AIzaSyCN0gsk1xOlGOqM3diSFMvFFsVWlrTXzp4",
-    authDomain: "jayropoly-deal.firebaseapp.com",
-    databaseURL: "https://jayropoly-deal.firebaseio.com",
-    projectId: "jayropoly-deal",
-    storageBucket: "jayropoly-deal.appspot.com",
-    messagingSenderId: "829715769084",
-    appId: "1:829715769084:web:1a726b23ce6a04950d1979",
-    measurementId: "G-0CZN4FDRPM"
+    apiKey: "AIzaSyDUenc-VRfUD7mQJH6NIPaDW9SJkiqc8iM",
+    authDomain: "i-got-it-fam.firebaseapp.com",
+    databaseURL: "https://i-got-it-fam.firebaseio.com",
+    projectId: "i-got-it-fam",
+    storageBucket: "i-got-it-fam.appspot.com",
+    messagingSenderId: "771947671155",
+    appId: "1:771947671155:web:e6fd9a8177b6419c44c406",
+    measurementId: "G-PGV3P81H6H"
   };
 
 // Initialize Firebase

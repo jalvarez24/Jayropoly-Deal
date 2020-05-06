@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import firebase from '../firebase';
-import {Link, Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import Chat from './Chat'
-import cardsList from '../cards.json'
-
-const cards = cardsList.cards;
 
 export default function Lobby() {
 
-  const [redirect, setRedirect] = useState(null);
+  const [redirect, setRedirect] = useState(() => {
+
+    let game = localStorage.getItem("inGame");
+    let lobby = localStorage.getItem("inLobby");
+
+    if(lobby && lobby !== "false") {
+      return null;
+    }
+    else if (game && game === "true") return '/game'
+    return '/'
+  });
 
   function GetPlayerList() {
     const [playerList, setPlayerList] = useState({});
@@ -48,26 +55,6 @@ export default function Lobby() {
 
   const [gameId] = useState(localStorage.getItem("gameId"));
 
-  function shuffleDeck(cards) {
-    let cardsCopy = cards;
-    var currentIndex = cardsCopy.length;
-    var temporaryValue, randomIndex;
-  
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-  
-      // And swap it with the current element.
-      temporaryValue = cardsCopy[currentIndex];
-      cardsCopy[currentIndex] = cardsCopy[randomIndex];
-      cardsCopy[randomIndex] = temporaryValue;
-    }
-  
-    return cards;
-  };
-
   function endLobby() {
     //update the database, delete entire instance of the lobby
     let gameRef = firebase.database().ref().child(`lobbies/${gameId}`);
@@ -103,6 +90,8 @@ export default function Lobby() {
     setRedirect('/');
   }
 
+  const [gameStarted, setGameStarted] = useState(false)
+
   function startGame() {
     //create new game in games table, with:
       // list of players
@@ -110,13 +99,11 @@ export default function Lobby() {
       // messages
   }
 
-  let count = 1;
-
   return (
     redirect?
     <Redirect to={redirect}/>
     :
-    <div id="lobby" style={{width: "500px"}}>
+    <div id="lobby" style={{width: "400px", margin: "auto"}}>
       <div style={{backgroundColor: "lightgrey", padding: "20px"}}>
           <h3>Invite Yours Friends! They can join lobby with code: </h3>
           <h2>{gameId}</h2>
@@ -128,11 +115,14 @@ export default function Lobby() {
               {     
               Object.entries(playerList).map(([key, value]) => {
                 
-                return <li key={key}><span style={{fontWeight: "bold"}}>{count++}</span>: {value} <span style={{color: "red", fontWeight: "bold"}}> {key === hostId ? "Host": ""}</span></li>              
+                return <li key={key}><span style={{fontWeight: "bold"}}></span>{value} <span style={{color: "red", fontWeight: "bold"}}> {key === hostId ? "Host": ""}</span></li>              
               })
               }   
           </ul>
-        </nav>
+        </nav> 
+        <div style={{marginTop: "5px"}}>
+          <span>[{Object.keys(playerList).length}/8 Players]</span> 
+        </div>      
       </div>
       <Chat gameId={gameId} playerList={playerList}/>
       <div>
@@ -143,7 +133,8 @@ export default function Lobby() {
           <button onClick={exitLobby}>Exit Lobby </button> 
         }
         
-          <button disabled={Object.keys(playerList).length < 2}>
+          <button title={Object.keys(playerList).length < 2 ? "At least two players required.":""} 
+          disabled={Object.keys(playerList).length < 2}>
               Start Game
           </button>
       </div>
