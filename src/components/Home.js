@@ -143,7 +143,7 @@ export default function Home() {
               </>
               }
             </div> 
-            <hr/>
+            <hr style={{border: "1px solid black"}}/>
             <div className="menu-option">
               <span>Join a friend, enter their lobby id: </span>
               <div>

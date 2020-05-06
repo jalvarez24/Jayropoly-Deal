@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import firebase from '../firebase';
 import {Redirect} from 'react-router-dom';
 import Chat from './Chat'
+import './style/lobby.css';
+
 
 export default function Lobby() {
 
@@ -90,6 +92,15 @@ export default function Lobby() {
     setRedirect('/');
   }
 
+  function copyLobbyId() {
+    var input = document.createElement('textarea');
+    input.innerHTML = gameId;
+    document.body.appendChild(input);
+    input.select();
+    var result = document.execCommand('copy');
+    document.body.removeChild(input);
+  }
+
   const [gameStarted, setGameStarted] = useState(false)
 
   function startGame() {
@@ -103,41 +114,61 @@ export default function Lobby() {
     redirect?
     <Redirect to={redirect}/>
     :
-    <div id="lobby" style={{width: "400px", margin: "auto"}}>
-      <div style={{backgroundColor: "lightgrey", padding: "20px"}}>
-          <h3>Invite Yours Friends! They can join lobby with code: </h3>
-          <h2>{gameId}</h2>
-      </div>
-      <div style={{backgroundColor: "lightgreen", padding: "10px", textAlign: "center"}}>
-        <h3 style={{marginTop: 0, marginBottom: "4px"}}>Players in Lobby</h3>
-        <nav style={{textAlign: "center", width: "50%", margin: "auto"}}>
-          <ul style={{listStyleType: "none", margin: 0,padding: 0, backgroundColor: "aquamarine"}}>
-              {     
-              Object.entries(playerList).map(([key, value]) => {
-                
-                return <li key={key}><span style={{fontWeight: "bold"}}></span>{value} <span style={{color: "red", fontWeight: "bold"}}> {key === hostId ? "Host": ""}</span></li>              
-              })
-              }   
-          </ul>
-        </nav> 
-        <div style={{marginTop: "5px"}}>
-          <span>[{Object.keys(playerList).length}/8 Players]</span> 
-        </div>      
-      </div>
-      <Chat gameId={gameId} playerList={playerList}/>
-      <div>
+    <div className="lobby-container">
+      <div className="lobby">
+        <div className="invite">
+            <h3>Invite Yours Friends! They can join lobby with code: </h3>
+            <h2 style={{marginBottom: "1vh"}} id="lobbyIdElement">{gameId}</h2>
+            <button onClick={copyLobbyId}>Click to Copy</button>
+        </div>
+        <div className="playerlist">
+          <h3 style={{marginTop: 0, marginBottom: "4px"}}>Players in Lobby</h3>
+          <nav style={{textAlign: "center", width: "50%", margin: "auto"}}>
+            <ul>
+                {     
+                Object.entries(playerList).map(([key, value]) => {   
+                  return <li key={key}>
+                    <span style={{fontWeight: "bold"}}>{value}</span>
+                    <span style={{color: "red", fontWeight: "bold"}}> 
+                    {key === hostId ? " Host": ""}
+                    </span>
+                    <span>
+                      {key === localStorage.getItem("userId") ? " (You)" : ""}
+                    </span>
+                  </li>              
+                })
+                }   
+            </ul>
+          </nav> 
+          <div style={{marginTop: "5px"}}>
+            <span>[{Object.keys(playerList).length}/8 Players]</span> 
+          </div>      
+        </div>
+        <div>
         {
           hostId === localStorage.getItem("userId")?
+          <>
           <button onClick={endLobby}>End Lobby </button> 
-          :
-          <button onClick={exitLobby}>Exit Lobby </button> 
-        }
-        
           <button title={Object.keys(playerList).length < 2 ? "At least two players required.":""} 
           disabled={Object.keys(playerList).length < 2}>
               Start Game
           </button>
+          </>
+          :
+          <>
+          <button onClick={exitLobby}>Exit Lobby </button> 
+          <button title="Host must start game."disabled>
+              Start Game
+          </button>
+          </>
+        }     
       </div>
+      </div>
+
+      <div className="chat">
+        <Chat className="chat" gameId={gameId} playerList={playerList}/>
+      </div>
+      
     </div>
   )
 }

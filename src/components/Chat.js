@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import firebase from '../firebase';
-
+import './style/chat.css'//
 export default function Popup(props) {
 
     function GetMessages() {
@@ -54,26 +54,27 @@ export default function Popup(props) {
     }
 
     function scrollToBottom() {
-        let obj = document.getElementById("messages");
+        let obj = document.querySelector(".messages");
         if(obj)
             obj.scrollTop = obj.scrollHeight;  
     }
 
     return (
-        <div style={{backgroundColor: "lightblue", padding: "10px", width: "300px", textAlign: "center", margin: "auto"}}>
-            <h3 style={{marginTop: 0, marginBottom: "4px"}}>Chat:</h3>
+        <>
+            <h3 style={{marginTop: "1vh", marginBottom: "1vh"}}>Fam Chat:</h3>
             <nav style={{textAlign: "center"}}>
-            <ul id="messages" style={{listStyleType: "none", margin: 0,padding: 0, overflowX: "scroll", backgroundColor: "aqua"}}>
+            <ul className="messages">
                 {
                 messages.length ?
                 messages.map((msg) => (
-                    <li key={msg.key}>
+                    <li className={msg.userId === localStorage.getItem("userId") ? "messageSelf":"messageOther"} key={msg.key}>
                         {
-                            props.playerList[msg.userId]?
+                            props.playerList[msg.userId] ?
 
                             <span style={{fontWeight: "bold"}}>
                                 {props.playerList[msg.userId]}
-                            </span>:
+                            </span>
+                            :
                              <span style={{fontStyle: "italic", color: "red"}}>
                                 {"Player left"}
                              </span>
@@ -82,7 +83,7 @@ export default function Popup(props) {
                     </li>
                 ))
                 :
-                <span>No Messages</span>
+                <span style={{color: "white", fontWeight: "bold"}}>No Messages</span>
                 }
             </ul>    
             </nav>      
@@ -93,8 +94,8 @@ export default function Popup(props) {
                     />
                     <button onClick={addMessage}>Send Message</button>
                 </div>
-            </form>
+            </form> 
             
-        </div>
+        </>
     )
 }
