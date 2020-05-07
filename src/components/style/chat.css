@@ -1,44 +1,62 @@
 .chat-container {
-
+    background-color: rgb(32, 32, 32);
+    height: 75vh;
+    width: calc(75vh - 30vh);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
+
 
 .phone {
-    width: 50%;
-    min-width: 200px;
-    max-width: 100%;
-    max-height: 100%;
+    height: 85%;
+    width: 90%;
+    background-color: black;
 }
 
-.phone-screen {
-    padding: 0;
-    margin: 0;
-    width: 20%;
-    height: 50%;
-    background-color: teal;
+.head-set{
     position: absolute;
-    /* right:75%; */
-    left: 70%;
+    width: 40%;
+    border-bottom: 5px solid grey;
+    top: 4%
+}
+
+.home-button{
+    position: absolute;
+    width: 20%;
+    height: 5px;
+    border-bottom: 5px solid grey;
+    bottom: 4%
 }
 
 .messages {
     list-style-type: none;
-    margin-left: 2vw;
-    margin-right: 2vw;
+    /* margin-left: 1%;
+    margin-right: 1%; */
+    margin:1%;
     padding: 0 5px 5px 0;
     display: flex;
     flex-direction: column;
     background-color: black;
-    max-height:60vh;
-    height: 80%;
+    height: 60vh;
+    max-height: 56vh;
     margin-bottom: 0;
     overflow-x: scroll;
+}
+
+.message{
+    padding: 5px;
+    margin: 1px;
+    max-width: 100%;
+    height: 100%;
 }
 
 .messageSelf {
     align-self: flex-end;
     background-color: #3399FF;
-    padding: 5px;
-    margin: 2px;
     border-radius: 10px 10px 0 10px ;
     text-align: left;
 }
@@ -46,9 +64,49 @@
 .messageOther {
     align-self: flex-start;
     background-color: lightgrey;
-    padding: 5px;
-    margin: 2px;
     border-radius: 10px 10px 10px 0;
     text-align: left;
 }
 
+.text-area{
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    height: 10%;
+}
+
+.text-area input{
+    border-style: hidden;
+    width: 80%;
+    height: 100%;
+    background: transparent;
+    color: white;
+    float: left;
+    margin-left: 5%;
+  }
+  
+  .text-area input:focus{
+    outline: none;
+    border-bottom: hidden;
+    caret-color: #3399FF;
+  }
+
+  .text-area .submit {
+    width: 10%;
+    height: 50%;
+    border-radius: 50px;
+    color: green !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: greenyellow;
+    border: 2px solid green !important;
+    display: inline-block;
+    transition: all 0.4s ease 0s;
+  }
+  
+  .text-area .submit:hover {
+    color: #ffffff !important;
+    background: green;
+    border-color: green !important;
+    transition: all 0.4s ease 0s;
+  }

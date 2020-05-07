@@ -19,7 +19,7 @@ export default function App() {
   return (
     <Router>
       <VerifyUser />
-      <Nav />
+      <Nav/>
       <div className="App">
         <Switch>
           <Route path="/" exact component={Home}/>

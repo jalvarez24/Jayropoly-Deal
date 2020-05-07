@@ -117,9 +117,9 @@ export default function Lobby() {
     <div className="lobby-container">
       <div className="lobby">
         <div className="invite">
-            <h3>Invite Yours Friends! They can join lobby with code: </h3>
+            <h3>Invite your friends! They can join lobby with code: </h3>
             <h2 style={{marginBottom: "1vh"}} id="lobbyIdElement">{gameId}</h2>
-            <button onClick={copyLobbyId}>Click to Copy</button>
+            <button onClick={copyLobbyId}>Copy to Clipboard</button>
         </div>
         <div className="playerlist">
           <h3 style={{marginTop: 0, marginBottom: "4px"}}>Players in Lobby</h3>
@@ -166,7 +166,7 @@ export default function Lobby() {
       </div>
 
       <div className="chat">
-        <Chat className="chat" gameId={gameId} playerList={playerList}/>
+        <Chat gameId={gameId} playerList={playerList}/>
       </div>
       
     </div>

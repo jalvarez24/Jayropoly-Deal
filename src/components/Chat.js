@@ -60,42 +60,45 @@ export default function Popup(props) {
     }
 
     return (
-        <>
-            <h3 style={{marginTop: "1vh", marginBottom: "1vh"}}>Fam Chat:</h3>
-            <nav style={{textAlign: "center"}}>
-            <ul className="messages">
-                {
-                messages.length ?
-                messages.map((msg) => (
-                    <li className={msg.userId === localStorage.getItem("userId") ? "messageSelf":"messageOther"} key={msg.key}>
-                        {
-                            props.playerList[msg.userId] ?
+        <div className="chat-container">
+            <span className="head-set"></span>
+            <span className="home-button"></span>
+            <div className="phone">
+                {/* <h3 style={{marginTop: 0}}>Fam Chat:</h3> */}
+                {/* <nav style={{textAlign: "center", height: "80%"}}> */}
+                <ul className="messages">
+                    {
+                    messages.length ?
+                    messages.map((msg) => (
+                        <li className={msg.userId === localStorage.getItem("userId") ? "message messageSelf":"message messageOther"} key={msg.key}>
+                            {
+                                props.playerList[msg.userId] ?
 
-                            <span style={{fontWeight: "bold"}}>
-                                {props.playerList[msg.userId]}
-                            </span>
-                            :
-                             <span style={{fontStyle: "italic", color: "red"}}>
-                                {"Player left"}
-                             </span>
-                        }
-                        : {msg.message}
-                    </li>
-                ))
-                :
-                <span style={{color: "white", fontWeight: "bold"}}>No Messages</span>
-                }
-            </ul>    
-            </nav>      
-            <form onSubmit={(e) => {e.preventDefault()}}>
-                <div style={{paddingTop: "10px"}}>
-                    <input id="message_input" style={{marginRight: "5px"}} type="text" placeholder="Enter new message" autoComplete="off" required
-                        onChange={(e) => { setMessageText(e.target.value) }}
-                    />
-                    <button onClick={addMessage}>Send Message</button>
-                </div>
-            </form> 
-            
-        </>
+                                <span style={{fontWeight: "bold"}}>
+                                    {props.playerList[msg.userId]}
+                                </span>
+                                :
+                                <span style={{fontStyle: "italic", color: "red"}}>
+                                    {"Player left"}
+                                </span>
+                            }
+                            : {msg.message}
+                        </li>
+                    ))
+                    :
+                    <span style={{color: "white", fontWeight: "bold"}}>No Messages</span>
+                    }
+                </ul>    
+                {/* </nav>      */}
+                <form className="text-area" onSubmit={(e) => {e.preventDefault()}}>
+                    {/* <div style={{paddingTop: "10px"}}> */}
+                        <input spellCheck="false" id="message_input" style={{marginRight: "5px"}} type="text" placeholder="Enter new message" autoComplete="off" required
+                            onChange={(e) => { setMessageText(e.target.value) }} 
+                        />
+                        <button className="submit" onClick={addMessage}>></button>
+                    {/* </div> */}
+                </form>  
+            </div>         
+        </div>
     )
 }

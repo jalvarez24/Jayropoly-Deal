@@ -6,16 +6,16 @@ import {Link} from 'react-router-dom';
 export default function Nav() {
     return (
         <nav className="navBar">
-            {/* <Link className="nav-logo" to="/">
-                <h1 style={{fontSize: "3em", textDecoration: "none"}}>I GOT IT FAM!</h1>
-            </Link>        */}
-            <Link className="pic-logo" to="/">
+            <Link className="floating" to="/">
+                <h1>I GOT IT FAM!</h1>
+            </Link>       
+            {/* <Link className="pic-logo" to="/">
                 <img src={Javi}></img>
                 <div>
                     <h2>I GOT IT</h2>
                     <h1>FAM!</h1>
                 </div>
-            </Link>       
+            </Link>        */}
             <ul className="nav-links">
                 <Link className="nav-link" to="/">
                         <li>Home</li>

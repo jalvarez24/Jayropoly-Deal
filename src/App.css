@@ -1,20 +1,23 @@
+
 .App {
   text-align: center;
   display: flex;
   justify-content: space-around;
-  background-color: transparent;
+  background-color: #3a43ef;
   height: 80vh;
-  width: 100vw;
+  min-height: 80vh;
+  padding-left: 5vw;
+  padding-right: 5vw;
 }
 
 .home {font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  background-color: lightgrey;
+  background-color: #F6F7F8;
   margin-top: 5vh;
   margin-bottom: 1vh;
   padding: 1.5em;
   font-size: 3.75vh;
   user-select: none;
-  border-style: groove;
+  /* border-style: groove; */
 }
 
 .home input{
@@ -29,23 +32,22 @@
   cursor: text;
   background: transparent;
   border: 0;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid grey;
 }
-/* .home input{border: 0; padding: 7px 0; border-bottom: 1px solid #ccc;} */
 .home input ~ .focus-border{
   position: absolute; 
   bottom: 0; 
   left: 0; 
   width: 0; 
   height: 2px; 
-  background-color: #3399FF; 
+  background-color: #3a43ef; 
   transition: 0.4s;
   margin-left: 0;
-  
 }
 
 .home input:focus{
   outline: none;
+  border-bottom: hidden;
 }
 
 .effect-1 ~ .focus-border{
@@ -67,6 +69,24 @@
   padding: 0;
 }
 
+button {
+  color: #494949 !important;
+text-transform: uppercase;
+text-decoration: none;
+background: #ffffff;
+/* padding: 20px; */
+border: 2px solid #494949 !important;
+display: inline-block;
+transition: all 0.4s ease 0s;
+}
+
+button:hover {
+  color: #ffffff !important;
+background: #3a43ef;
+border-color: #3a43ef !important;
+transition: all 0.4s ease 0s;
+}
+
 .home button{
   height: 3.5vh;
   cursor: pointer;
@@ -75,15 +95,27 @@
 .navBar {
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  max-height: 20vh;
-  background: #3a43ef;
+  align-items: stretch;
+  height: 20vh;
+  background: #011627;
   color: white;
+  padding-left:5vw;
+  padding-right:5vw;
 }
 
 .navBar h1{
   color: white;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 6.5vh;
+  margin-top: 2vh;
+  position: relative;
+}
+
+.navBar h1:hover{
+  color: #2EC4B6;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 6.5vh;
+  margin-top: 2vh;
 }
 
 .pic-logo {
@@ -94,7 +126,7 @@
 }
 
 .pic-logo:hover h2, .pic-logo:hover h1{
-  color: white;
+  color: #2EC4B6;
 }
 
 .pic-logo img {
@@ -121,9 +153,29 @@
   font-size: 7.5vh;
   color: black;
 }
-
+/* 
+//non-floating logo
 .nav-logo {
   text-decoration: none;
+} */
+
+.floating{
+  text-decoration: none;
+  height: 30vh;
+  max-height: 6em;
+  width: 60vh;
+  min-width: 30vw;
+  animation-name: floating;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  margin-top: 3vh;
+}
+
+@keyframes floating {
+    from { transform: translate(0,  0px); }
+    65%  { transform: translate(0, 15px); }
+    to   { transform: translate(0, -0px); }    
 }
 
 .nav-links {
@@ -132,14 +184,17 @@
   align-items: center;
   list-style: none;
 }
+
 .nav-link {
   text-decoration: none;
-  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
   margin-left: 5vw;
-  font-size: 2em;
+  font-size: 6vh;
 }
+
 .nav-link:hover {
-  color:white;
+  color: #2EC4B6;
 }
 
 img {
@@ -156,4 +211,10 @@ img {
 
 .menu-option span {
   margin-left: 10px;
+}
+
+.alert{
+  padding: 10px;
+  background-color: #f44336;
+  color: white;
 }

@@ -137,7 +137,7 @@ export default function Home() {
               <>
                 <span>Enter a name to play: </span>
                 <div style={{position: "relative", display: "inline"}}>
-                  <input onChange={(e) => {setUsername(e.target.value.trim())}} type="text" placeholder="Name" required/>
+                  <input onChange={(e) => {setUsername(e.target.value.trim())}} type="text" placeholder="Name" spellCheck="false" required/>
                   <span className="focus-border"></span>
                 </div>
               </>
@@ -148,7 +148,7 @@ export default function Home() {
               <span>Join a friend, enter their lobby id: </span>
               <div>
                 <div style={{position: "relative", display: "inline"}}>
-                  <input onChange={(e) => { setJoinLobbyId(e.target.value.trim())}} type="text" placeholder="Lobby "/>
+                  <input onChange={(e) => { setJoinLobbyId(e.target.value.trim())}} type="text" placeholder="Lobby" spellCheck="false"/>
                   <span className="focus-border"></span>
                 </div>
                 {
@@ -165,7 +165,7 @@ export default function Home() {
             <div className="menu-option">
               <span>Join a random game: 
                 <button id="random-game-button" disabled>Join Random</button>
-                <span style={{backgroundColor: "lightblue"}}>Coming Soon!</span>
+                <span style={{backgroundColor: "#2EC4B6"}}>Coming Soon!</span>
               </span>
             </div>
             <div className="menu-option">
@@ -188,7 +188,7 @@ export default function Home() {
             </div>
           </form>
           </div>
-          <span id="errorMessage" style={{color: "red"}}>{errorMessage}</span>
+          <span className={errorMessage !== ""?"alert":""}>{errorMessage}</span>
           </>
           }
       </div>
