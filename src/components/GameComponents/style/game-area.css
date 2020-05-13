@@ -1,0 +1,84 @@
+.game-area-div{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+/* Category/Letter Style */
+.categories-container{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.category, .letter{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.category{
+    background-color: #FF3366;
+    border-bottom: solid #011627;
+}
+
+.category-text{
+    font-size: 5vw;
+}
+
+.letter{
+    background-color: #2EC4B6;
+    border-top: solid #011627;
+}
+
+.letter-text{
+    font-size: 9vw;
+}
+
+/* Countdown Style */
+.countdown-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #011627;
+
+}
+
+.countdown {
+    display: block;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 25vmin;
+    overflow: hidden;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+}
+
+.countdown-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: #2EC4B6;
+}
+.countdown-digit {
+  width: 100%;
+  color: #2EC4B6;
+  text-align: center;
+  mix-blend-mode: difference;
+  pointer-events: none;
+}

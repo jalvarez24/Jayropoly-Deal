@@ -4,6 +4,7 @@ import {Link, Redirect} from 'react-router-dom';
 import '../App.css';
 import {v4 as uuidv4} from 'uuid';
 
+import Categories from './categories.json'
 
 export default function Home() {
 
@@ -81,7 +82,19 @@ export default function Home() {
         });   
   }
 
+  //function to 
+  function addCategoriesToFireStore() {
+    let firestore = firebase.firestore();
+    let len = Categories.categories.length;
+    for(let i = 0; i < len; i++) {
+      firestore.collection('categories').doc("" + i).set({ name: Categories.categories[i] });
+    }
+    firestore.collection('categories').doc('size').set({ val: len });
+  }
+  
+
   function changeName() {
+    addCategoriesToFireStore();
     localStorage.removeItem("username");
     setUsername("");
     setReturningUser(null);
@@ -98,7 +111,6 @@ export default function Home() {
   const [errorMessage, setErrorMessage] = useState("");
 
   function showErrorMessage(msg, howLong = 3) {
-    console.log("called");
     if(errorOn) return;
     setErrorOn(true);
     setErrorMessage(msg);
@@ -164,7 +176,7 @@ export default function Home() {
             </div>
             <div className="menu-option">
               <span>Join a random game: 
-                <button id="random-game-button" disabled>Join Random</button>
+                <button id="random-game-button" className="button-disabled" disabled>Join Lobby</button>
                 <span style={{backgroundColor: "#2EC4B6"}}>Coming Soon!</span>
               </span>
             </div>
@@ -187,10 +199,10 @@ export default function Home() {
               </span>
             </div>
           </form>
-          </div>
-          <span className={errorMessage !== ""?"alert":""}>{errorMessage}</span>
+          </div>    
           </>
           }
+          <span className={errorMessage !== ""?"alert":""}>{errorMessage}</span>
       </div>
       
     )

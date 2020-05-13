@@ -1,0 +1,32 @@
+.game-control-div{
+    width: 100%;
+    height: 100%;
+    background-color: #3399FF;
+    display: flex;
+    align-items: center;
+}
+
+.control-input{
+    width: 80%;
+    height: 100%;
+    font-size: calc(5vh + 5vw / 2);
+    border: none;
+    padding: 0;
+    background-color:rgb(99,99,99,.25);
+    text-align: center;
+}
+
+.give-up-container{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.give-up{
+    width: 80%;
+    height: 80%;
+    font-size: calc(2.5vh + 2.5vw / 2);
+}

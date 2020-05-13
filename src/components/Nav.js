@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import '../App.css';
 import Javi from  "../images/javibanner.jpg"
 import {Link} from 'react-router-dom';
 
 export default function Nav() {
+
     return (
         <nav className="navBar">
             <Link className="floating" to="/">
@@ -17,11 +18,8 @@ export default function Nav() {
                 </div>
             </Link>        */}
             <ul className="nav-links">
-                <Link className="nav-link" to="/">
-                        <li>Home</li>
-                </Link>
                 <Link className="nav-link" to="/instructions">
-                        <li>Instructions</li>
+                        <li>how to play</li>
                 </Link>
             </ul>   
         </nav>

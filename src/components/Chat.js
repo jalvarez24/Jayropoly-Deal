@@ -20,7 +20,8 @@ export default function Popup(props) {
 
             //disconnect on unmount
             return () => {
-                messagesRef.off();
+                clearInterval(refreshTime);
+                messagesRef.off();    
             }
 
         }, [])
@@ -29,7 +30,7 @@ export default function Popup(props) {
 
     //makes sure chat list is always scrolled to most recent message
     useEffect(() => {
-        scrollToBottom(); 
+        scrollToBottom();
     })
 
     const messages = GetMessages();
@@ -59,13 +60,27 @@ export default function Popup(props) {
             obj.scrollTop = obj.scrollHeight;  
     }
 
+    function refreshTime() {
+        var dateString = new Date().toLocaleString("en-US", {timeZone: new window.Intl.DateTimeFormat().resolvedOptions().timeZone});
+        var formattedString = dateString.replace(", ", " - ");
+        if(document.querySelector(".time"))
+            document.querySelector(".time").textContent = formattedString;
+        else
+            clearInterval(timeInterval)
+    }
+    let timeInterval = setInterval(refreshTime, 1000);
+    
+
     return (
         <div className="chat-container">
             <span className="head-set"></span>
             <span className="home-button"></span>
             <div className="phone">
-                {/* <h3 style={{marginTop: 0}}>Fam Chat:</h3> */}
-                {/* <nav style={{textAlign: "center", height: "80%"}}> */}
+                <div className="status-bar">
+                    <span className="time"/>
+                    <span className="name">IGIF!</span>
+                </div>
+                <div className="group-name"><span>Group:</span>The Fam <span role="img" aria-label="fire">🔥</span></div>
                 <ul className="messages">
                     {
                     messages.length ?
@@ -82,21 +97,18 @@ export default function Popup(props) {
                                     {"Player left"}
                                 </span>
                             }
-                            : {msg.message}
+                            : <span className="message-text">{msg.message}</span>
                         </li>
                     ))
                     :
-                    <span style={{color: "white", fontWeight: "bold"}}>No Messages</span>
+                    <span style={{color: "white", fontWeight: "bold", marginTop: "10px"}}>No Messages</span>
                     }
                 </ul>    
-                {/* </nav>      */}
                 <form className="text-area" onSubmit={(e) => {e.preventDefault()}}>
-                    {/* <div style={{paddingTop: "10px"}}> */}
                         <input spellCheck="false" id="message_input" style={{marginRight: "5px"}} type="text" placeholder="Enter new message" autoComplete="off" required
                             onChange={(e) => { setMessageText(e.target.value) }} 
                         />
-                        <button className="submit" onClick={addMessage}>></button>
-                    {/* </div> */}
+                        <button className="submit" onClick={addMessage}></button>
                 </form>  
             </div>         
         </div>

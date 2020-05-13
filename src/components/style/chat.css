@@ -1,15 +1,16 @@
 .chat-container {
     background-color: rgb(32, 32, 32);
-    height: 75vh;
-    width: calc(75vh - 30vh);
-    border-radius: 20px;
+    /* height: calc(100vh - 12vw); */
+    /* width: calc(75vh - 30vh); */
+    height: 90%;
+    width: 90%;
+    border-radius: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
 }
-
 
 .phone {
     height: 85%;
@@ -32,26 +33,69 @@
     bottom: 4%
 }
 
-.messages {
+.status-bar{
+    height: 3%;
+    background-color: lightgrey;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.status-bar .time{
+    font-weight: bold;
+    font-size: 40%;
+    padding-left: 2%;
+}
+
+.status-bar .name{
+    font-weight: bold;
+    font-size: 40%;
+    padding-right: 2%;
+}
+
+.group-name{
+    height: 10%;
+    background-color: grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    -webkit-user-select: none;
+}
+
+.group-name span{
+    font-weight: bold;
+    margin-right: 1%;
+}
+
+.messages{
     list-style-type: none;
-    /* margin-left: 1%;
-    margin-right: 1%; */
-    margin:1%;
-    padding: 0 5px 5px 0;
+    margin:0 1% 1% 1%;
+    padding-left: 0;
+    padding-right: 0;
     display: flex;
     flex-direction: column;
     background-color: black;
-    height: 60vh;
-    max-height: 56vh;
+    height: 77%;
     margin-bottom: 0;
     overflow-x: scroll;
 }
 
 .message{
+    height: auto;
     padding: 5px;
+    padding-bottom: 8px;
     margin: 1px;
     max-width: 100%;
-    height: 100%;
+    max-height: 10%;
+    -webkit-user-select: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.message-text{
+    -webkit-user-select: text;
+    margin-left: 3px;
 }
 
 .messageSelf {
@@ -92,6 +136,8 @@
   }
 
   .text-area .submit {
+    display: flex;
+    justify-content: center;
     width: 10%;
     height: 50%;
     border-radius: 50px;
@@ -102,6 +148,7 @@
     border: 2px solid green !important;
     display: inline-block;
     transition: all 0.4s ease 0s;
+    font-size: 5%;
   }
   
   .text-area .submit:hover {

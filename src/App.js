@@ -6,7 +6,10 @@ import Home from './components/Home';
 import Lobby from './components/Lobby';
 import Game from './components/Game';
 import Instructions from './components/Instructions';
+import Mobile from './components/Mobile';
+
 import {v4 as uuidv4} from 'uuid';
+import {isMobile} from 'react-device-detect'
 
 function VerifyUser() {  
   if(localStorage.getItem("userId") === null) {
@@ -17,6 +20,9 @@ function VerifyUser() {
 
 export default function App() {
   return (
+    isMobile ? 
+    <Mobile />
+    :
     <Router>
       <VerifyUser />
       <Nav/>

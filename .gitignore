@@ -7,7 +7,7 @@
 /functions
 .firebaserc
 firebase.json
-/.firebase/
+/.firebase
 # testing
 /coverage
 

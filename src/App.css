@@ -1,9 +1,9 @@
 
-.App {
+.App{
   text-align: center;
   display: flex;
   justify-content: space-around;
-  background-color: #3a43ef;
+  background-color: #3399FF;
   height: 80vh;
   min-height: 80vh;
   padding-left: 5vw;
@@ -17,7 +17,6 @@
   padding: 1.5em;
   font-size: 3.75vh;
   user-select: none;
-  /* border-style: groove; */
 }
 
 .home input{
@@ -69,22 +68,40 @@
   padding: 0;
 }
 
-button {
+button{
+  width: 25%;
+  height: 25%;
   color: #494949 !important;
-text-transform: uppercase;
-text-decoration: none;
-background: #ffffff;
-/* padding: 20px; */
-border: 2px solid #494949 !important;
-display: inline-block;
-transition: all 0.4s ease 0s;
+  text-decoration: none;
+  background: #ffffff;
+  border: 2px solid #494949 !important;
+  display: inline-block;
+  transition: all 0.4s ease 0s;
 }
 
-button:hover {
+button:hover{
   color: #ffffff !important;
-background: #3a43ef;
-border-color: #3a43ef !important;
-transition: all 0.4s ease 0s;
+  background: #3a43ef;
+  border-color: #3a43ef !important;
+  transition: all 0.4s ease 0s;
+}
+
+.button-disabled{
+  opacity: .5;
+  color: black !important;
+  text-decoration: none;
+  background: #ffffff;
+  border: 2px solid #494949 !important;
+  display: inline-block;
+  transition: all 0.4s ease 0s;
+}
+
+.button-disabled:hover{
+  color: black !important;
+  background: #ffffff;
+  border-color: #494949 !important;
+  transition: none;
+  cursor: initial;
 }
 
 .home button{
@@ -94,7 +111,7 @@ transition: all 0.4s ease 0s;
 
 .navBar {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: stretch;
   height: 20vh;
   background: #011627;
@@ -170,6 +187,7 @@ transition: all 0.4s ease 0s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
   margin-top: 3vh;
+  margin-left: 3vw;
 }
 
 @keyframes floating {
@@ -180,9 +198,9 @@ transition: all 0.4s ease 0s;
 
 .nav-links {
   display: flex;
-  justify-content: space-around;
   align-items: center;
   list-style: none;
+  margin-right: 5vw;
 }
 
 .nav-link {
@@ -217,4 +235,31 @@ img {
   padding: 10px;
   background-color: #f44336;
   color: white;
+}
+
+
+/* 
+mobile detected
+*/
+.mobile-detected{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #3399FF;
+  min-height: 50vh;
+  min-width: 50vw;
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+
+.mobile-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10%;
+  height: 10%;
+  /* padding: 25%; */
+  background-color: white;
 }

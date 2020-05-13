@@ -39,9 +39,13 @@ export default function Lobby() {
             newList[player.key] = player.child('name').val();  
           })
           setPlayerList(newList);
+          if(snapshot.child('gameStarted').val() === true) {
+            localStorage.setItem("inLobby", "false");
+            localStorage.setItem("inGame", "true");
+            setRedirect("/game");
+          }
         }
       })
-
 
       //disconnect on unmount
       return () => {
@@ -104,6 +108,14 @@ export default function Lobby() {
   const [gameStarted, setGameStarted] = useState(false)
 
   function startGame() {
+    localStorage.setItem("inLobby", false);
+    localStorage.setItem("inGame", true);
+    setRedirect('/game');
+
+    let rootRef = firebase.database().ref();
+    let lobbiesRef = rootRef.child('lobbies');
+    lobbiesRef.child(gameId).child('gameStarted').set(true);
+
     //create new game in games table, with:
       // list of players
       // host id
@@ -119,49 +131,53 @@ export default function Lobby() {
         <div className="invite">
             <h3>Invite your friends! They can join lobby with code: </h3>
             <h2 style={{marginBottom: "1vh"}} id="lobbyIdElement">{gameId}</h2>
-            <button onClick={copyLobbyId}>Copy to Clipboard</button>
+            <button style={{height: "auto", width: "40%", margin: "2%", paddingBottom: "1%"}} onClick={copyLobbyId}>Copy to Clipboard</button>
         </div>
         <div className="playerlist">
           <h3 style={{marginTop: 0, marginBottom: "4px"}}>Players in Lobby</h3>
-          <nav style={{textAlign: "center", width: "50%", margin: "auto"}}>
-            <ul>
-                {     
-                Object.entries(playerList).map(([key, value]) => {   
-                  return <li key={key}>
-                    <span style={{fontWeight: "bold"}}>{value}</span>
-                    <span style={{color: "red", fontWeight: "bold"}}> 
-                    {key === hostId ? " Host": ""}
-                    </span>
-                    <span>
-                      {key === localStorage.getItem("userId") ? " (You)" : ""}
-                    </span>
-                  </li>              
-                })
-                }   
-            </ul>
-          </nav> 
+          <ul>
+              {     
+              Object.entries(playerList).map(([key, value]) => {   
+                return <li key={key}>
+                  <span style={{fontWeight: "bold"}}>{value}</span>
+                  <span style={{color: "red", fontWeight: "bold"}}> 
+                  {key === hostId ? " Host": ""}
+                  </span>
+                  <span>
+                    {key === localStorage.getItem("userId") ? " (You)" : ""}
+                  </span>
+                </li>              
+              })
+              }   
+          </ul>
           <div style={{marginTop: "5px"}}>
-            <span>[{Object.keys(playerList).length}/8 Players]</span> 
-          </div>      
+            <span>[{Object.keys(playerList).length}/6 Players]</span> 
+          </div>  
+          {
+            
+          hostId === localStorage.getItem("userId") ?
+
+          <div className="lobby-options">
+            <button onClick={endLobby}>End Lobby </button> 
+            <button className={Object.keys(playerList).length < 2 ? "button-disabled":null} 
+            title={Object.keys(playerList).length < 2 ? "At least two players required.":""} 
+            disabled={Object.keys(playerList).length < 2} onClick={startGame}>
+                Start Game
+            </button>
+          </div>
+
+          :
+
+          <div className="lobby-options">
+            <button onClick={exitLobby}>Exit Lobby </button> 
+            <button title="Host must start game." className="button-disabled" disabled>
+                Start Game
+            </button>
+          </div>
+          
+        }     
         </div>
         <div>
-        {
-          hostId === localStorage.getItem("userId")?
-          <>
-          <button onClick={endLobby}>End Lobby </button> 
-          <button title={Object.keys(playerList).length < 2 ? "At least two players required.":""} 
-          disabled={Object.keys(playerList).length < 2}>
-              Start Game
-          </button>
-          </>
-          :
-          <>
-          <button onClick={exitLobby}>Exit Lobby </button> 
-          <button title="Host must start game."disabled>
-              Start Game
-          </button>
-          </>
-        }     
       </div>
       </div>
 

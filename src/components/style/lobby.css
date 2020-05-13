@@ -1,20 +1,21 @@
 .lobby-container {
     display: flex;
-    background-color: white;
+    background-color: transparent;
     width: 100%;
     flex: 1;
 }
 
 .lobby {
-    flex: 3;
+    flex: 70;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #F6F7F8;    
+    height: 100%;
 }
 
 .chat {
-    flex: 2;
+    flex: 30;
+    min-width: 10%;
     background-color: #FF3366;   
     display: flex;
     align-items: center;
@@ -26,28 +27,65 @@
     background-color: #FF3366;
     padding: .75em;
     width: 50%;
+    height: 35%;
     border-radius: 25px;
     margin-top: 3vh;
     font-size:1.25em;
 }
 
+.invite h3 {
+    -webkit-user-select: none;
+}
+
 .playerlist {
+    height: 38%;
     margin-top: 3vh;
-    background-color: #2EC4B6;
-    padding: 1em;
+    background-color: rgb(55, 226, 209);
+    padding: 1em 1em 0;
     width: 70%;
     border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 50%;
+}
+
+.playerlist h3, li, span {
+    -webkit-user-select: none;
 }
 
 .playerlist ul {
     list-style-type: none;
     margin: 0;
-    padding: 0;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 0;
+    padding-right: 0;
     width: 100%;
-    border-radius: 10px;
-    background-color: aquamarine;
+    height: 50%;
+    max-height: 40%;
+    background-color: #F6F7F8;
+    border-style: outset;
+    overflow-x: scroll;
 }
 
 .playerlist li {
     font-size: 1em;
 }
+
+.lobby-options{
+    display: flex;
+    width:100%;
+    height: 10%;
+    align-items: center;
+    justify-content: center;
+}
+
+.playerlist button {
+    height: 100%;
+    width: 40%;
+    margin-top: 2%;
+    margin-right: 2%;
+    margin-left: 2%;
+}
+
