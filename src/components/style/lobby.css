@@ -35,6 +35,14 @@
 
 .invite h3 {
     -webkit-user-select: none;
+    font-size: 3vh;
+}
+
+.invite button {
+    height: 5vh;
+    width: 10vw;
+    font-size: 2vh;
+    margin-top: 1vh;
 }
 
 .playerlist {

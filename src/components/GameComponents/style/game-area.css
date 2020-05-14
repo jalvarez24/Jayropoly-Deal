@@ -28,16 +28,15 @@
 }
 
 .category-text{
-    font-size: 5vw;
+    font-size: 8vh;
 }
 
 .letter{
     background-color: #2EC4B6;
     border-top: solid #011627;
 }
-
 .letter-text{
-    font-size: 9vw;
+    font-size: 14vh;
 }
 
 /* Countdown Style */

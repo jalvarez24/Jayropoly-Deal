@@ -130,8 +130,8 @@ export default function Lobby() {
       <div className="lobby">
         <div className="invite">
             <h3>Invite your friends! They can join lobby with code: </h3>
-            <h2 style={{marginBottom: "1vh"}} id="lobbyIdElement">{gameId}</h2>
-            <button style={{height: "auto", width: "40%", margin: "2%", paddingBottom: "1%"}} onClick={copyLobbyId}>Copy to Clipboard</button>
+            <h2 style={{marginBottom: "1vh", fontFamily: "Arial"}} id="lobbyIdElement">{gameId}</h2>
+            <button onClick={copyLobbyId}>Copy Code</button>
         </div>
         <div className="playerlist">
           <h3 style={{marginTop: 0, marginBottom: "4px"}}>Players in Lobby</h3>

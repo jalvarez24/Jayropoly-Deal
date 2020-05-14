@@ -41,7 +41,8 @@ export default function Home() {
 
     let gameInfo = {
       hostId: userId,
-      gameStarted: false
+      gameStarted: false,
+      timestamp: Date.now()
     }
     let rootRef = firebase.database().ref();
     let lobbiesRef = rootRef.child('lobbies');
