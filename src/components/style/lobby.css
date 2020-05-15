@@ -74,7 +74,8 @@
     max-height: 40%;
     background-color: #F6F7F8;
     border-style: outset;
-    overflow-x: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .playerlist li {
