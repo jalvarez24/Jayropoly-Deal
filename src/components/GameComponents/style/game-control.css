@@ -4,6 +4,23 @@
     background-color: #3399FF;
     display: flex;
     align-items: center;
+    align-items: center;
+}
+
+.loading-span{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(99,99,99,.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(3vh + 3vw / 2);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    color: white;
+    -webkit-text-stroke: .35vh black;
+    padding-left: 5vw;
+    padding-right: 5vw;
 }
 
 .control-input{
@@ -26,7 +43,10 @@
 }
 
 .give-up{
-    width: 80%;
-    height: 80%;
-    font-size: calc(2.5vh + 2.5vw / 2);
+    border-radius: 25px;
+    width: 90%;
+    height: 90%;
+    font-size: calc(2.25vh + 2.25vw / 2);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
 }

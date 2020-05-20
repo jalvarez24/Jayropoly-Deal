@@ -90,7 +90,7 @@ export default function Popup(props) {
                                 props.playerList[msg.userId] ?
 
                                 <span style={{fontWeight: "bold"}}>
-                                    {props.playerList[msg.userId]}
+                                    {props.playerList[msg.userId].name}
                                 </span>
                                 :
                                 <span style={{fontStyle: "italic", color: "red"}}>

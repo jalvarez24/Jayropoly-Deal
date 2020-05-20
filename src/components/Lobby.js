@@ -36,7 +36,11 @@ export default function Lobby() {
           setHostId(snapshot.child('hostId').val());
           let newList = {};
           snapshot.child('players').forEach((player)=> {
-            newList[player.key] = player.child('name').val();  
+            newList[player.key] = {
+              name: player.child('name').val(),
+              answer: player.child('answer').val(),
+              score: player.child('score').val()
+            }
           })
           setPlayerList(newList);
           if(snapshot.child('gameStarted').val() === true) {
@@ -108,18 +112,15 @@ export default function Lobby() {
   const [gameStarted, setGameStarted] = useState(false)
 
   function startGame() {
-    localStorage.setItem("inLobby", false);
-    localStorage.setItem("inGame", true);
-    setRedirect('/game');
+    // localStorage.setItem("inLobby", false);
+    // localStorage.setItem("inGame", true);
+    // setRedirect('/game');
 
     let rootRef = firebase.database().ref();
     let lobbiesRef = rootRef.child('lobbies');
     lobbiesRef.child(gameId).child('gameStarted').set(true);
-
-    //create new game in games table, with:
-      // list of players
-      // host id
-      // messages
+    let t = Date.now() + 5000;
+    lobbiesRef.child(gameId).child('roundEndTime').set(t);
   }
 
   return (
@@ -139,7 +140,7 @@ export default function Lobby() {
               {     
               Object.entries(playerList).map(([key, value]) => {   
                 return <li key={key}>
-                  <span style={{fontWeight: "bold"}}>{value}</span>
+                  <span style={{fontWeight: "bold"}}>{value.name}</span>
                   <span style={{color: "red", fontWeight: "bold"}}> 
                   {key === hostId ? " Host": ""}
                   </span>

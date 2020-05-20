@@ -2,6 +2,7 @@
     width: 100%;
     height: 100%;
     background-color: white;
+    position: relative;
 }
 
 /* Category/Letter Style */
@@ -46,7 +47,6 @@
     justify-content: center;
     align-items: center;
     background-color: #011627;
-
 }
 
 .countdown {
@@ -58,7 +58,6 @@
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 25vmin;
     overflow: hidden;
-    cursor: pointer;
     transition-duration: 0.2s;
     width: 100%;
     height: 100%;

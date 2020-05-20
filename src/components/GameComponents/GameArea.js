@@ -1,48 +1,22 @@
 import React, {useState, useEffect} from 'react';
+import firebase from 'firebase';
 import '../style/game.css';
 import './style/game-area.css';
 
-export default function GameArea() {
-
-    //seconds on timer
-    const [time, setTime] = useState(3);
-
-    //call API on component mount, do nothing with the response data
-    //this is just to prevent possible cold boot
-    useEffect(() => {
-        async function coldBoot() {
-            let url = 'https://us-central1-i-got-it-fam.cloudfunctions.net/getData';
-            try{
-                let data = await fetch(url);
-                console.log("Cold boot success.");
-            }
-            catch(err) {
-                console.log("Could not cold boot API: " + err);
-            }
-        }
-    }, []);
-    
-    useEffect(() => {
-        if(time === 0){ 
-            //call cloud function to update database with new category letter
-            apiCall();
-        }
-    }, [time]);
+export default function GameArea({category, letter, roundEndTime}) {
 
     async function apiCall() {
-        let url = 'https://us-central1-i-got-it-fam.cloudfunctions.net/getData';
-        
-        try{
-            let data = await fetch(url);
-            data.json().then(data => {
-                document.getElementById('categoryText').innerText = data.category;
-                document.getElementById('letterText').innerText = data.letter;
-            })
-        } 
-        catch(err) {
-            console.log("Could not retrieve from API: " + err);
-        }
+        firebase.functions().useFunctionsEmulator('http://localhost:5001');
+        // const getData = firebase.functions().httpsCallable('getData');
+        // getData({lobbyId: localStorage.getItem('gameId')}).then(result => {
+        // });
+        const setRound = firebase.functions().httpsCallable('setRound');
+        setRound({lobbyId: localStorage.getItem('gameId')}).then(res => {
+            if(res.data.success) console.log("setRound successful!");
+        });
     }
+
+    const [roundTimerOn, setRoundTimerOn] = useState(true);
 
     /////
     function Timer(duration, element) {
@@ -79,50 +53,63 @@ export default function GameArea() {
                 self.frameReq = window.requestAnimationFrame(draw);
             } else {
                 self.running = false;
-                self.els.seconds.textContent = "GO!";
-                setTime(0);
                 self.els.ticker.style.height = '0%';
+                setRoundTimerOn(false);
+                // apiCall();
             }
         };
         
         self.frameReq = window.requestAnimationFrame(draw);
     }
 
+    useEffect(() => {
+
+        if(typeof(roundEndTime) === "number"){
+            if(roundEndTime > Date.now()){
+                startTime();
+            }
+            else{
+                setRoundTimerOn(false);
+            }
+        }
+    }, [roundEndTime])
+
     function startTime() {
-        var timer = new Timer(time * 1000, document.getElementById('countdown'));
+        var timer = new Timer((roundEndTime - Date.now()), document.getElementById('countdown'));
         timer.start();
     }
 
     function resetTime(){
-        setTime(3);
+        // setTime(3);
     }
-    /////
     
     return (
         <div className="game-component">
             <div className="game-area-div">
                 {
-                time !== 0 ?
-                <div className="countdown-container" onClick={startTime}>
+                    
+                roundTimerOn ?
+
+                <div className="countdown-container">
                     <div className="countdown" id="countdown">
-                        <div className="countdown-fill" id="ticker"></div>
-                        <div className="countdown-digit" id="seconds">3</div>
+                        <div className="countdown-fill" id="ticker"/>
+                        <div className="countdown-digit" id="seconds"/>
                     </div>
                 </div>
+
                 :
-                <div className="categories-container" onClick={resetTime}>
+
+                <div className="categories-container">
                     <div className="category">
                         <span style={{textDecoration: "underline"}}>Category:</span>
-                        <span id="categoryText" className="category-text"></span>
+                        <span id="categoryText" className="category-text">{category}</span>
                     </div>
                     <div className="letter">
                         <span style={{textDecoration: "underline"}}>Letter:</span>
-                        <span id="letterText" className="letter-text"></span>
+                        <span id="letterText" className="letter-text">{letter}</span>
                     </div>
                 </div>
-                }
-                
-
+                }             
             </div>
         </div>
     )

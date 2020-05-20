@@ -42,12 +42,24 @@ export default function Home() {
     let gameInfo = {
       hostId: userId,
       gameStarted: false,
+      category: "",
+      letter: "",
+      roundEndTime: 0,
+      answer: {
+        id: "",
+        value: ""
+      },
       timestamp: Date.now()
     }
     let rootRef = firebase.database().ref();
     let lobbiesRef = rootRef.child('lobbies');
     lobbiesRef.child(gameId).set(gameInfo);
-    lobbiesRef.child(gameId).child('players').child(userId).set({name: username});
+    lobbiesRef.child(gameId).child('players').child(userId).set({
+      name: username, 
+      score: 0, 
+      approve: false,
+      answer: ""
+    });
   }
 
   function joinLobby() {
@@ -71,7 +83,12 @@ export default function Home() {
               return;
             }
 
-            lobbyRef.child('players').child(userId).set({name: username});
+            lobbyRef.child('players').child(userId).set({
+                                        name: username, 
+                                        score: 0, 
+                                        approve: false,
+                                        answer: ""
+                                      });
             localStorage.setItem("inLobby", true);
             localStorage.setItem("inGame", false);
             localStorage.setItem("gameId", joinLobbyId);

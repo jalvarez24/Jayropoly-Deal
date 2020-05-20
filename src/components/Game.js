@@ -6,7 +6,7 @@ import './style/game.css'
 import {Redirect} from 'react-router-dom';
 import GameArea from './GameComponents/GameArea';
 import GameControl from './GameComponents/GameControl';
-import GamePlayers from './GameComponents/PlayerScores';
+import GamePlayers from './GameComponents/GamePlayers';
 import Modal from 'react-modal';
 
 
@@ -25,6 +25,10 @@ export default function Game(props) {
         return '/';
     });
 
+    const [category, setCategory] = useState("");
+    const [letter, setLetter] = useState("");
+    const [roundEndTime, setRoundEndTime] = useState("loading");
+
     function GetPlayerList() {
         const [playerList, setPlayerList] = useState({});
         const [hostId, setHostId] = useState("");
@@ -39,10 +43,24 @@ export default function Game(props) {
               setRedirect("/");
             }
             else{
+              if(snapshot.child('category').val() !== "") {
+                setCategory(snapshot.child('category').val());
+              }
+              if(snapshot.child('letter').val() !== "") {
+                setLetter(snapshot.child('letter').val());
+              }
+              // setCategory(snapshot.child('category').val());
+              // setLetter(snapshot.child('letter').val());
+              setRoundEndTime(snapshot.child('roundEndTime').val());
+
               setHostId(snapshot.child('hostId').val());
               let newList = {};
               snapshot.child('players').forEach((player)=> {
-                newList[player.key] = player.child('name').val();  
+                newList[player.key] = {
+                  name: player.child('name').val(),
+                  answer: player.child('answer').val(),
+                  score: player.child('score').val()
+                }
               })
               setPlayerList(newList);
             }
@@ -109,14 +127,14 @@ export default function Game(props) {
             <div className="game-left">
                 <div className="game-left-top">
                     <div className="game-area-container">
-                        <GameArea />
+                        <GameArea category={category} letter={letter} roundEndTime={roundEndTime} hostId={hostId}/>
                     </div>
                     <div onClick={openModal} className="game-players-container">
-                        <GamePlayers />
+                        <GamePlayers playerList={playerList}/>
                     </div>
                 </div>
                 <div className="game-left-bottom">
-                        <GameControl />
+                        <GameControl roundEndTime={roundEndTime}/>
                 </div>
             </div>
             <div className="game-right">
