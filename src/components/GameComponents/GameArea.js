@@ -6,7 +6,7 @@ import './style/game-area.css';
 export default function GameArea({category, letter, roundEndTime}) {
 
     async function apiCall() {
-        firebase.functions().useFunctionsEmulator('http://localhost:5001');
+        // firebase.functions().useFunctionsEmulator('http://localhost:5001');
         // const getData = firebase.functions().httpsCallable('getData');
         // getData({lobbyId: localStorage.getItem('gameId')}).then(result => {
         // });
@@ -37,8 +37,12 @@ export default function GameArea({category, letter, roundEndTime}) {
         this.running = true;
         var remainingSeconds = this.els.seconds.textContent = this.duration / 1000;
         
-        function draw(now) {
-            if (!start) start = now;
+        function draw(now) {  
+            if (!start) {
+                start = now;
+                //protects if animation called while in browser was in background
+                self.duration = roundEndTime - Date.now();
+            }
             var diff = now - start;
             var newSeconds = Math.ceil((self.duration - diff)/1000);
     
@@ -55,7 +59,6 @@ export default function GameArea({category, letter, roundEndTime}) {
                 self.running = false;
                 self.els.ticker.style.height = '0%';
                 setRoundTimerOn(false);
-                // apiCall();
             }
         };
         
@@ -63,7 +66,6 @@ export default function GameArea({category, letter, roundEndTime}) {
     }
 
     useEffect(() => {
-
         if(typeof(roundEndTime) === "number"){
             if(roundEndTime > Date.now()){
                 startTime();
@@ -75,6 +77,8 @@ export default function GameArea({category, letter, roundEndTime}) {
     }, [roundEndTime])
 
     function startTime() {
+        console.log("Time started: " + typeof(roundEndTime));
+        console.log("roundEndTime: " + (roundEndTime - Date.now()));
         var timer = new Timer((roundEndTime - Date.now()), document.getElementById('countdown'));
         timer.start();
     }

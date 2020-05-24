@@ -9,7 +9,7 @@ export default function GameControl({roundEndTime}) {
                 {
                     roundEndTime < Date.now() ?
                     <>
-                        <input className="control-input"/>
+                        <input className="control-input" autoFocus/>
                         <div className="give-up-container">
                             <button className="give-up">Give Up</button>
                         </div> 

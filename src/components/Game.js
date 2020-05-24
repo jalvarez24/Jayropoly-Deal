@@ -43,15 +43,14 @@ export default function Game(props) {
               setRedirect("/");
             }
             else{
+              setRoundEndTime(snapshot.child('roundEndTime').val());
+
               if(snapshot.child('category').val() !== "") {
                 setCategory(snapshot.child('category').val());
               }
               if(snapshot.child('letter').val() !== "") {
                 setLetter(snapshot.child('letter').val());
               }
-              // setCategory(snapshot.child('category').val());
-              // setLetter(snapshot.child('letter').val());
-              setRoundEndTime(snapshot.child('roundEndTime').val());
 
               setHostId(snapshot.child('hostId').val());
               let newList = {};

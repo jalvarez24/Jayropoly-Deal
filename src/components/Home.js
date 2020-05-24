@@ -45,6 +45,8 @@ export default function Home() {
       category: "",
       letter: "",
       roundEndTime: 0,
+      localTime: Date.now(),
+      serverTime: firebase.database.ServerValue.TIMESTAMP,
       answer: {
         id: "",
         value: ""
@@ -204,15 +206,16 @@ export default function Home() {
                 username === "" ? 
                 <>
                   <button onClick={() => showErrorMessage("Username required.")}>Create Lobby</button> 
-                </> :
-                  <Link to="/lobby">
-                    {
-                      !returningUser ?
-                        localStorage.setItem("username", username):
-                        null 
-                    }
-                    <button onClick={createLobby}>Create Lobby</button>
-                  </Link>
+                </> 
+                :
+                <Link className="lobby-button-link" to="/lobby">
+                  {
+                    !returningUser ?
+                      localStorage.setItem("username", username):
+                      null 
+                  }
+                  <button onClick={createLobby}>Create Lobby</button>
+                </Link>
                 }
               </span>
             </div>
