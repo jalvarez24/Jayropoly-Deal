@@ -30,7 +30,7 @@
 }
 
 .category-text{
-    font-size: 8vh;
+    font-size: calc((6vh + 6vw)/ 2);
 }
 
 .letter{

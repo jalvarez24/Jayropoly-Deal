@@ -2,10 +2,12 @@ import React, {useState, useEffect} from 'react';
 import firebase from 'firebase';
 import '../style/game.css';
 import './style/game-area.css';
+import { stat } from 'fs';
 
 export default function GameArea({category, letter, roundStartTime, roundEndTime}) {
 
     const [roundTimerOn, setRoundTimerOn] = useState(true);
+    const [roundEndTimerOn, setRoundEndTimerOn] = useState(true);
     const [gameTimerOn, setGameTimerOn] = useState(true);
 
     function Timer(duration, element) {
@@ -94,18 +96,27 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
     useEffect(() => {
         if(typeof(roundStartTime) === "number"){
             if(roundStartTime > Date.now()){
-                startTime();
+                //before startingTime make sure timer element is on!
+                setRoundTimerOn(true);
+                // startTime();
             }
             else{
+                console.log("roundStartTime else, val: " + roundStartTime);
                 setRoundTimerOn(false);
             }
         }
     }, [roundStartTime])
 
     useEffect(() => {
+        if(roundTimerOn) 
+            startTime();
+    }, [roundTimerOn])
+
+    useEffect(() => {
         if(typeof(roundEndTime) === "number"){
             if(roundEndTime > Date.now()){
-                console.log("startRoundTime triggered, time left: " + (roundEndTime - Date.now()))
+                console.log("startRoundTime triggered.")
+                
                 startRoundTime();
             }
             else{
@@ -147,7 +158,12 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
                 :
 
                 <div className="categories-container">
-                    <div className="countdown-game"/>
+                    {
+                        roundEndTimerOn ? 
+                        <div className="countdown-game"/>
+                        :
+                        null
+                    }  
                     <div className="category">
                         <span style={{textDecoration: "underline"}}>Category:</span>
                         <span id="categoryText" className="category-text">{category}</span>
