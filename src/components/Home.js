@@ -44,14 +44,10 @@ export default function Home() {
       gameStarted: false,
       category: "",
       letter: "",
-      roundEndTime: 0,
-      localTime: Date.now(),
-      serverTime: firebase.database.ServerValue.TIMESTAMP,
       answer: {
         id: "",
         value: ""
-      },
-      timestamp: Date.now()
+      }
     }
     let rootRef = firebase.database().ref();
     let lobbiesRef = rootRef.child('lobbies');
@@ -131,11 +127,11 @@ export default function Home() {
   const [errorMessage, setErrorMessage] = useState("");
 
   function showErrorMessage(msg, howLong = 3) {
-    if(errorOn) return;
+    if(errorOn && msg == errorMessage) return;
     setErrorOn(true);
     setErrorMessage(msg);
     let interval = setInterval(() => {
-      setErrorOn();
+      setErrorOn(false);
       setErrorMessage("");
       stopInverval();
     }, howLong * 1000);

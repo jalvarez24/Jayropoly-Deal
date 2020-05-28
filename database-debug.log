@@ -1,0 +1,100 @@
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by io.netty.util.internal.ReflectionUtil (file:/Users/JayroAlvarez/.cache/firebase/emulators/firebase-database-emulator-v4.5.0.jar) to field sun.nio.ch.SelectorImpl.selectedKeys
+WARNING: Please consider reporting this to the maintainers of io.netty.util.internal.ReflectionUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+18:39:44.991 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+18:39:45.311 [main] INFO com.firebase.server.forge.App$ - Listening at localhost:9000
+18:48:11.098 [TriggersWorkerPool-3-2] ERROR com.firebase.server.client.GCFEmulatorPublisher - i-got-it-fam failed to publish trigger to functions emulator with exception
+com.firebase.server.router.IdleTimeoutException: null
+	at com.firebase.server.router.IdleStateDetectionHandler$.<init>(IdleStateDetectionHandler.scala:13)
+	at com.firebase.server.router.IdleStateDetectionHandler$.<clinit>(IdleStateDetectionHandler.scala)
+	at com.firebase.server.router.ServerChannelInitializer.$anonfun$initChannel$1(ServerChannelInitializer.scala:115)
+	at com.firebase.server.router.ServerChannelInitializer$.withGroup(ServerChannelInitializer.scala:70)
+	at com.firebase.server.router.ServerChannelInitializer.initChannel(ServerChannelInitializer.scala:112)
+	at io.netty.channel.ChannelInitializer.initChannel(ChannelInitializer.java:113)
+	at io.netty.channel.ChannelInitializer.handlerAdded(ChannelInitializer.java:105)
+	at io.netty.channel.DefaultChannelPipeline.callHandlerAdded0(DefaultChannelPipeline.java:590)
+	at io.netty.channel.DefaultChannelPipeline.access$000(DefaultChannelPipeline.java:44)
+	at io.netty.channel.DefaultChannelPipeline$PendingHandlerAddedTask.execute(DefaultChannelPipeline.java:1355)
+	at io.netty.channel.DefaultChannelPipeline.callHandlerAddedForAllHandlers(DefaultChannelPipeline.java:1090)
+	at io.netty.channel.DefaultChannelPipeline.invokeHandlerAddedIfNeeded(DefaultChannelPipeline.java:640)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.register0(AbstractChannel.java:452)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.access$200(AbstractChannel.java:374)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$1.run(AbstractChannel.java:424)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:399)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:464)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+19:00:43.695 [TriggersWorkerPool-3-2] ERROR com.firebase.server.client.GCFEmulatorPublisher - i-got-it-fam failed to publish trigger to functions emulator with exception
+com.firebase.server.router.IdleTimeoutException: null
+	at com.firebase.server.router.IdleStateDetectionHandler$.<init>(IdleStateDetectionHandler.scala:13)
+	at com.firebase.server.router.IdleStateDetectionHandler$.<clinit>(IdleStateDetectionHandler.scala)
+	at com.firebase.server.router.ServerChannelInitializer.$anonfun$initChannel$1(ServerChannelInitializer.scala:115)
+	at com.firebase.server.router.ServerChannelInitializer$.withGroup(ServerChannelInitializer.scala:70)
+	at com.firebase.server.router.ServerChannelInitializer.initChannel(ServerChannelInitializer.scala:112)
+	at io.netty.channel.ChannelInitializer.initChannel(ChannelInitializer.java:113)
+	at io.netty.channel.ChannelInitializer.handlerAdded(ChannelInitializer.java:105)
+	at io.netty.channel.DefaultChannelPipeline.callHandlerAdded0(DefaultChannelPipeline.java:590)
+	at io.netty.channel.DefaultChannelPipeline.access$000(DefaultChannelPipeline.java:44)
+	at io.netty.channel.DefaultChannelPipeline$PendingHandlerAddedTask.execute(DefaultChannelPipeline.java:1355)
+	at io.netty.channel.DefaultChannelPipeline.callHandlerAddedForAllHandlers(DefaultChannelPipeline.java:1090)
+	at io.netty.channel.DefaultChannelPipeline.invokeHandlerAddedIfNeeded(DefaultChannelPipeline.java:640)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.register0(AbstractChannel.java:452)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.access$200(AbstractChannel.java:374)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$1.run(AbstractChannel.java:424)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:399)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:464)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+19:05:09.581 [TriggersWorkerPool-3-1] ERROR com.firebase.server.client.GCFEmulatorPublisher - i-got-it-fam failed to publish trigger to functions emulator with exception
+com.firebase.server.router.IdleTimeoutException: null
+	at com.firebase.server.router.IdleStateDetectionHandler$.<init>(IdleStateDetectionHandler.scala:13)
+	at com.firebase.server.router.IdleStateDetectionHandler$.<clinit>(IdleStateDetectionHandler.scala)
+	at com.firebase.server.router.ServerChannelInitializer.$anonfun$initChannel$1(ServerChannelInitializer.scala:115)
+	at com.firebase.server.router.ServerChannelInitializer$.withGroup(ServerChannelInitializer.scala:70)
+	at com.firebase.server.router.ServerChannelInitializer.initChannel(ServerChannelInitializer.scala:112)
+	at io.netty.channel.ChannelInitializer.initChannel(ChannelInitializer.java:113)
+	at io.netty.channel.ChannelInitializer.handlerAdded(ChannelInitializer.java:105)
+	at io.netty.channel.DefaultChannelPipeline.callHandlerAdded0(DefaultChannelPipeline.java:590)
+	at io.netty.channel.DefaultChannelPipeline.access$000(DefaultChannelPipeline.java:44)
+	at io.netty.channel.DefaultChannelPipeline$PendingHandlerAddedTask.execute(DefaultChannelPipeline.java:1355)
+	at io.netty.channel.DefaultChannelPipeline.callHandlerAddedForAllHandlers(DefaultChannelPipeline.java:1090)
+	at io.netty.channel.DefaultChannelPipeline.invokeHandlerAddedIfNeeded(DefaultChannelPipeline.java:640)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.register0(AbstractChannel.java:452)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.access$200(AbstractChannel.java:374)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$1.run(AbstractChannel.java:424)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:399)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:464)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+19:05:09.581 [TriggersWorkerPool-3-2] ERROR com.firebase.server.client.GCFEmulatorPublisher - i-got-it-fam failed to publish trigger to functions emulator with exception
+com.firebase.server.router.IdleTimeoutException: null
+	at com.firebase.server.router.IdleStateDetectionHandler$.<init>(IdleStateDetectionHandler.scala:13)
+	at com.firebase.server.router.IdleStateDetectionHandler$.<clinit>(IdleStateDetectionHandler.scala)
+	at com.firebase.server.router.ServerChannelInitializer.$anonfun$initChannel$1(ServerChannelInitializer.scala:115)
+	at com.firebase.server.router.ServerChannelInitializer$.withGroup(ServerChannelInitializer.scala:70)
+	at com.firebase.server.router.ServerChannelInitializer.initChannel(ServerChannelInitializer.scala:112)
+	at io.netty.channel.ChannelInitializer.initChannel(ChannelInitializer.java:113)
+	at io.netty.channel.ChannelInitializer.handlerAdded(ChannelInitializer.java:105)
+	at io.netty.channel.DefaultChannelPipeline.callHandlerAdded0(DefaultChannelPipeline.java:590)
+	at io.netty.channel.DefaultChannelPipeline.access$000(DefaultChannelPipeline.java:44)
+	at io.netty.channel.DefaultChannelPipeline$PendingHandlerAddedTask.execute(DefaultChannelPipeline.java:1355)
+	at io.netty.channel.DefaultChannelPipeline.callHandlerAddedForAllHandlers(DefaultChannelPipeline.java:1090)
+	at io.netty.channel.DefaultChannelPipeline.invokeHandlerAddedIfNeeded(DefaultChannelPipeline.java:640)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.register0(AbstractChannel.java:452)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.access$200(AbstractChannel.java:374)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$1.run(AbstractChannel.java:424)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:399)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:464)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+19:36:12.159 [Thread-0] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
+19:36:12.195 [NamespaceSystem-akka.actor.default-dispatcher-35] INFO com.firebase.core.namespace.Terminator$Terminator - 1 actors left to terminate: i-got-it-fam
+19:36:12.211 [NamespaceSystem-akka.actor.default-dispatcher-36] INFO com.firebase.core.namespace.NamespaceActor - Stopping namespace actor for i-got-it-fam
+19:36:12.214 [NamespaceSystem-akka.actor.default-dispatcher-36] INFO com.firebase.core.namespace.NamespaceActor - Gauges removed for i-got-it-fam
+19:36:12.221 [Thread-0] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.

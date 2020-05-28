@@ -10,8 +10,9 @@ import GamePlayers from './GameComponents/GamePlayers';
 import Modal from 'react-modal';
 
 
-export default function Game(props) {
+export default function Game() {
     const [gameId] = useState(localStorage.getItem("gameId"));
+    const [functionsLoaded, setFunctionsLoaded] = useState(false);
 
     const [redirect, setRedirect] = useState(() => {
 
@@ -27,6 +28,7 @@ export default function Game(props) {
 
     const [category, setCategory] = useState("");
     const [letter, setLetter] = useState("");
+    const [roundStartTime, setRoundStartTime] = useState("loading");
     const [roundEndTime, setRoundEndTime] = useState("loading");
 
     function GetPlayerList() {
@@ -43,16 +45,28 @@ export default function Game(props) {
               setRedirect("/");
             }
             else{
-              setRoundEndTime(snapshot.child('roundEndTime').val());
+              if(snapshot.child('functionsLoaded').exists() && snapshot.child('functionsLoaded').val()) {
+                setFunctionsLoaded(true);
+              }
+              
+              if(snapshot.child('roundStartTime').exists() && snapshot.child('roundStartTime').val() > 0){
+                setRoundStartTime(snapshot.child('roundStartTime').val());
+              }
+
+              if(snapshot.child('roundEndTime').exists() && snapshot.child('roundEndTime').val() > 0){
+                setRoundEndTime(snapshot.child('roundEndTime').val());
+              }
 
               if(snapshot.child('category').val() !== "") {
                 setCategory(snapshot.child('category').val());
               }
+
               if(snapshot.child('letter').val() !== "") {
                 setLetter(snapshot.child('letter').val());
               }
 
               setHostId(snapshot.child('hostId').val());
+
               let newList = {};
               snapshot.child('players').forEach((player)=> {
                 newList[player.key] = {
@@ -76,6 +90,12 @@ export default function Game(props) {
       }
     
       const {playerList, hostId} = GetPlayerList();
+
+      function createNewRound() {
+        console.log("createNewRound")
+        let gameRef =  firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
+        gameRef.child('roundStartTime').set(0);
+      }
 
       // 
       const [modalIsOpen, setModalIsOpen] = React.useState(false);
@@ -108,6 +128,9 @@ export default function Game(props) {
         <Redirect to={redirect}/>
         :
         <div className="game-container">
+        {
+          functionsLoaded ? 
+          <>     
           <Modal
           isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}
@@ -126,19 +149,34 @@ export default function Game(props) {
             <div className="game-left">
                 <div className="game-left-top">
                     <div className="game-area-container">
-                        <GameArea category={category} letter={letter} roundEndTime={roundEndTime} hostId={hostId}/>
+                        <GameArea category={category} letter={letter} roundStartTime={roundStartTime} roundEndTime={roundEndTime}/>
                     </div>
                     <div onClick={openModal} className="game-players-container">
                         <GamePlayers playerList={playerList}/>
                     </div>
                 </div>
                 <div className="game-left-bottom">
-                        <GameControl roundEndTime={roundEndTime}/>
+                        <GameControl roundStartTime={roundStartTime}/>
                 </div>
             </div>
             <div className="game-right">
                 <Chat gameId={gameId} playerList={playerList}/>
             </div>
+            <button style={{width: "60px", height: "30px", position: "absolute"}} onClick={createNewRound}>New</button>
+          </>
+          :
+          <div className="game-loading">
+            <span className="game-loading-text">
+              Loading Game
+              <span className="loader__dot">.</span><span className="loader__dot">.</span><span className="loader__dot">.</span>
+            </span>
+            <div className="loading-spinner">
+              <div className="loading-spinner-inner">
+                <div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>
+              </div>
+            </div>
+          </div>
+        }
         </div>
     )
 }

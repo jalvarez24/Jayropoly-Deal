@@ -65,3 +65,90 @@
     width: 100%;
     height: 70%;
 }
+
+/* loading styles */
+
+.game-loading{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.game-loading-text{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: rgba(248, 246, 247, 0.2);
+    padding: 5px;
+    color: white;
+    font-size: calc((3vh + 3vw) / 2);
+    font-weight: bold;
+    position: absolute;
+    z-index: 10;
+}
+
+@keyframes blink {50% { color: transparent }}
+.loader__dot { animation: 1s blink infinite }
+.loader__dot:nth-child(2) { animation-delay: 250ms }
+.loader__dot:nth-child(3) { animation-delay: 500ms }
+
+.loading-spinner {
+    width: 517px;
+    height: 517px;
+    display: inline-block;
+    overflow: hidden;
+  }
+
+@keyframes loading-spinner-inner {
+    0% { transform: rotate(0deg) }
+    100% { transform: rotate(360deg) }
+  }
+  .loading-spinner-inner > div > div {
+    transform-origin: 258.5px 258.5px;
+    animation: loading-spinner-inner 5.882352941176471s linear infinite;
+    opacity: 0.78
+  }
+  .loading-spinner-inner > div > div > div {
+    position: absolute;
+    left: 175.78px;
+    top: 175.78px;
+    width: 82.72px;
+    height: 82.72px;
+    border-radius: 82.72px 0 0 0;
+    transform-origin: 258.5px 258.5px
+  }.loading-spinner-inner > div div:nth-child(1) {
+    animation-duration: 1.4705882352941178s
+  }
+  .loading-spinner-inner > div div:nth-child(1) > div {
+    background: #011627;
+    transform: rotate(0deg);
+  }.loading-spinner-inner > div div:nth-child(2) {
+    animation-duration: 1.9607843137254901s
+  }
+  .loading-spinner-inner > div div:nth-child(2) > div {
+    background: #3399ff;
+    transform: rotate(0deg);
+  }.loading-spinner-inner > div div:nth-child(3) {
+    animation-duration: 2.9411764705882355s
+  }
+  .loading-spinner-inner > div div:nth-child(3) > div {
+    background: #2ec4b6;
+    transform: rotate(0deg);
+  }.loading-spinner-inner > div div:nth-child(4) {
+    animation-duration: 5.882352941176471s
+  }
+  .loading-spinner-inner > div div:nth-child(4) > div {
+    background: #ff3366;
+    transform: rotate(0deg);
+  }
+  .loading-spinner-inner {
+    width: 50%;
+    height: 50%;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0; /* see note above */
+  }
+  .loading-spinner-inner div { box-sizing: content-box; }

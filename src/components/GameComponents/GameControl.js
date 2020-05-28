@@ -2,12 +2,12 @@ import React from 'react'
 import '../style/game.css'
 import './style/game-control.css'
 
-export default function GameControl({roundEndTime}) {
+export default function GameControl({roundStartTime}) {
     return (
         <div className="game-component game-control">
             <div className="game-control-div">
                 {
-                    roundEndTime < Date.now() ?
+                    roundStartTime < Date.now() ?
                     <>
                         <input className="control-input" autoFocus/>
                         <div className="give-up-container">

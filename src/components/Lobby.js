@@ -119,8 +119,9 @@ export default function Lobby() {
     let rootRef = firebase.database().ref();
     let lobbiesRef = rootRef.child('lobbies');
     lobbiesRef.child(gameId).child('gameStarted').set(true);
-    let t = Date.now() + 5000;
-    lobbiesRef.child(gameId).child('roundEndTime').set(t);
+    // let t = Date.now() + 4000;
+    // lobbiesRef.child(gameId).child('roundStartTime').set(t);
+    lobbiesRef.child(gameId).child('roundStartTime').set(0);
   }
 
   return (
