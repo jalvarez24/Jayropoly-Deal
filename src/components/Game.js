@@ -91,14 +91,6 @@ export default function Game() {
     
       const {playerList, hostId} = GetPlayerList();
 
-      // function createNewRound() {
-      //   console.log("createNewRound")
-      //   console.log("createRound start: " + new Date());
-      //   let gameRef =  firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
-      //   gameRef.child('roundStartTime').set(0);
-      //   console.log("createRound end: " + new Date());
-      // }
-
       async function createNewRound() {
         console.log("createRound start: " + new Date());
         let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
@@ -106,31 +98,23 @@ export default function Game() {
         console.log("createRound end: " + new Date());
       }
 
-      // 
-      const [modalIsOpen, setModalIsOpen] = React.useState(false);
-
-      function openModal() {
-        setModalIsOpen(true);
-      }
-
-      function afterOpenModal() {
-        // references are now sync'd and can be accessed.
-      }
-
-      function closeModal(){
-        setModalIsOpen(false);
-      }
-
-      const customStyles = {
-        content : {
-          top                   : '50%',
-          left                  : '50%',
-          right                 : 'auto',
-          bottom                : 'auto',
-          marginRight           : '-50%',
-          transform             : 'translate(-50%, -50%)'
+      const submitAnswer = async (e) => {
+        if(e.key === "Enter") {
+          let input = e.currentTarget.value;
+          if(input === "") return;
+          console.log("submitAnswer() called. Input: " + input);
+          let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
+          gameRef.once("value")
+          .then((snapshot) => {
+            console.log("value child: " + snapshot.child('answer').child('value').val());
+            if(snapshot.child('answer').child('value').val() === "") {
+              console.log("Submit answer attempt.");
+              gameRef.child('answer').child('value').set(input);
+              gameRef.child('answer').child('id').set(localStorage.getItem('userId'));
+            }
+          })
         }
-      };
+      }
 
     return(
         redirect?
@@ -139,33 +123,18 @@ export default function Game() {
         <div className="game-container">
         {
           functionsLoaded ? 
-          <>     
-          <Modal
-          isOpen={modalIsOpen}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-          >
-            <div style={{width: "60vw", height: "60vh"}}>
-              <span>
-                Player X Answered:
-              </span>
-              Apples
-            </div>
-          </Modal>
-
+          <> 
             <div className="game-left">
                 <div className="game-left-top">
                     <div className="game-area-container">
                         <GameArea category={category} letter={letter} roundStartTime={roundStartTime} roundEndTime={roundEndTime}/>
                     </div>
-                    <div onClick={openModal} className="game-players-container">
+                    <div className="game-players-container">
                         <GamePlayers playerList={playerList}/>
                     </div>
                 </div>
                 <div className="game-left-bottom">
-                        <GameControl roundStartTime={roundStartTime}/>
+                        <GameControl roundStartTime={roundStartTime} roundEndTime={roundEndTime} submitAnswer={submitAnswer}/>
                 </div>
             </div>
             <div className="game-right">

@@ -70,7 +70,7 @@ export default function Lobby() {
     let gameRef = firebase.database().ref().child(`lobbies/${gameId}`);
 
     gameRef.once("value")
-      .then(function(snapshot) {
+      .then((snapshot) =>{
         if(snapshot.exists()) gameRef.remove();          
         else {
           console.log("Unable to end lobby.");
