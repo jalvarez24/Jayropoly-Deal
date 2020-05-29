@@ -91,10 +91,19 @@ export default function Game() {
     
       const {playerList, hostId} = GetPlayerList();
 
-      function createNewRound() {
-        console.log("createNewRound")
-        let gameRef =  firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
-        gameRef.child('roundStartTime').set(0);
+      // function createNewRound() {
+      //   console.log("createNewRound")
+      //   console.log("createRound start: " + new Date());
+      //   let gameRef =  firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
+      //   gameRef.child('roundStartTime').set(0);
+      //   console.log("createRound end: " + new Date());
+      // }
+
+      async function createNewRound() {
+        console.log("createRound start: " + new Date());
+        let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
+        await gameRef.child('roundStartTime').set(0);
+        console.log("createRound end: " + new Date());
       }
 
       // 

@@ -6,9 +6,8 @@ import { stat } from 'fs';
 
 export default function GameArea({category, letter, roundStartTime, roundEndTime}) {
 
-    const [roundTimerOn, setRoundTimerOn] = useState(true);
-    const [roundEndTimerOn, setRoundEndTimerOn] = useState(true);
-    const [gameTimerOn, setGameTimerOn] = useState(true);
+    const [roundTimerOn, setRoundTimerOn] = useState(false);
+    const [roundEndTimerOn, setRoundEndTimerOn] = useState(false);
 
     function Timer(duration, element) {
         var self = this;
@@ -36,7 +35,6 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
             }
             var diff = now - start;
             var newSeconds = Math.ceil((self.duration - diff)/1000);
-    
             if (diff <= self.duration) {
                 self.els.ticker.style.height = 100 - (diff/self.duration*100) + '%';
                 
@@ -50,6 +48,7 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
                 self.running = false;
                 self.els.ticker.style.height = '0%';
                 setRoundTimerOn(false);
+                
             }
         };
         
@@ -87,6 +86,7 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
             else {
                 self.running = false;
                 self.ticker.style.height = '0%';
+                setRoundEndTimerOn(false);
             }
         };
         
@@ -97,48 +97,54 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
         if(typeof(roundStartTime) === "number"){
             if(roundStartTime > Date.now()){
                 //before startingTime make sure timer element is on!
+                console.log("roundTimerOn set to true.");
                 setRoundTimerOn(true);
                 // startTime();
             }
             else{
-                console.log("roundStartTime else, val: " + roundStartTime);
+                console.log("Round already started. Timer set to false.");
                 setRoundTimerOn(false);
             }
         }
     }, [roundStartTime])
 
     useEffect(() => {
-        if(roundTimerOn) 
+        if(roundTimerOn === true){
+            console.log("Starting roundTimerOn countdown...");
             startTime();
+        }
     }, [roundTimerOn])
 
+    
     useEffect(() => {
         if(typeof(roundEndTime) === "number"){
             if(roundEndTime > Date.now()){
-                console.log("startRoundTime triggered.")
-                
-                startRoundTime();
+                console.log("startRoundTime(); triggered.");
+                setRoundEndTimerOn(true);
             }
             else{
-                console.log("roundEndTime else")
-                setGameTimerOn(false);
+                console.log("RoundEndTimer already started. Timer set to false.");
+                setRoundEndTimerOn(false);
             }
         }
     }, [roundEndTime])
 
+    useEffect(() => {
+        if(roundEndTimerOn === true){
+            console.log("Starting roundEndTimerOn countdown...");
+            startRoundTime();
+        }
+    }, [roundEndTimerOn])
+
     function startTime() {
+        document.querySelector('.countdown-pregame').style.height = "100%"; 
         var timer = new Timer((roundStartTime - Date.now()), document.getElementById('countdown'));
         timer.start();
     }
 
     function startRoundTime() {
-        // setGameTimerOn(true);
         var roundTimer = new RoundTimer((roundEndTime - Date.now()));
         roundTimer.start();
-    }
-
-    function resetTime(){
-        // setTime(3);
     }
     
     return (
@@ -149,7 +155,7 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
                 roundTimerOn ?
 
                 <div className="countdown-container">
-                    <div className="countdown" id="countdown">
+                    <div className="countdown-pregame" >
                         <div className="countdown-fill" id="ticker"/>
                         <div className="countdown-digit" id="seconds"/>
                     </div>
