@@ -17,6 +17,7 @@ export default function Game() {
     const [roundStartTime, setRoundStartTime] = useState("loading");
     const [roundEndTime, setRoundEndTime] = useState("loading");
     const [answer, setAnswer] = useState("");
+    const [answerId, setAnswerId] = useState("");
 
     const [redirect, setRedirect] = useState(() => {
 
@@ -82,9 +83,13 @@ export default function Game() {
                 setLetter(snapshot.child('letter').val());
               }
 
-              if(snapshot.child('answer').child('value').val() !== "") {
+              // if(snapshot.child('answer').child('value').val() !== "") {
                 setAnswer(snapshot.child('answer').child('value').val());
-              }
+              // }
+
+              // if(snapshot.child('answer').child('id').val() !== "") {
+                setAnswerId(snapshot.child('answer').child('id').val());
+              // }
 
               setHostId(snapshot.child('hostId').val());
 
@@ -148,13 +153,19 @@ export default function Game() {
             <div className="game-left">
             {
               gameVoteOn ?
-              <GameVote/>
+              <GameVote
+                category={category}
+                letter={letter}
+                answer={answer}
+                answerId={answerId}
+                playerList={playerList}
+              />
               :
               <>
                 <div className="game-left-top">
                     <div className="game-area-container">
                         <GameArea 
-                          category={category} 
+                          category={category}
                           letter={letter} 
                           roundStartTime={roundStartTime} 
                           roundEndTime={roundEndTime}
