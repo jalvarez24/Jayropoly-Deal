@@ -1,12 +1,26 @@
 import React, {useState, useEffect} from 'react';
 import '../style/game.css';
 import './style/game-area.css';
-import { stat } from 'fs';
 
-export default function GameArea({category, letter, roundStartTime, roundEndTime}) {
+export default function GameArea({category, letter, roundStartTime, roundEndTime, answer, setGameVoteOn}) {
 
     const [roundTimerOn, setRoundTimerOn] = useState(false);
     const [roundEndTimerOn, setRoundEndTimerOn] = useState(false);
+
+    let timer = null;
+    let roundTimer = null;
+
+    useEffect(() => {
+        if(answer !== ""){
+            setRoundEndTimerOn(false);
+        }    
+
+        return () => {
+            if(timer !== null) timer.running = false;
+            if(roundTimer !== null) roundTimer.running = false;
+        }
+
+    }, [answer]);
 
     function Timer(duration, element) {
         var self = this;
@@ -37,7 +51,7 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
             if (diff <= self.duration) {
                 self.els.ticker.style.height = 100 - (diff/self.duration*100) + '%';
                 
-                if (newSeconds != remainingSeconds) {
+                if (newSeconds !== remainingSeconds) {
                     self.els.seconds.textContent = newSeconds;
                     remainingSeconds = newSeconds;
                 }
@@ -75,17 +89,21 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
 
             var diff = now - start;
 
+            if(self.ticker === null) {
+                self.ticker = document.querySelector('.countdown-game');
+            }
+
             if (diff <= self.duration) {
-                if(self.ticker === null) {
-                    self.ticker = document.querySelector('.countdown-game');
-                }
-                self.ticker.style.height = 100 - (diff/self.duration*100) + '%';          
+                if(self.ticker !== null)
+                    self.ticker.style.height = 100 - (diff/self.duration*100) + '%';          
                 self.frameReq = window.requestAnimationFrame(draw);
             } 
             else {
                 self.running = false;
-                self.ticker.style.height = '0%';
+                if(self.ticker !== null)
+                    self.ticker.style.height = '0%';
                 setRoundEndTimerOn(false);
+                setGameVoteOn(true);
             }
         };
         
@@ -98,7 +116,6 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
                 //before startingTime make sure timer element is on!
                 console.log("roundTimerOn set to true.");
                 setRoundTimerOn(true);
-                // startTime();
             }
             else{
                 console.log("Round already started. Timer set to false.");
@@ -137,12 +154,12 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
 
     function startTime() {
         document.querySelector('.countdown-pregame').style.height = "100%"; 
-        var timer = new Timer((roundStartTime - Date.now()), document.getElementById('countdown'));
+        timer = new Timer((roundStartTime - Date.now()), document.getElementById('countdown'));
         timer.start();
     }
 
     function startRoundTime() {
-        var roundTimer = new RoundTimer((roundEndTime - Date.now()));
+        roundTimer = new RoundTimer((roundEndTime - Date.now()));
         roundTimer.start();
     }
     

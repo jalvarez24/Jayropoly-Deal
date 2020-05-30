@@ -1,18 +1,22 @@
-import React, {useState, useEffect, useContext} from 'react'
-import Player from './Player';
+import React, {useState, useEffect} from 'react'
 import firebase from '../firebase';
-import Chat from './Chat'
 import './style/game.css'
 import {Redirect} from 'react-router-dom';
 import GameArea from './GameComponents/GameArea';
 import GameControl from './GameComponents/GameControl';
 import GamePlayers from './GameComponents/GamePlayers';
-import Modal from 'react-modal';
-
+import GameVote from './GameComponents/GameVote';
+import Chat from './Chat'
 
 export default function Game() {
     const [gameId] = useState(localStorage.getItem("gameId"));
     const [functionsLoaded, setFunctionsLoaded] = useState(false);
+    const [gameVoteOn, setGameVoteOn] = useState(false);
+    const [category, setCategory] = useState("");
+    const [letter, setLetter] = useState("");
+    const [roundStartTime, setRoundStartTime] = useState("loading");
+    const [roundEndTime, setRoundEndTime] = useState("loading");
+    const [answer, setAnswer] = useState("");
 
     const [redirect, setRedirect] = useState(() => {
 
@@ -26,10 +30,23 @@ export default function Game() {
         return '/';
     });
 
-    const [category, setCategory] = useState("");
-    const [letter, setLetter] = useState("");
-    const [roundStartTime, setRoundStartTime] = useState("loading");
-    const [roundEndTime, setRoundEndTime] = useState("loading");
+    //if answer detected on load, display vote
+    useEffect(() => {
+      if(answer !== "") {
+        setGameVoteOn(true);
+      }
+    }, [answer]);
+
+    //if roundStartTime || roundEndTime not reached on load, turn off display
+    //else turn on
+    useEffect(() => {
+      if(roundStartTime > Date.now() || roundEndTime > Date.now()) {
+        setGameVoteOn(false);
+      }
+      else{
+        setGameVoteOn(true);
+      }
+    }, [roundStartTime, roundEndTime]);
 
     function GetPlayerList() {
         const [playerList, setPlayerList] = useState({});
@@ -65,6 +82,10 @@ export default function Game() {
                 setLetter(snapshot.child('letter').val());
               }
 
+              if(snapshot.child('answer').child('value').val() !== "") {
+                setAnswer(snapshot.child('answer').child('value').val());
+              }
+
               setHostId(snapshot.child('hostId').val());
 
               let newList = {};
@@ -92,10 +113,12 @@ export default function Game() {
       const {playerList, hostId} = GetPlayerList();
 
       async function createNewRound() {
-        console.log("createRound start: " + new Date());
         let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
         await gameRef.child('roundStartTime').set(0);
-        console.log("createRound end: " + new Date());
+        gameRef.child('answer').child('id').set("");
+        gameRef.child('answer').child('value').set("");
+        gameRef.child('category').set("");
+        gameRef.child('letter').set("");
       }
 
       const submitAnswer = async (e) => {
@@ -106,9 +129,7 @@ export default function Game() {
           let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
           gameRef.once("value")
           .then((snapshot) => {
-            console.log("value child: " + snapshot.child('answer').child('value').val());
             if(snapshot.child('answer').child('value').val() === "") {
-              console.log("Submit answer attempt.");
               gameRef.child('answer').child('value').set(input);
               gameRef.child('answer').child('id').set(localStorage.getItem('userId'));
             }
@@ -117,25 +138,45 @@ export default function Game() {
       }
 
     return(
-        redirect?
+        redirect ?
         <Redirect to={redirect}/>
         :
         <div className="game-container">
         {
-          functionsLoaded ? 
+          functionsLoaded ?
           <> 
             <div className="game-left">
+            {
+              gameVoteOn ?
+              <GameVote/>
+              :
+              <>
                 <div className="game-left-top">
                     <div className="game-area-container">
-                        <GameArea category={category} letter={letter} roundStartTime={roundStartTime} roundEndTime={roundEndTime}/>
+                        <GameArea 
+                          category={category} 
+                          letter={letter} 
+                          roundStartTime={roundStartTime} 
+                          roundEndTime={roundEndTime}
+                          answer={answer}
+                          setGameVoteOn={setGameVoteOn}
+                        />
                     </div>
                     <div className="game-players-container">
-                        <GamePlayers playerList={playerList}/>
+                        <GamePlayers 
+                          playerList={playerList}
+                        />
                     </div>
                 </div>
                 <div className="game-left-bottom">
-                        <GameControl roundStartTime={roundStartTime} roundEndTime={roundEndTime} submitAnswer={submitAnswer}/>
+                        <GameControl 
+                          roundStartTime={roundStartTime}
+                          roundEndTime={roundEndTime}
+                          submitAnswer={submitAnswer}
+                        />
                 </div>
+              </>
+            }
             </div>
             <div className="game-right">
                 <Chat gameId={gameId} playerList={playerList}/>

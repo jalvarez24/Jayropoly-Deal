@@ -1,0 +1,14 @@
+.game-vote-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-vote{
+    background-color: #2ec4b6;
+    width: 100%;
+    height: 85%;
+    border: 10px solid #011627;
+}

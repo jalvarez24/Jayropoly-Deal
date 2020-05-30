@@ -8,15 +8,15 @@ export default function GameControl({roundStartTime, roundEndTime, submitAnswer}
         <div className="game-component game-control">
             <div className="game-control-div">
                 {
-                    roundStartTime < Date.now() ?
+                    roundStartTime > Date.now() ?
+                    <span className="loading-span">GET READY TO ANSWER!</span>
+                    :
                     <>
                         <input className="control-input" autoFocus onKeyDown={(e) => {submitAnswer(e)}}/>
                         <div className="give-up-container">
                             <button className="give-up">Give Up</button>
                         </div>
                     </>
-                    :
-                    <span className="loading-span">GET READY TO ANSWER!</span>
                 }
             </div>
         </div>
