@@ -2,10 +2,11 @@ import React, {useState, useEffect} from 'react';
 import firebase from 'firebase';
 import '../style/game.css';
 import './style/game-vote.css';
-import { blue } from 'color-name';
 
-export default function GameVote({category, letter, answer, answerId, playerList, giveUpId}) {
-    
+export default function GameVote({category, letter, answer, answerId, playerList, giveUpId, setLocalGaveUp}) {
+    useEffect(() => {
+        setLocalGaveUp(false);
+    }, [])
     return (
         <div className="game-vote-container">
             <div className="game-vote">

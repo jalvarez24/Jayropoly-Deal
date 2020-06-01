@@ -19,6 +19,7 @@ export default function Game() {
     const [answer, setAnswer] = useState("");
     const [answerId, setAnswerId] = useState("");
     const [giveUpId, setGiveUpId] = useState("");
+    const [localGaveUp, setLocalGaveUp] = useState(false);
 
     const [redirect, setRedirect] = useState(() => {
 
@@ -143,11 +144,7 @@ export default function Game() {
       }
 
       const submitGiveUp = async (e) => {
-        console.log('submitGiveUp called.');
-        e.target.innerText = 'DONE';
-        e.target.setAttribute("disabled", true);
-        e.target.style.backgroundColor = '#011627';
-
+        setLocalGaveUp(true);
         let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
         gameRef.once("value")
           .then((snapshot) => {
@@ -175,6 +172,7 @@ export default function Game() {
                 answerId={answerId}
                 playerList={playerList}
                 giveUpId={giveUpId}
+                setLocalGaveUp={setLocalGaveUp}
               />
               :
               <>
@@ -201,6 +199,8 @@ export default function Game() {
                           roundEndTime={roundEndTime}
                           submitAnswer={submitAnswer}
                           submitGiveUp={submitGiveUp}
+                          giveUpId={giveUpId}
+                          localGaveUp={localGaveUp}
                         />
                 </div>
               </>
