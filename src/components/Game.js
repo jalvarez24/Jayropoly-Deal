@@ -18,6 +18,7 @@ export default function Game() {
     const [roundEndTime, setRoundEndTime] = useState("loading");
     const [answer, setAnswer] = useState("");
     const [answerId, setAnswerId] = useState("");
+    const [giveUpId, setGiveUpId] = useState("");
 
     const [redirect, setRedirect] = useState(() => {
 
@@ -83,13 +84,11 @@ export default function Game() {
                 setLetter(snapshot.child('letter').val());
               }
 
-              // if(snapshot.child('answer').child('value').val() !== "") {
-                setAnswer(snapshot.child('answer').child('value').val());
-              // }
+              setGiveUpId(snapshot.child('giveUpId').val());
 
-              // if(snapshot.child('answer').child('id').val() !== "") {
-                setAnswerId(snapshot.child('answer').child('id').val());
-              // }
+              setAnswer(snapshot.child('answer').child('value').val());
+
+              setAnswerId(snapshot.child('answer').child('id').val());
 
               setHostId(snapshot.child('hostId').val());
 
@@ -119,11 +118,12 @@ export default function Game() {
 
       async function createNewRound() {
         let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
-        await gameRef.child('roundStartTime').set(0);
+        gameRef.child('roundStartTime').set(0);
         gameRef.child('answer').child('id').set("");
         gameRef.child('answer').child('value').set("");
         gameRef.child('category').set("");
         gameRef.child('letter').set("");
+        gameRef.child('giveUpId').set("");
       }
 
       const submitAnswer = async (e) => {
@@ -140,6 +140,21 @@ export default function Game() {
             }
           })
         }
+      }
+
+      const submitGiveUp = async (e) => {
+        console.log('submitGiveUp called.');
+        e.target.innerText = 'DONE';
+        e.target.setAttribute("disabled", true);
+        e.target.style.backgroundColor = '#011627';
+
+        let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
+        gameRef.once("value")
+          .then((snapshot) => {
+            if(snapshot.child('giveUpId').val() === "") {
+              gameRef.child('giveUpId').set(localStorage.getItem('userId'));
+            }
+          })
       }
 
     return(
@@ -159,6 +174,7 @@ export default function Game() {
                 answer={answer}
                 answerId={answerId}
                 playerList={playerList}
+                giveUpId={giveUpId}
               />
               :
               <>
@@ -184,6 +200,7 @@ export default function Game() {
                           roundStartTime={roundStartTime}
                           roundEndTime={roundEndTime}
                           submitAnswer={submitAnswer}
+                          submitGiveUp={submitGiveUp}
                         />
                 </div>
               </>

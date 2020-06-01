@@ -4,7 +4,7 @@ import '../style/game.css';
 import './style/game-vote.css';
 import { blue } from 'color-name';
 
-export default function GameVote({category, letter, answer, answerId, playerList}) {
+export default function GameVote({category, letter, answer, answerId, playerList, giveUpId}) {
     
     return (
         <div className="game-vote-container">
@@ -32,9 +32,25 @@ export default function GameVote({category, letter, answer, answerId, playerList
                        <div className="top">
                             No one answered in time!
                         </div>
-                        <div className="bottom">
-                            Point goes to: &lt;Player Name&gt;
-                        </div>
+                        {
+                            giveUpId === "" ?
+                            <div className="bottom">
+                                No one gave up in time. No one gets the point.
+                            </div>
+                            :
+                            <div className="bottom">
+                                Someone gave up and no one answered! Point goes to: &lt;
+                                <span>
+                                {
+                                    playerList[giveUpId] ?
+                                    playerList[giveUpId].name
+                                    :
+                                    "Loading Name"
+                                }
+                                </span>
+                                &gt;
+                            </div>
+                        }
                     </>
                 }
                 

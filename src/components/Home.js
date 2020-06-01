@@ -47,7 +47,8 @@ export default function Home() {
       answer: {
         id: "",
         value: ""
-      }
+      },
+      giveUpId: ""
     }
     let rootRef = firebase.database().ref();
     let lobbiesRef = rootRef.child('lobbies');
