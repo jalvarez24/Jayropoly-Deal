@@ -185,15 +185,31 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
                         <div className="countdown-game"/>
                         :
                         null
-                    }  
-                    <div className="category">
-                        <span style={{textDecoration: "underline"}}>Category:</span>
-                        <span id="categoryText" className="category-text">{category}</span>
+                    }
+                    {
+                    category === "" || letter === "" ?
+                    <div className="loading-category">
+                        <span className="game-category-loading-text">
+                            Loading Round
+                            <span className="loader-category__dot">.</span><span className="loader-category__dot">.</span><span className="loader-category__dot">.</span>
+                        </span>
                     </div>
-                    <div className="letter">
-                        <span style={{textDecoration: "underline"}}>Letter:</span>
-                        <span id="letterText" className="letter-text">{letter}</span>
-                    </div>
+                    :
+                    <>                     
+                        <div className="category">
+                            <span style={{textDecoration: "underline"}}>Category:</span>
+                            <span id="categoryText" className="category-text">
+                                {category}
+                            </span>
+                        </div>
+                        <div className="letter">
+                            <span style={{textDecoration: "underline"}}>Letter:</span>
+                            <span id="letterText" className="letter-text">
+                                {letter}
+                            </span>
+                        </div>
+                    </>
+                    }
                 </div>
 
                 }             

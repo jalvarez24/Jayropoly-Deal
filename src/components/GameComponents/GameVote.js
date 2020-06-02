@@ -7,6 +7,7 @@ export default function GameVote({category, letter, answer, answerId, playerList
     useEffect(() => {
         setLocalGaveUp(false);
     }, [])
+
     return (
         <div className="game-vote-container">
             <div className="game-vote">

@@ -42,7 +42,7 @@
 }
 
 /* Countdown Style */
-.countdown-container {
+.countdown-container{
     height: 100%;
     display: flex;
     justify-content: center;
@@ -65,7 +65,7 @@
     border-radius: 0;
 }
 
-.countdown-fill {
+.countdown-fill{
   display: block;
   width: 100%;
   height: 100%;
@@ -74,13 +74,35 @@
   bottom: 0;
   background: #2EC4B6;
 }
-.countdown-digit {
+.countdown-digit{
   width: 100%;
   color: #2EC4B6;
   text-align: center;
   mix-blend-mode: difference;
   pointer-events: none;
 }
+
+.loading-category{
+    background-color: #2EC4B6;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-category-loading-text{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: black;
+    font-size: calc((4vh + 4vw) / 2);
+    font-weight: bold;
+    position: absolute;
+}
+
+@keyframes blink {50% { color: transparent }}
+.loader-category__dot { animation: 1s blink infinite }
+.loader-category__dot:nth-child(2) { animation-delay: 250ms }
+.loader-category__dot:nth-child(3) { animation-delay: 500ms }
 
 /* Game clock styles */
 .countdown-game{

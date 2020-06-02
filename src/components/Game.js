@@ -44,6 +44,7 @@ export default function Game() {
     //else turn on
     useEffect(() => {
       if(roundStartTime > Date.now() || roundEndTime > Date.now()) {
+        console.log("TURN OFF GAMEVOTE.");
         setGameVoteOn(false);
       }
       else{
@@ -77,13 +78,9 @@ export default function Game() {
                 setRoundEndTime(snapshot.child('roundEndTime').val());
               }
 
-              if(snapshot.child('category').val() !== "") {
-                setCategory(snapshot.child('category').val());
-              }
+              setCategory(snapshot.child('category').val());
 
-              if(snapshot.child('letter').val() !== "") {
-                setLetter(snapshot.child('letter').val());
-              }
+              setLetter(snapshot.child('letter').val());
 
               setGiveUpId(snapshot.child('giveUpId').val());
 
@@ -173,6 +170,8 @@ export default function Game() {
                 playerList={playerList}
                 giveUpId={giveUpId}
                 setLocalGaveUp={setLocalGaveUp}
+                setCategory={setCategory}
+                setLetter={setLetter}
               />
               :
               <>
