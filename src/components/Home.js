@@ -56,8 +56,7 @@ export default function Home() {
     lobbiesRef.child(gameId).child('players').child(userId).set({
       name: username, 
       score: 0, 
-      approve: false,
-      answer: ""
+      vote: ""
     });
   }
 
@@ -85,8 +84,7 @@ export default function Home() {
             lobbyRef.child('players').child(userId).set({
                                         name: username, 
                                         score: 0, 
-                                        approve: false,
-                                        answer: ""
+                                        vote: ""
                                       });
             localStorage.setItem("inLobby", true);
             localStorage.setItem("inGame", false);

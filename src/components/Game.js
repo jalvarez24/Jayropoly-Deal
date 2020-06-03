@@ -94,7 +94,7 @@ export default function Game() {
               snapshot.child('players').forEach((player)=> {
                 newList[player.key] = {
                   name: player.child('name').val(),
-                  answer: player.child('answer').val(),
+                  vote: player.child('vote').val(),
                   score: player.child('score').val()
                 }
               })
