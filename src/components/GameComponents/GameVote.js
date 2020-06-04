@@ -32,24 +32,39 @@ export default function GameVote({category, letter, answer, answerId, playerList
                 {
                     answer !== "" && answerId !== "" ?
                     <>
-                        <div className="top">
-                            <span style={{fontWeight: "bold", color: "blue"}}>
-                                {
-                                    playerList[answerId] ?
-                                    playerList[answerId].name + " "
-                                    :
-                                    "Loading Name"
-                                }
-                            </span>
-                            <span>answered: {answer}</span>
+                        <div className="top answer-summary">
+                            <div className="player">
+                                <span>
+                                    {
+                                        playerList[answerId] ?
+                                        playerList[answerId].name + " "
+                                        :
+                                        "Loading Name"
+                                    }
+                                </span>
+                                <span style={{color: "black"}}>answered:</span>
+                            </div>
+                            <span className="answer">{answer}</span>
                         </div>
                         <div className="bottom">
                             <div className="vote-area">
-                                <span>Vote! Give them a point?</span>
-                                <div className="vote-buttons">
+                                <span>
+                                    Vote! Give<span style={{color: "white"}}>
+                                    {
+                                        playerList[answerId] ?
+                                        playerList[answerId].name
+                                        :
+                                        "Loading Name"
+                                    }
+                                    </span>a point?
+                                </span>
+                                <div className="vote-buttons-div">
                                     <button className="yes-button">Yes</button>
                                     <button className="no-button">No</button>
                                 </div>
+                            </div>
+                            <div className="player-votes">
+
                             </div>
                         </div>
                     </>
