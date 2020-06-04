@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import '../App.css';
 import Javi from  "../images/javibanner.jpg"
 import {Link} from 'react-router-dom';

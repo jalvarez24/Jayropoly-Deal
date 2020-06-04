@@ -27,3 +27,36 @@
     background-color: #2ec4b6;
     /* border: 10px solid #011627; */
 }
+
+/* for vote area */
+
+.vote-area{
+    background-color: blueviolet;
+    width: 100%;
+    height: 100%;
+}
+
+.vote-buttons{
+    background-color: cadetblue;
+    width: 100%;
+    height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-button, .yes-button{
+    width: 20%;
+    height: 75%;
+    font-size: x-large;
+}
+
+.no-button:hover{
+    background-color: red;
+    border-color: red !important;
+}
+
+.yes-button:hover{
+    background-color: green;
+    border-color: green !important;
+}

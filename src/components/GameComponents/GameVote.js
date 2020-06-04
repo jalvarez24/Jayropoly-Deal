@@ -11,9 +11,18 @@ export default function GameVote({category, letter, answer, answerId, playerList
     }, []);
 
     useEffect(() => {
-        if(JSON.stringify(playerList) !== '{}') {
-            console.log("playerList: " + (JSON.stringify(playerList)));
-            //check if players have voted
+        let playerCount = Object.keys(playerList).length;
+        if(playerCount > 0) {
+            let votesSubmitted = 0;
+            for(let key of Object.keys(playerList)) {
+                if(playerList[key].vote !== "") {
+                    votesSubmitted++;
+                }
+            }
+            console.log("votesSubmitted: " + votesSubmitted);
+            if(votesSubmitted >= playerCount) {
+                console.log("All players have voted!");
+            }
         }
     }, [playerList]);
 
@@ -35,7 +44,13 @@ export default function GameVote({category, letter, answer, answerId, playerList
                             <span>answered: {answer}</span>
                         </div>
                         <div className="bottom">
-                            <span>Vote! Give them a point?</span>
+                            <div className="vote-area">
+                                <span>Vote! Give them a point?</span>
+                                <div className="vote-buttons">
+                                    <button className="yes-button">Yes</button>
+                                    <button className="no-button">No</button>
+                                </div>
+                            </div>
                         </div>
                     </>
                     :

@@ -126,7 +126,7 @@ export default function Home() {
   const [errorMessage, setErrorMessage] = useState("");
 
   function showErrorMessage(msg, howLong = 3) {
-    if(errorOn && msg == errorMessage) return;
+    if(errorOn && msg === errorMessage) return;
     setErrorOn(true);
     setErrorMessage(msg);
     let interval = setInterval(() => {
