@@ -33,6 +33,10 @@ export default function GameVote({category, letter, answer, answerId, playerList
                     answer !== "" && answerId !== "" ?
                     <>
                         <div className="top answer-summary">
+                            <span>
+                                <span style={{fontWeight: "bold"}}>Category: </span>{category} | <span style={{fontWeight: "bold"}}>Letter: </span>{letter}
+                                <hr style={{border: "1px solid black"}}/>
+                            </span>
                             <div className="player">
                                 <span>
                                     {
@@ -48,11 +52,11 @@ export default function GameVote({category, letter, answer, answerId, playerList
                         </div>
                         <div className="bottom">
                             <div className="vote-area">
-                                <span>
+                                <span className="msg">
                                     Vote! Give<span style={{color: "white"}}>
                                     {
                                         playerList[answerId] ?
-                                        playerList[answerId].name
+                                        " " + playerList[answerId].name + " "
                                         :
                                         "Loading Name"
                                     }
@@ -64,7 +68,7 @@ export default function GameVote({category, letter, answer, answerId, playerList
                                 </div>
                             </div>
                             <div className="player-votes">
-
+                                    
                             </div>
                         </div>
                     </>

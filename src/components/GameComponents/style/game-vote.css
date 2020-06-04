@@ -25,6 +25,7 @@
 .bottom{
     background-color: #2ec4b6;
     display: flex;
+    justify-content: center;
 }
 
 .answer-summary{
@@ -45,11 +46,6 @@
     color: white;
     -webkit-text-stroke: calc((.3vh + .3vw)/2) black;
 }
-/* .answer-summary:n */
-
-/* .answer-summary:nth-child(2){
-    font-size: calc((7vh + 7vw)/2);
-} */
 
 /* for vote area */
 
@@ -63,7 +59,7 @@
     justify-content: center;
 }
 
-.vote-area span {
+.vote-area .msg {
     padding-bottom: 5%;
     font-size: calc((4vh + 4vw)/2);
     font-weight: bold;
