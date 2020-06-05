@@ -12,19 +12,32 @@ export default function GameVote({category, letter, answer, answerId, playerList
 
     useEffect(() => {
         let playerCount = Object.keys(playerList).length;
+
         if(playerCount > 0) {
             let votesSubmitted = 0;
+            let yesCount = 0;
+            let votesNeeded = Math.floor((playerCount - 1) / 2);
+            votesNeeded = (playerCount - 1) % 2 === 0 ? votesNeeded : votesNeeded + 1;
+            console.log("votesNeeded: " + votesNeeded);
+            
             for(let key of Object.keys(playerList)) {
                 if(playerList[key].vote !== "") {
                     votesSubmitted++;
+                    if(playerList[key].vote === true) yesCount++;
                 }
             }
-            console.log("votesSubmitted: " + votesSubmitted);
-            if(votesSubmitted >= playerCount) {
+
+            if(votesSubmitted >= playerCount - 1 || yesCount >= votesNeeded) {
                 console.log("All players have voted!");
+                //call createNewRound
             }
         }
     }, [playerList]);
+
+    const submitAnswer = async (response) => {
+        let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
+        gameRef.child('players').child(localStorage.getItem('userId')).child('vote').set(response);
+    } 
 
     return (
         <div className="game-vote-container">
@@ -33,9 +46,9 @@ export default function GameVote({category, letter, answer, answerId, playerList
                     answer !== "" && answerId !== "" ?
                     <>
                         <div className="top answer-summary">
-                            <span>
-                                <span style={{fontWeight: "bold"}}>Category: </span>{category} | <span style={{fontWeight: "bold"}}>Letter: </span>{letter}
-                                <hr style={{border: "1px solid black"}}/>
+                            <span className="category-letter-container">
+                                <span className="category-letter">Category: <span>{category}</span> | </span>
+                                <span className="category-letter">Letter: <span>{letter}</span></span>
                             </span>
                             <div className="player">
                                 <span>
@@ -51,24 +64,60 @@ export default function GameVote({category, letter, answer, answerId, playerList
                             <span className="answer">{answer}</span>
                         </div>
                         <div className="bottom">
-                            <div className="vote-area">
-                                <span className="msg">
-                                    Vote! Give<span style={{color: "white"}}>
-                                    {
-                                        playerList[answerId] ?
-                                        " " + playerList[answerId].name + " "
-                                        :
-                                        "Loading Name"
-                                    }
-                                    </span>a point?
-                                </span>
-                                <div className="vote-buttons-div">
-                                    <button className="yes-button">Yes</button>
-                                    <button className="no-button">No</button>
+                            {
+                                localStorage.getItem('userId') !== answerId ?
+                                <div className="vote-area">
+                                    <span className="msg">
+                                        Vote! Give<span style={{color: "white"}}>
+                                        {
+                                            playerList[answerId] ?
+                                            " " + playerList[answerId].name + " "
+                                            :
+                                            "Loading Name"
+                                        }
+                                        </span>a point?
+                                    </span>
+                                    <div className="vote-buttons-div">
+                                        <button className="yes-button" onClick={() => submitAnswer(true)}>Yes</button>
+                                        <button className="no-button" onClick={() => submitAnswer(false)}>No</button>
+                                    </div>
                                 </div>
-                            </div>
+                                :
+                                <div className="vote-area">
+                                    <span className="vote-loading-text">
+                                        Players Voting
+                                        <span className="loader-vote-dot">.</span>
+                                        <span className="loader-vote-dot">.</span>
+                                        <span className="loader-vote-dot">.</span>
+                                    </span>
+                                    <span className="convince-msg">Convince the fam to vote yes.</span>
+                                </div>
+                            }
                             <div className="player-votes">
-                                    
+                                <span style={{fontWeight: "bold"}}>Player Votes:</span>
+                                <ul>
+                                {
+                                    Object.entries(playerList).map(([key, value]) => {
+                                        if(key === answerId) return;
+                                        return <li key={key}>
+                                            <span style={{fontWeight: "bold"}}>{value.name}</span>
+                                            <span style={{color: "red", fontWeight: "bold"}}> 
+                                            {
+                                                value.vote === "" ?
+                                                <span>Hasn't Voted.</span> :
+                                                <span>
+                                                {
+                                                    value.vote === true ?
+                                                    "YES" :
+                                                    "NO"
+                                                }
+                                                </span>
+                                            }
+                                            </span>
+                                        </li>              
+                                    })
+                                }
+                                </ul>
                             </div>
                         </div>
                     </>

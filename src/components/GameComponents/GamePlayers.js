@@ -15,12 +15,8 @@ export default function GamePlayers({playerList}) {
                             return <li key={key}>
                                 <span style={{fontWeight: "bold"}}>{value.name}</span>
                                 <span style={{color: "red", fontWeight: "bold"}}> 
-                                {/* {key === hostId ? " Host": ""} */}
                                 {value.score}
                                 </span>
-                                {/* <span>
-                                {key === localStorage.getItem("userId") ? " (You)" : ""}
-                                </span> */}
                             </li>              
                         })
                     }

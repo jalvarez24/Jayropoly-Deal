@@ -9,8 +9,10 @@ import GameVote from './GameComponents/GameVote';
 import Chat from './Chat'
 
 export default function Game() {
-    const [gameId] = useState(localStorage.getItem("gameId"));
     const [functionsLoaded, setFunctionsLoaded] = useState(false);
+    const [newRoundLoaded, setNewRoundLoaded] = useState(true);
+
+    const [gameId] = useState(localStorage.getItem("gameId"));
     const [gameVoteOn, setGameVoteOn] = useState(false);
     const [category, setCategory] = useState("");
     const [letter, setLetter] = useState("");
@@ -115,13 +117,18 @@ export default function Game() {
       const {playerList, hostId} = GetPlayerList();
 
       async function createNewRound() {
+        setNewRoundLoaded(false);
         let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
-        gameRef.child('roundStartTime').set(0);
-        gameRef.child('answer').child('id').set("");
-        gameRef.child('answer').child('value').set("");
-        gameRef.child('category').set("");
-        gameRef.child('letter').set("");
-        gameRef.child('giveUpId').set("");
+        await gameRef.child('roundStartTime').set(0);
+        await gameRef.child('answer').child('id').set("");
+        await gameRef.child('answer').child('value').set("");
+        await gameRef.child('category').set("");
+        await gameRef.child('letter').set("");
+        await gameRef.child('giveUpId').set("");
+        for(let key of Object.keys(playerList)) {
+          await gameRef.child('players').child(key).child('vote').set("");
+        }
+        setNewRoundLoaded(true);
       }
 
       const submitAnswer = async (e) => {
@@ -157,7 +164,7 @@ export default function Game() {
         :
         <div className="game-container">
         {
-          functionsLoaded ?
+          functionsLoaded && newRoundLoaded ?
           <> 
             <div className="game-left">
             {
