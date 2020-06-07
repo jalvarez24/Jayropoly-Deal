@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import firebase from '../firebase';
 import './style/chat.css'//
-export default function Popup(props) {
+export default function Chat(props) {
 
     function GetMessages() {
         const [messages, setMessages] = useState([]);
@@ -85,7 +85,10 @@ export default function Popup(props) {
                     {
                     messages.length ?
                     messages.map((msg) => (
-                        <li className={msg.userId === localStorage.getItem("userId") ? "message messageSelf":"message messageOther"} key={msg.key}>
+                        <li 
+                            className={msg.userId === localStorage.getItem("userId") ? "message messageSelf":(msg.userId === "systemMsg" ? "message system-msg" : "message messageOther")} 
+                            key={msg.key}
+                        >
                             {
                                 props.playerList[msg.userId] ?
 
@@ -93,9 +96,18 @@ export default function Popup(props) {
                                     {props.playerList[msg.userId].name}
                                 </span>
                                 :
-                                <span style={{fontStyle: "italic", color: "red"}}>
-                                    {"Player left"}
-                                </span>
+                                <>
+                                {
+                                    msg.userId === "systemMsg" ?
+                                    <span style={{fontWeight: "bold"}}>
+                                        {"Game"}
+                                    </span>
+                                    :
+                                    <span style={{fontStyle: "italic", color: "red"}}>
+                                        {"Player left"}
+                                    </span>
+                                }
+                                </>
                             }
                             : <span className="message-text">{msg.message}</span>
                         </li>

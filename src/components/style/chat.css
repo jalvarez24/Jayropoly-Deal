@@ -84,13 +84,13 @@
 .message{
     height: auto;
     padding: 5px;
-    padding-bottom: 8px;
     margin: 1px;
     max-width: 100%;
-    max-height: 10%;
     -webkit-user-select: none;
-    display: flex;
+    display: inline-block;
     flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
 }
 
 .message-text{
@@ -157,4 +157,9 @@
     background: green;
     border-color: green !important;
     transition: all 0.4s ease 0s;
+  }
+
+  .system-msg{
+      background-color: #ff3366;
+      border-radius: 10px;
   }

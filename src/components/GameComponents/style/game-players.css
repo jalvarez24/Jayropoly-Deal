@@ -8,31 +8,28 @@
     flex-direction: column;
 }
 
-.player-scores, .player-status{
+.player-scores{
     width: 100%;
-    height: 50%;
+    height: 100%;
+    background-color: #3399FF;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.player-scores{   
-    background-color: #F6F7F8;
-    border-bottom: solid #011627;    
-}
-
-.player-status{
-    background-color: #3399FF;
-    border-top: solid #011627;
+.scores-label{
+    font-size: calc((5vh + 5vw)/2);
+    color: white;
+    -webkit-text-stroke: calc((.2vh + .2vw)/2) black;
 }
 
 .player-scores-div span{
-    text-decoration: underline;
     font-weight: bold;
 }
 
 .player-scores-div ul {
+    font-size: calc((3vh + 3vw)/2);
     background-color: rgb(5, 5, 5, .1);
     list-style-type: none;
     margin:0;
@@ -48,4 +45,20 @@
 
 .player-scores-div li {
     font-size: 1em;
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    justify-content: space-between;
+}
+
+.li-name{
+    margin-left: 5px;
+}
+
+.li-score{
+    width: 30px;
+    margin-right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

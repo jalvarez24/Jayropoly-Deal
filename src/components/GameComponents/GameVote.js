@@ -4,39 +4,89 @@ import '../style/game.css';
 import './style/game-vote.css';
 import { isEmptyStatement } from '@babel/types';
 
-export default function GameVote({category, letter, answer, answerId, playerList, giveUpId, setLocalGaveUp}) {
+export default function GameVote({category, letter, answer, answerId, playerList, giveUpId, setLocalGaveUp, hostId, createNewRound}) {
+
+    const [newRoundDetected, setNewRoundDetected] = useState(false);
+    const [givePointTo, setGivePointTo] = useState("");
+    const [playerVoted, setPlayerVoted] = useState(false);
 
     useEffect(() => {
         setLocalGaveUp(false);
     }, []);
 
-    useEffect(() => {
-        let playerCount = Object.keys(playerList).length;
+    // useEffect(() => {
+    //     // let playerCount = Object.keys(playerList).length;
 
-        if(playerCount > 0) {
-            let votesSubmitted = 0;
-            let yesCount = 0;
-            let votesNeeded = Math.floor((playerCount - 1) / 2);
-            votesNeeded = (playerCount - 1) % 2 === 0 ? votesNeeded : votesNeeded + 1;
-            console.log("votesNeeded: " + votesNeeded);
+    //     // if(playerCount > 0) {
+    //     //     let votesSubmitted = 0;
+    //     //     let yesCount = 0;
+    //     //     let votesNeeded = Math.floor((playerCount - 1) / 2);
+    //     //     votesNeeded = (playerCount - 1) % 2 === 0 ? votesNeeded : votesNeeded + 1;
+    //     //     console.log("votesNeeded: " + votesNeeded);
             
-            for(let key of Object.keys(playerList)) {
-                if(playerList[key].vote !== "") {
-                    votesSubmitted++;
-                    if(playerList[key].vote === true) yesCount++;
-                }
-            }
+    //         // for(let key of Object.keys(playerList)) {
+    //         //     if(playerList[key].vote !== "") {
+    //         //         votesSubmitted++;
+    //         //         if(playerList[key].vote === true) yesCount++;
+    //         //     }
+    //         // }
 
-            if(votesSubmitted >= playerCount - 1 || yesCount >= votesNeeded) {
-                console.log("All players have voted!");
-                //call createNewRound
-            }
+    //         // if(votesSubmitted >= playerCount - 1 || yesCount >= votesNeeded) {
+    //         //     if(localStorage.getItem('userId') === hostId) {
+    //         //         if(yesCount >= votesNeeded) {
+    //         //             setGivePointTo(answerId);
+    //         //         }
+    //         //         if(newRoundDetected === false)
+    //         //             setNewRoundDetected(true);
+    //         //     }
+    //         // }
+    //     }
+    // }, [playerList]);
+
+    // useEffect(() => {
+    //     if(newRoundDetected === true) {
+    //         console.log("CREATENEWROUND!");
+    //         if(givePointTo !== ""){
+    //             let gameRef = firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
+    //             gameRef.once("value")
+    //             .then((snapshot) => {
+    //                 gameRef.child('players').child(answerId).child('score').set(
+    //                     snapshot.child('players').child(answerId).child('score').val() + 1
+    //                 );
+    //             })
+    //             setGivePointTo("");
+    //         }
+    //         createNewRound();
+    //         setNewRoundDetected(false);
+    //     }
+    //     return () => {
+    //         setNewRoundDetected(false);
+    //         setGivePointTo("");
+    //     }
+    // }, [newRoundDetected]);
+
+    useEffect(() => {
+        if(giveUpId !== "" && localStorage.getItem('userId') === hostId){
+            console.log("SOMEONE GAVE UP!")
+            let gameRef = firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
+            gameRef.once("value")
+            .then((snapshot) => {
+                gameRef.child('players').child(giveUpId).child('score').set(
+                    snapshot.child('players').child(giveUpId).child('score').val() + 1
+                );
+                let username = snapshot.child('players').child(giveUpId).child('name').val();
+                gameRef.child('messages').push({
+                    message: `Point given to: ${username}`,
+                    userId: "systemMsg"
+                })
+            })
         }
-    }, [playerList]);
+    }, []);
 
     const submitAnswer = async (response) => {
         let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
         gameRef.child('players').child(localStorage.getItem('userId')).child('vote').set(response);
+        setPlayerVoted(true);
     } 
 
     return (
@@ -78,8 +128,17 @@ export default function GameVote({category, letter, answer, answerId, playerList
                                         </span>a point?
                                     </span>
                                     <div className="vote-buttons-div">
-                                        <button className="yes-button" onClick={() => submitAnswer(true)}>Yes</button>
-                                        <button className="no-button" onClick={() => submitAnswer(false)}>No</button>
+                                        {
+                                            playerVoted ?
+                                            <div>
+                                                Vote Submitted!
+                                            </div>
+                                            :
+                                            <>
+                                                <button className="yes-button" onClick={() => submitAnswer(true)}>Yes</button>
+                                                <button className="no-button" onClick={() => submitAnswer(false)}>No</button>
+                                            </>
+                                        }
                                     </div>
                                 </div>
                                 :
@@ -119,37 +178,94 @@ export default function GameVote({category, letter, answer, answerId, playerList
                                 }
                                 </ul>
                             </div>
+                            <div className="score-summary">
+                                Scores:
+                                    <ul>
+                                    {
+                                        Object.entries(playerList).map(([key, value]) => {
+                                            return <li key={key}>
+                                                <span style={{fontWeight: "bold"}}>{value.name}</span>
+                                                <span style={{color: "red", fontWeight: "bold"}}> 
+                                                {
+                                                    value.score
+                                                }
+                                                </span>
+                                            </li>              
+                                        })
+                                    }
+                                    </ul>
+                            </div>
                         </div>
                     </>
                     :
                     <>
                        <div className="top">
-                           <span>No one answered in time!</span>
+                           <div className="no-answer-div">
+                               <span>No one answered in time!</span>
+                               {
+                                   giveUpId === "" ?
+                                   <span>No one gave up!</span>
+                                   :
+                               <span>But 
+                                   <span className="player-name">
+                                   {
+
+                                    playerList[giveUpId] ?
+                                    " " + playerList[giveUpId].name + " "
+                                    :
+                                    "Loading Name"
+
+                                   }
+                                   </span> gave up first!</span>
+                               }
+                            </div>
                         </div>
-                        {
-                            giveUpId === "" ?
                             <div className="bottom">
-                                <span>No one gave up in time. No one gets the point.</span>
-                            </div>
-                            :
-                            <div className="bottom">
-                                <span>
-                                    Someone gave up and no one answered! Point goes to: &lt;
-                                    <span>
+                                <div className="vote-area no-answer">
+                                <span style={{fontSize: "calc((3vh + 3vw)/2)", marginBottom: "5%", fontWeight: "bold"}}>Ready up for next round!</span>
+                                    <button onClick={() => submitAnswer(false)} className="yes-button" style={{height:"30%"}}>
+                                       Ready!
+                                    </button>
+                                </div>
+                                <div className="player-votes">
+                                    <span style={{fontWeight: "bold"}}>Ready Up:</span>
+                                    <ul>
                                     {
-                                        playerList[giveUpId] ?
-                                        playerList[giveUpId].name
-                                        :
-                                        "Loading Name"
+                                        Object.entries(playerList).map(([key, value]) => {
+                                            return <li key={key}>
+                                                <span style={{fontWeight: "bold"}}>{value.name}</span>
+                                                <span style={{color: "red", fontWeight: "bold"}}> 
+                                                {
+                                                    value.vote === "" ?
+                                                    <span>Not Ready</span> :
+                                                    <span style={{color: "green"}}>Ready!</span>
+                                                }
+                                                </span>
+                                            </li>              
+                                        })
                                     }
-                                    </span>
-                                    &gt;
-                                </span>
+                                    </ul>
+                                </div>
+                                <div className="score-summary">
+                                    <span style={{fontWeight: "bold"}}>Scores:</span>
+                                    <ul>
+                                    {
+                                        Object.entries(playerList).map(([key, value]) => {
+                                            return <li key={key}>
+                                                <span style={{fontWeight: "bold"}}>{value.name}</span>
+                                                <span style={{color: "red", fontWeight: "bold"}}> 
+                                                {
+                                                    value.score
+                                                }
+                                                </span>
+                                            </li>              
+                                        })
+                                    }
+                                    </ul>
+                                </div>
                             </div>
-                        }
                     </>
                 }
-                
             </div>      
         </div>
     )

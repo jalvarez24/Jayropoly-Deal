@@ -7,10 +7,10 @@ import GameControl from './GameComponents/GameControl';
 import GamePlayers from './GameComponents/GamePlayers';
 import GameVote from './GameComponents/GameVote';
 import Chat from './Chat'
+import Javi from  "../images/javibanner.jpg"
 
 export default function Game() {
     const [functionsLoaded, setFunctionsLoaded] = useState(false);
-    const [newRoundLoaded, setNewRoundLoaded] = useState(true);
 
     const [gameId] = useState(localStorage.getItem("gameId"));
     const [gameVoteOn, setGameVoteOn] = useState(false);
@@ -22,6 +22,7 @@ export default function Game() {
     const [answerId, setAnswerId] = useState("");
     const [giveUpId, setGiveUpId] = useState("");
     const [localGaveUp, setLocalGaveUp] = useState(false);
+    const [winner, setWinner] = useState("");
 
     const [redirect, setRedirect] = useState(() => {
 
@@ -71,6 +72,9 @@ export default function Game() {
               if(snapshot.child('functionsLoaded').exists() && snapshot.child('functionsLoaded').val()) {
                 setFunctionsLoaded(true);
               }
+
+              if(snapshot.child('winner').exists())
+                setWinner(snapshot.child('winner').val());
               
               if(snapshot.child('roundStartTime').exists() && snapshot.child('roundStartTime').val() > 0){
                 setRoundStartTime(snapshot.child('roundStartTime').val());
@@ -94,6 +98,9 @@ export default function Game() {
 
               let newList = {};
               snapshot.child('players').forEach((player)=> {
+                if(player.child('score').val() >= 10) {
+                  setWinner(player.key);
+                }
                 newList[player.key] = {
                   name: player.child('name').val(),
                   vote: player.child('vote').val(),
@@ -117,7 +124,7 @@ export default function Game() {
       const {playerList, hostId} = GetPlayerList();
 
       async function createNewRound() {
-        setNewRoundLoaded(false);
+        console.log("CREATENEWROUND CALLED");
         let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
         await gameRef.child('roundStartTime').set(0);
         await gameRef.child('answer').child('id').set("");
@@ -128,7 +135,6 @@ export default function Game() {
         for(let key of Object.keys(playerList)) {
           await gameRef.child('players').child(key).child('vote').set("");
         }
-        setNewRoundLoaded(true);
       }
 
       const submitAnswer = async (e) => {
@@ -164,59 +170,90 @@ export default function Game() {
         :
         <div className="game-container">
         {
-          functionsLoaded && newRoundLoaded ?
-          <> 
-            <div className="game-left">
+          functionsLoaded ?
+          <>
             {
-              gameVoteOn ?
-              <GameVote
-                category={category}
-                letter={letter}
-                answer={answer}
-                answerId={answerId}
-                playerList={playerList}
-                giveUpId={giveUpId}
-                setLocalGaveUp={setLocalGaveUp}
-                setCategory={setCategory}
-                setLetter={setLetter}
-              />
-              :
+            winner === "" ?
               <>
-                <div className="game-left-top">
-                    <div className="game-area-container">
-                        <GameArea 
-                          category={category}
-                          letter={letter} 
-                          roundStartTime={roundStartTime} 
-                          roundEndTime={roundEndTime}
-                          answer={answer}
-                          setGameVoteOn={setGameVoteOn}
-                        />
+                <div className="game-left">
+                {
+                  gameVoteOn ?
+                  <GameVote
+                    category={category}
+                    letter={letter}
+                    answer={answer}
+                    answerId={answerId}
+                    playerList={playerList}
+                    giveUpId={giveUpId}
+                    setLocalGaveUp={setLocalGaveUp}
+                    setCategory={setCategory}
+                    setLetter={setLetter}
+                    hostId={hostId}
+                    createNewRound={createNewRound}
+                  />
+                  :
+                  <>
+                    <div className="game-left-top">
+                        <div className="game-area-container">
+                            <GameArea 
+                              category={category}
+                              letter={letter} 
+                              roundStartTime={roundStartTime} 
+                              roundEndTime={roundEndTime}
+                              answer={answer}
+                              setGameVoteOn={setGameVoteOn}
+                            />
+                        </div>
+                        <div className="game-players-container">
+                            <GamePlayers 
+                              playerList={playerList}
+                            />
+                        </div>
                     </div>
-                    <div className="game-players-container">
-                        <GamePlayers 
-                          playerList={playerList}
-                        />
+                    <div className="game-left-bottom">
+                            <GameControl 
+                              roundStartTime={roundStartTime}
+                              roundEndTime={roundEndTime}
+                              submitAnswer={submitAnswer}
+                              submitGiveUp={submitGiveUp}
+                              giveUpId={giveUpId}
+                              localGaveUp={localGaveUp}
+                            />
                     </div>
-                </div>
-                <div className="game-left-bottom">
-                        <GameControl 
-                          roundStartTime={roundStartTime}
-                          roundEndTime={roundEndTime}
-                          submitAnswer={submitAnswer}
-                          submitGiveUp={submitGiveUp}
-                          giveUpId={giveUpId}
-                          localGaveUp={localGaveUp}
-                        />
+                  </>
+                }
                 </div>
               </>
+              :
+              <div className="game-left">
+                <div className="winner-container">
+                  <div className="winner">
+                    <img src={Javi} className="javi-pic"/> 
+                    <div className="banner">
+                      <span className="winner-label">
+                        Winner: 
+                        <span>
+                          {
+                            playerList[winner] ?
+                            " " + playerList[winner].name :
+                            "loading"
+                          }
+                        </span>
+                      </span>
+                      <div className="winner-buttons">
+                        <button style={{marginRight: "5%"}}>Back to Lobby</button>
+                        <button>Quit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             }
-            </div>
             <div className="game-right">
                 <Chat gameId={gameId} playerList={playerList}/>
             </div>
-            <button style={{width: "60px", height: "30px", position: "absolute"}} onClick={createNewRound}>New</button>
-          </>
+            {/* <button style={{width: "60px", height: "30px", position: "absolute"}} onClick={createNewRound}>New</button> */} 
+          </>     
           :
           <div className="game-loading">
             <span className="game-loading-text">
