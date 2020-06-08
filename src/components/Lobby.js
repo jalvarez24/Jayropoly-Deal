@@ -36,10 +36,12 @@ export default function Lobby() {
           setHostId(snapshot.child('hostId').val());
           let newList = {};
           snapshot.child('players').forEach((player)=> {
+            console.log("readyUp: " + player.child('readyUp').val());
             newList[player.key] = {
               name: player.child('name').val(),
               vote: player.child('vote').val(),
-              score: player.child('score').val()
+              score: player.child('score').val(),
+              readyUp: player.child('readyUp').val()
             }
           })
           setPlayerList(newList);
@@ -122,7 +124,7 @@ export default function Lobby() {
     lobbiesRef.child(gameId).child('roundStartTime').set(0);
     lobbiesRef.child(gameId).child('winner').set("");
   }
-  
+
   return (
     redirect?
     <Redirect to={redirect}/>

@@ -56,7 +56,8 @@ export default function Home() {
     lobbiesRef.child(gameId).child('players').child(userId).set({
       name: username, 
       score: 0, 
-      vote: ""
+      vote: "",
+      readyUp: ""
     });
   }
 
@@ -84,7 +85,8 @@ export default function Home() {
             lobbyRef.child('players').child(userId).set({
                                         name: username, 
                                         score: 0, 
-                                        vote: ""
+                                        vote: "",
+                                        readyUp: ""
                                       });
             localStorage.setItem("inLobby", true);
             localStorage.setItem("inGame", false);
@@ -97,19 +99,7 @@ export default function Home() {
         });   
   }
 
-  //function to 
-  function addCategoriesToFireStore() {
-    let firestore = firebase.firestore();
-    let len = Categories.categories.length;
-    for(let i = 0; i < len; i++) {
-      firestore.collection('categories').doc("" + i).set({ name: Categories.categories[i] });
-    }
-    firestore.collection('categories').doc('size').set({ val: len });
-  }
-  
-
   function changeName() {
-    addCategoriesToFireStore();
     localStorage.removeItem("username");
     setUsername("");
     setReturningUser(null);

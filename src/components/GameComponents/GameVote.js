@@ -9,61 +9,11 @@ export default function GameVote({category, letter, answer, answerId, playerList
     const [newRoundDetected, setNewRoundDetected] = useState(false);
     const [givePointTo, setGivePointTo] = useState("");
     const [playerVoted, setPlayerVoted] = useState(false);
+    const [playerReadyUped, setPlayerReadyUped] = useState(false);
 
     useEffect(() => {
         setLocalGaveUp(false);
     }, []);
-
-    // useEffect(() => {
-    //     // let playerCount = Object.keys(playerList).length;
-
-    //     // if(playerCount > 0) {
-    //     //     let votesSubmitted = 0;
-    //     //     let yesCount = 0;
-    //     //     let votesNeeded = Math.floor((playerCount - 1) / 2);
-    //     //     votesNeeded = (playerCount - 1) % 2 === 0 ? votesNeeded : votesNeeded + 1;
-    //     //     console.log("votesNeeded: " + votesNeeded);
-            
-    //         // for(let key of Object.keys(playerList)) {
-    //         //     if(playerList[key].vote !== "") {
-    //         //         votesSubmitted++;
-    //         //         if(playerList[key].vote === true) yesCount++;
-    //         //     }
-    //         // }
-
-    //         // if(votesSubmitted >= playerCount - 1 || yesCount >= votesNeeded) {
-    //         //     if(localStorage.getItem('userId') === hostId) {
-    //         //         if(yesCount >= votesNeeded) {
-    //         //             setGivePointTo(answerId);
-    //         //         }
-    //         //         if(newRoundDetected === false)
-    //         //             setNewRoundDetected(true);
-    //         //     }
-    //         // }
-    //     }
-    // }, [playerList]);
-
-    // useEffect(() => {
-    //     if(newRoundDetected === true) {
-    //         console.log("CREATENEWROUND!");
-    //         if(givePointTo !== ""){
-    //             let gameRef = firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
-    //             gameRef.once("value")
-    //             .then((snapshot) => {
-    //                 gameRef.child('players').child(answerId).child('score').set(
-    //                     snapshot.child('players').child(answerId).child('score').val() + 1
-    //                 );
-    //             })
-    //             setGivePointTo("");
-    //         }
-    //         createNewRound();
-    //         setNewRoundDetected(false);
-    //     }
-    //     return () => {
-    //         setNewRoundDetected(false);
-    //         setGivePointTo("");
-    //     }
-    // }, [newRoundDetected]);
 
     useEffect(() => {
         if(giveUpId !== "" && localStorage.getItem('userId') === hostId){
@@ -83,10 +33,23 @@ export default function GameVote({category, letter, answer, answerId, playerList
         }
     }, []);
 
+    useEffect(() => {
+        if(playerList[localStorage.getItem('userId')] && playerList[localStorage.getItem('userId')].readyUp !== "")
+            setPlayerReadyUped(true);
+        if(playerList[localStorage.getItem('userId')] && playerList[localStorage.getItem('userId')].vote !== "")
+            setPlayerVoted(true);
+    }, [playerList]);
+
     const submitAnswer = async (response) => {
         let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
         gameRef.child('players').child(localStorage.getItem('userId')).child('vote').set(response);
         setPlayerVoted(true);
+    } 
+
+    const submitReadyUp = async (response) => {
+        let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
+        gameRef.child('players').child(localStorage.getItem('userId')).child('readyUp').set(response);
+        setPlayerReadyUped(true);
     } 
 
     return (
@@ -160,19 +123,19 @@ export default function GameVote({category, letter, answer, answerId, playerList
                                         if(key === answerId) return;
                                         return <li key={key}>
                                             <span style={{fontWeight: "bold"}}>{value.name}</span>
-                                            <span style={{color: "red", fontWeight: "bold"}}> 
                                             {
                                                 value.vote === "" ?
-                                                <span>Hasn't Voted.</span> :
-                                                <span>
+                                                <span style={{color: "#3399FF", fontWeight: "bold"}}>Pending</span> 
+                                                :
+                                                <>
                                                 {
-                                                    value.vote === true ?
-                                                    "YES" :
-                                                    "NO"
+                                                    value.vote === false ?
+                                                    <span style={{color: "red", fontWeight: "bold"}}>Denied!</span> 
+                                                    :
+                                                    <span style={{color: "green", fontWeight: "bold"}}>Accept!</span> 
                                                 }
-                                                </span>
+                                                </>
                                             }
-                                            </span>
                                         </li>              
                                     })
                                 }
@@ -223,9 +186,14 @@ export default function GameVote({category, letter, answer, answerId, playerList
                             <div className="bottom">
                                 <div className="vote-area no-answer">
                                 <span style={{fontSize: "calc((3vh + 3vw)/2)", marginBottom: "5%", fontWeight: "bold"}}>Ready up for next round!</span>
-                                    <button onClick={() => submitAnswer(false)} className="yes-button" style={{height:"30%"}}>
+                                {
+                                    playerReadyUped === false ?
+                                    <button onClick={() => submitReadyUp(true)} className="yes-button" style={{height:"30%"}}>
                                        Ready!
                                     </button>
+                                    :
+                                    <span>Waiting for other players.</span>
+                                }
                                 </div>
                                 <div className="player-votes">
                                     <span style={{fontWeight: "bold"}}>Ready Up:</span>
@@ -236,9 +204,9 @@ export default function GameVote({category, letter, answer, answerId, playerList
                                                 <span style={{fontWeight: "bold"}}>{value.name}</span>
                                                 <span style={{color: "red", fontWeight: "bold"}}> 
                                                 {
-                                                    value.vote === "" ?
+                                                    value.readyUp === "" ?
                                                     <span>Not Ready</span> :
-                                                    <span style={{color: "green"}}>Ready!</span>
+                                                    <span style={{color: "green"}}>Ready</span>
                                                 }
                                                 </span>
                                             </li>              

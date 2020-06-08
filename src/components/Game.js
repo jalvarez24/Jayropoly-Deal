@@ -104,7 +104,8 @@ export default function Game() {
                 newList[player.key] = {
                   name: player.child('name').val(),
                   vote: player.child('vote').val(),
-                  score: player.child('score').val()
+                  score: player.child('score').val(),
+                  readyUp: player.child('readyUp').val()
                 }
               })
               setPlayerList(newList);
