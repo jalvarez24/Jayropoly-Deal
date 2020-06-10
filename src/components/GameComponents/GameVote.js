@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import firebase from 'firebase';
 import '../style/game.css';
 import './style/game-vote.css';
-import { isEmptyStatement } from '@babel/types';
+import { isEmptyStatement, conditionalExpression } from '@babel/types';
 
 export default function GameVote({category, letter, answer, answerId, playerList, giveUpId, setLocalGaveUp, hostId, createNewRound}) {
 
@@ -11,13 +11,12 @@ export default function GameVote({category, letter, answer, answerId, playerList
     const [playerVoted, setPlayerVoted] = useState(false);
     const [playerReadyUped, setPlayerReadyUped] = useState(false);
 
-    useEffect(() => {
-        setLocalGaveUp(false);
-    }, []);
+    const [loadingNextRound, setLoadingNextRound] = useState(false);
 
     useEffect(() => {
+        setLocalGaveUp(false);
+
         if(giveUpId !== "" && localStorage.getItem('userId') === hostId){
-            console.log("SOMEONE GAVE UP!")
             let gameRef = firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
             gameRef.once("value")
             .then((snapshot) => {
@@ -38,7 +37,47 @@ export default function GameVote({category, letter, answer, answerId, playerList
             setPlayerReadyUped(true);
         if(playerList[localStorage.getItem('userId')] && playerList[localStorage.getItem('userId')].vote !== "")
             setPlayerVoted(true);
+
+        //count votes || readyUps to display loading component => waiting on firebase functions to generate the new round
+        let numOfPlayers = Object.keys(playerList).length;
+        if(numOfPlayers > 0) {
+            //count readyUps
+            if(answerId === "") {
+                let numOfReadyUps = 0;
+                for(let key of Object.keys(playerList)) {
+                    if(playerList[key].readyUp === true) numOfReadyUps++;
+                }
+
+                if(numOfReadyUps >= numOfPlayers) {
+                    setLoadingNextRound(true);
+                }
+                console.log("numOfReadyUps: " + numOfReadyUps);
+            }
+            //count votes
+            else {
+                let yesVotes = 0;
+                let anyVotes = 0;
+                let votesNeeded = Math.floor((numOfPlayers - 1) / 2);
+                votesNeeded = (numOfPlayers - 1) % 2 === 0 ? votesNeeded : votesNeeded + 1;
+
+                for(let key of Object.keys(playerList)) {
+                    if(playerList[key].vote === true) yesVotes++;
+                    if(playerList[key].vote !== "") anyVotes++;
+                }
+
+                if(yesVotes >= votesNeeded || anyVotes >= (numOfPlayers - 1)) {
+                    setLoadingNextRound(true);
+                }
+                console.log("yesVotes: " + yesVotes);
+            }
+        }
+
+    return () => {
+        console.log("UNMOUNTED!");
+    }
+
     }, [playerList]);
+
 
     const submitAnswer = async (response) => {
         let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
@@ -54,6 +93,15 @@ export default function GameVote({category, letter, answer, answerId, playerList
 
     return (
         <div className="game-vote-container">
+            {
+            loadingNextRound === true ?
+            <span className="vote-loading-text">
+                Loading Next Round
+                <span className="loader-vote-dot">.</span>
+                <span className="loader-vote-dot">.</span>
+                <span className="loader-vote-dot">.</span>
+            </span>
+            :
             <div className="game-vote">
                 {
                     answer !== "" && answerId !== "" ?
@@ -234,7 +282,8 @@ export default function GameVote({category, letter, answer, answerId, playerList
                             </div>
                     </>
                 }
-            </div>      
+            </div>     
+            } 
         </div>
     )
 }

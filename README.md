@@ -1,6 +1,6 @@
 
 
-## I GOT IT FAM (Multiplayer Card Game)
+## I GOT IT FAM (Real-time Multiplayer Board Game)
 
 [Link to Site](https://igotitfam.com/)
 

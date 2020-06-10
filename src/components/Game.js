@@ -47,7 +47,6 @@ export default function Game() {
     //else turn on
     useEffect(() => {
       if(roundStartTime > Date.now() || roundEndTime > Date.now()) {
-        console.log("TURN OFF GAMEVOTE.");
         setGameVoteOn(false);
       }
       else{
@@ -125,7 +124,6 @@ export default function Game() {
       const {playerList, hostId} = GetPlayerList();
 
       async function createNewRound() {
-        console.log("CREATENEWROUND CALLED");
         let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
         await gameRef.child('roundStartTime').set(0);
         await gameRef.child('answer').child('id').set("");
@@ -142,7 +140,6 @@ export default function Game() {
         if(e.key === "Enter") {
           let input = e.currentTarget.value;
           if(input === "") return;
-          console.log("submitAnswer() called. Input: " + input);
           let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
           gameRef.once("value")
           .then((snapshot) => {
