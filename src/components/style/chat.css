@@ -39,17 +39,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: calc((1.5vh + 1.5vh) / 2);
 }
 
 .status-bar .time{
     font-weight: bold;
-    font-size: 40%;
     padding-left: 2%;
 }
 
 .status-bar .name{
     font-weight: bold;
-    font-size: 40%;
     padding-right: 2%;
 }
 
@@ -61,6 +60,7 @@
     align-items: center;
     color: white;
     -webkit-user-select: none;
+    font-size: calc((3vh + 3vh) / 2);
 }
 
 .group-name span{
@@ -91,6 +91,7 @@
     flex-direction: row;
     align-items: center;
     box-sizing: border-box;
+    font-size: calc((3vh + 3vh) / 2);
 }
 
 .message-text{
@@ -128,6 +129,8 @@
     float: left;
     margin-left: 5%;
     box-shadow: none;
+    margin-right: 5px;
+    font-size: calc((2vh + 2vh) / 2);
   }
   
   .text-area input:focus{

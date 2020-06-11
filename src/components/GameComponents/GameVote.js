@@ -23,9 +23,10 @@ export default function GameVote({category, letter, answer, answerId, playerList
                 gameRef.child('players').child(giveUpId).child('score').set(
                     snapshot.child('players').child(giveUpId).child('score').val() + 1
                 );
+                gameRef.child('roundEndTime').set(Date.now() + 10000);
                 let username = snapshot.child('players').child(giveUpId).child('name').val();
                 gameRef.child('messages').push({
-                    message: `Point given to: ${username}`,
+                    message: `Point given to ${username}`,
                     userId: "systemMsg"
                 })
             })
@@ -51,7 +52,6 @@ export default function GameVote({category, letter, answer, answerId, playerList
                 if(numOfReadyUps >= numOfPlayers) {
                     setLoadingNextRound(true);
                 }
-                console.log("numOfReadyUps: " + numOfReadyUps);
             }
             //count votes
             else {
@@ -68,16 +68,9 @@ export default function GameVote({category, letter, answer, answerId, playerList
                 if(yesVotes >= votesNeeded || anyVotes >= (numOfPlayers - 1)) {
                     setLoadingNextRound(true);
                 }
-                console.log("yesVotes: " + yesVotes);
             }
         }
-
-    return () => {
-        console.log("UNMOUNTED!");
-    }
-
     }, [playerList]);
-
 
     const submitAnswer = async (response) => {
         let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
@@ -190,7 +183,7 @@ export default function GameVote({category, letter, answer, answerId, playerList
                                 </ul>
                             </div>
                             <div className="score-summary">
-                                Scores:
+                                <span style={{fontWeight: "bold"}}>Scores:</span>
                                     <ul>
                                     {
                                         Object.entries(playerList).map(([key, value]) => {
@@ -237,7 +230,7 @@ export default function GameVote({category, letter, answer, answerId, playerList
                                 {
                                     playerReadyUped === false ?
                                     <button onClick={() => submitReadyUp(true)} className="yes-button" style={{height:"30%"}}>
-                                       Ready!
+                                       <span className="ready-up-label">Ready!</span>
                                     </button>
                                     :
                                     <span>Waiting for other players.</span>

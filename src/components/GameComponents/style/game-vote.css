@@ -96,6 +96,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-size: calc((2vh + 2vw) / 2);
 }
 
 .player-votes ul{
@@ -126,6 +127,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-size: calc((2vh + 2vw) / 2);
 }
 
 .score-summary ul{
@@ -160,7 +162,15 @@
 .no-button, .yes-button{
     width: 40%;
     height: 75%;
-    font-size: x-large;
+    font-size: calc((4vh + 4vw) / 2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ready-up-label{
+    font-size: calc((2.5vh + 2.5vw) / 2);
 }
 
 .no-button:hover{

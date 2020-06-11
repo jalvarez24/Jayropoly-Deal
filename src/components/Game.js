@@ -200,6 +200,7 @@ export default function Game() {
                               roundEndTime={roundEndTime}
                               answer={answer}
                               setGameVoteOn={setGameVoteOn}
+                              gameVoteOn={gameVoteOn}
                             />
                         </div>
                         <div className="game-players-container">

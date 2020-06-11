@@ -109,7 +109,7 @@ export default function Chat(props) {
                                 }
                                 </>
                             }
-                            : <span className="message-text">{msg.message}</span>
+                            :<span className="message-text">{msg.message}</span>
                         </li>
                     ))
                     :
@@ -117,7 +117,7 @@ export default function Chat(props) {
                     }
                 </ul>    
                 <form className="text-area" onSubmit={(e) => {e.preventDefault()}}>
-                        <input spellCheck="false" id="message_input" style={{marginRight: "5px"}} type="text" placeholder="Enter new message" autoComplete="off" required
+                        <input spellCheck="false" id="message_input" type="text" placeholder="Enter new message" autoComplete="off" required
                             onChange={(e) => { setMessageText(e.target.value) }} 
                         />
                         <button className="submit" onClick={addMessage}></button>
