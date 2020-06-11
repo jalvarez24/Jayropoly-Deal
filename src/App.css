@@ -8,6 +8,7 @@
   min-height: 80vh;
   padding-left: 5vw;
   padding-right: 5vw;
+  position: relative;
 }
 
 .home {font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -109,7 +110,7 @@ button:hover{
   cursor: pointer;
 }
 
-.navBar {
+.navBar{
   display: flex;
   justify-content: space-between;
   align-items: stretch;

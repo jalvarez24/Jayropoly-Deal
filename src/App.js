@@ -32,6 +32,9 @@ export default function App() {
           <Route path="/lobby" component={Lobby}/>
           <Route path="/game" component={Game}/>
           <Route path="/instructions" component={Instructions}/>
+          
+          {/* default route */}
+          <Route component={Home}/>
         </Switch>
       </div>
     </Router>
