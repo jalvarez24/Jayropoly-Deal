@@ -4,6 +4,8 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    user-select: none;
 }
 
 .instructions-content{
@@ -27,26 +29,53 @@
     display: none;
 }
 
+.summary-div{
+    font-size: calc((4vh + 4vw)/2);
+}
+
 .instructions-label{
-    padding-top: 10px;
+    padding: 2vh;
     font-weight: bold;
     font-size: calc((8vh + 8vw)/2);
     color: white;
     -webkit-text-stroke: calc((.3vh + .3vw)/2) black;
 }
 
-.test-div{
+
+.instructions-section{
     border-radius: 25px;
-    margin: 2% 0;
-    padding: 0 4%;
-    height: 40vh;
-    width: 80%;
+    padding: 2%;
+    margin-bottom: 5%;
+    height: fit-content;
+    width: 85%;
     border-style: solid;
     background: #2EC4B6;
-    font-size: calc((3vh + 3vw)/2);
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    animation-name: test-div-float;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.instructions-section span{
+    background-color: rgba(248, 246, 247, 0.5);;
+    margin: 0 4%;
+    padding: 4%;
+    border-radius: 20px;
+    font-size: calc((5vh + 5vw)/2);
+    display: flex;
+    justify-items: center;
+    align-content: center;
+}
+
+@keyframes test-div-float {
+    from { transform: translate(0,  0px); }
+    65%  { transform: translate(0, 15px); }
+    to   { transform: translate(0, -0px); }    
 }
 
 
@@ -56,21 +85,22 @@
     margin:0;
     padding: 0;
     top: 20vh;
-    height: 100px;
+    height: 15vh;
     width: 100%;
     background-color: #FF3366;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    z-index: 100;
 }
 
 .instructions-nav a{
     border-radius: 25px;
     color: black;
     text-align: center;
-    padding: 14px 16px;
+    padding: 10px;
     text-decoration: none;
-    font-size: 30px;
+    font-size: calc((3vh + 3vw)/2);
 }
 
 .instructions-nav a:hover{
@@ -90,6 +120,13 @@
     width: 90%;
 }
 
-.sticky + .instructions-tab .instructions-label {
-    padding-top: 100px;
+.add-label-padding{
+    padding-top: calc(15vh + 2vh);
+}
+
+/* gifs */
+.gif{
+    height: calc((30vh + 30vw)/2);
+    width: auto;
+    max-height: none;
 }

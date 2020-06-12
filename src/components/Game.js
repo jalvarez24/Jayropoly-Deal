@@ -8,6 +8,7 @@ import GamePlayers from './GameComponents/GamePlayers';
 import GameVote from './GameComponents/GameVote';
 import Chat from './Chat'
 import Javi from  "../images/javibanner.jpg"
+import Settings from './Settings'
 
 export default function Game() {
     const [functionsLoaded, setFunctionsLoaded] = useState(false);
@@ -23,6 +24,9 @@ export default function Game() {
     const [giveUpId, setGiveUpId] = useState("");
     const [localGaveUp, setLocalGaveUp] = useState(false);
     const [winner, setWinner] = useState("");
+    const [scoreTarget, setScoreTarget] = useState(0);
+    const [roundTime, setRoundTime] = useState(0);
+    const [countdownTime, setCountdownTime] = useState(0);
 
     const [redirect, setRedirect] = useState(() => {
 
@@ -94,6 +98,12 @@ export default function Game() {
               setAnswerId(snapshot.child('answer').child('id').val());
 
               setHostId(snapshot.child('hostId').val());
+
+              setScoreTarget(snapshot.child('scoreTarget').val());
+
+              setRoundTime(snapshot.child('roundTime').val());
+
+              setCountdownTime(snapshot.child('countdownTime').val());
 
               let newList = {};
               snapshot.child('players').forEach((player)=> {
@@ -266,6 +276,7 @@ export default function Game() {
             </div>
           </div>
         }
+        <Settings scoreTarget={scoreTarget} roundTime={roundTime} countdownTime={countdownTime}/>
         </div>
     )
 }

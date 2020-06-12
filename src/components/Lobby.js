@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import firebase from '../firebase';
 import {Redirect} from 'react-router-dom';
 import Chat from './Chat'
+import Settings from './Settings'
 import './style/lobby.css';
 
 
@@ -36,7 +37,6 @@ export default function Lobby() {
           setHostId(snapshot.child('hostId').val());
           let newList = {};
           snapshot.child('players').forEach((player)=> {
-            console.log("readyUp: " + player.child('readyUp').val());
             newList[player.key] = {
               name: player.child('name').val(),
               vote: player.child('vote').val(),
@@ -111,13 +111,7 @@ export default function Lobby() {
     document.body.removeChild(input);
   }
 
-  const [gameStarted, setGameStarted] = useState(false)
-
   function startGame() {
-    // localStorage.setItem("inLobby", false);
-    // localStorage.setItem("inGame", true);
-    // setRedirect('/game');
-
     let rootRef = firebase.database().ref();
     let lobbiesRef = rootRef.child('lobbies');
     lobbiesRef.child(gameId).child('gameStarted').set(true);
@@ -187,6 +181,8 @@ export default function Lobby() {
       <div className="chat">
         <Chat gameId={gameId} playerList={playerList}/>
       </div>
+
+      <Settings/>
       
     </div>
   )

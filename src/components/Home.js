@@ -48,7 +48,10 @@ export default function Home() {
         id: "",
         value: ""
       },
-      giveUpId: ""
+      giveUpId: "",
+      scoreTarget: 5,
+      roundTime: 10,
+      countdownTime: 5
     }
     let rootRef = firebase.database().ref();
     let lobbiesRef = rootRef.child('lobbies');
