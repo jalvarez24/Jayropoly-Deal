@@ -2,12 +2,9 @@ import React, {useState, useEffect} from 'react';
 import firebase from 'firebase';
 import '../style/game.css';
 import './style/game-vote.css';
-import { isEmptyStatement, conditionalExpression } from '@babel/types';
 
-export default function GameVote({category, letter, answer, answerId, playerList, giveUpId, setLocalGaveUp, hostId, createNewRound}) {
+export default function GameVote({category, letter, answer, answerId, playerList, giveUpId, setLocalGaveUp, hostId, createNewRound, scoreTarget}) {
 
-    const [newRoundDetected, setNewRoundDetected] = useState(false);
-    const [givePointTo, setGivePointTo] = useState("");
     const [playerVoted, setPlayerVoted] = useState(false);
     const [playerReadyUped, setPlayerReadyUped] = useState(false);
 
@@ -23,7 +20,7 @@ export default function GameVote({category, letter, answer, answerId, playerList
                 gameRef.child('players').child(giveUpId).child('score').set(
                     snapshot.child('players').child(giveUpId).child('score').val() + 1
                 );
-                gameRef.child('roundEndTime').set(Date.now() + 10000);
+                // gameRef.child('roundEndTime').set(Date.now() + 10000);
                 let username = snapshot.child('players').child(giveUpId).child('name').val();
                 gameRef.child('messages').push({
                     message: `Point given to ${username}`,
@@ -197,6 +194,7 @@ export default function GameVote({category, letter, answer, answerId, playerList
                                             </li>              
                                         })
                                     }
+                                    <span className="target-score-label">Score Target: {scoreTarget}</span>
                                     </ul>
                             </div>
                         </div>
@@ -267,9 +265,10 @@ export default function GameVote({category, letter, answer, answerId, playerList
                                                     value.score
                                                 }
                                                 </span>
-                                            </li>              
+                                            </li>         
                                         })
                                     }
+                                    <span className="target-score-label">Score Target: {scoreTarget}</span>
                                     </ul>
                                 </div>
                             </div>

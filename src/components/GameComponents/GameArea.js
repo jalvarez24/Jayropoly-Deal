@@ -15,7 +15,8 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
         }    
 
         return () => {
-                window.cancelAnimationFrame(roundEndReq.current);
+            console.log("animation cancelled!")
+            window.cancelAnimationFrame(roundEndReq.current);
         }
 
     }, [answer]);
@@ -38,7 +39,7 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
         this.running = true;
         var remainingSeconds = this.els.seconds.textContent = this.duration / 1000;
         
-        function draw(now) {  
+        function draw(now) { 
             if (!start) {
                 start = now;
                 //protects if animation called while browser was in background
@@ -80,6 +81,7 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
         this.running = true;
         
         function draw(now) {  
+            console.log("animationframe call");
             if (!start) {
                 start = now;
                 //protects if animation called while browser was in background
@@ -132,7 +134,7 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
     
     useEffect(() => {
         if(typeof(roundEndTime) === "number"){
-            if(roundEndTime > Date.now()){
+            if(roundEndTime > Date.now() && roundStartTime <= Date.now()){
                 setRoundEndTimerOn(true);
             }
             else{

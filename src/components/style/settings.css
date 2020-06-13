@@ -24,10 +24,12 @@
 .settings-container:hover{
     background-color: #F6F7F8;
     cursor: pointer;
-}nm
+}
 .settings-container:hover div{
     background-color: #FF3366;
 }
+
+/* modal */
 
 .settings-item{
     background-color: rgb(255, 255, 255, 25%);
@@ -67,15 +69,29 @@
 }
 
 .update-input span{
-    line-height: calc((3.5vh + 4vw)/2);
+    line-height: calc((3.5vh + 3.5vw)/2);
+}
+
+.update-input:hover{
+    background-color: #3399FF;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.input-max{
+    background-color: red;
+}
+
+.input-max:hover{
+    background-color: red;
+    cursor: initial;
 }
 
 .input-value{
-    font-size: calc((8vh + 8vw)/2);
+    font-size: calc((7vh + 7vw)/2);
     margin: 0 5%;
 }
 
-/* modal style */
 .modal-content-style{
     background-color: #3399FF;
     position: absolute;
@@ -88,6 +104,8 @@
     border-radius: 6px;
     outline: none;
     padding: 2.5%;
+    user-select: none;
+    -moz-user-select: none;
 }
 
 .modal-content-container{
@@ -128,7 +146,7 @@
     height: 70%;
     width: 30%;
     border-radius: 25px;
-    font-size: calc((4vh + 4vw)/2);
+    font-size: calc((3.5vh + 3.5vw)/2);
 }
 
 .close-button{

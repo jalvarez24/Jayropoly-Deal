@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import './style/instructions.css'
 import createLobby from './gifs/createlobby.gif'
+
 export default function Instructions() {
 
     useEffect(() => {

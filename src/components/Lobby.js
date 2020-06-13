@@ -8,6 +8,10 @@ import './style/lobby.css';
 
 export default function Lobby() {
 
+  const [scoreTarget, setScoreTarget] = useState(0);
+  const [roundTime, setRoundTime] = useState(0);
+  const [countdownTime, setCountdownTime] = useState(0);
+
   const [redirect, setRedirect] = useState(() => {
 
     let game = localStorage.getItem("inGame");
@@ -44,6 +48,13 @@ export default function Lobby() {
               readyUp: player.child('readyUp').val()
             }
           })
+
+          setScoreTarget(snapshot.child('scoreTarget').val());
+
+          setRoundTime(snapshot.child('roundTime').val());
+
+          setCountdownTime(snapshot.child('countdownTime').val());
+
           setPlayerList(newList);
           if(snapshot.child('gameStarted').val() === true) {
             localStorage.setItem("inLobby", "false");
@@ -182,7 +193,7 @@ export default function Lobby() {
         <Chat gameId={gameId} playerList={playerList}/>
       </div>
 
-      <Settings/>
+      <Settings hostId={hostId} scoreTarget={scoreTarget} roundTime={roundTime} countdownTime={countdownTime}/>
       
     </div>
   )

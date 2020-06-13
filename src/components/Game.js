@@ -40,6 +40,17 @@ export default function Game() {
         return '/';
     });
 
+    //check for playerList updates in case there's a winner
+    useEffect(() => {
+      if(scoreTarget !== 0) {
+        for(let key of Object.keys(playerList)) {
+          if(playerList[key].score >= scoreTarget) {
+            setWinner(key);
+          }
+        }
+      }
+    })
+
     //if answer detected on load, display vote
     useEffect(() => {
       if(answer !== "") {
@@ -76,7 +87,7 @@ export default function Game() {
                 setFunctionsLoaded(true);
               }
 
-              if(snapshot.child('winner').exists())
+              if(snapshot.child('winner').val() !== "")
                 setWinner(snapshot.child('winner').val());
               
               if(snapshot.child('roundStartTime').exists() && snapshot.child('roundStartTime').val() > 0){
@@ -107,9 +118,7 @@ export default function Game() {
 
               let newList = {};
               snapshot.child('players').forEach((player)=> {
-                if(player.child('score').val() >= 10) {
-                  setWinner(player.key);
-                }
+                
                 newList[player.key] = {
                   name: player.child('name').val(),
                   vote: player.child('vote').val(),
@@ -198,6 +207,7 @@ export default function Game() {
                     setLetter={setLetter}
                     hostId={hostId}
                     createNewRound={createNewRound}
+                    scoreTarget={scoreTarget}
                   />
                   :
                   <>
@@ -276,7 +286,7 @@ export default function Game() {
             </div>
           </div>
         }
-        <Settings scoreTarget={scoreTarget} roundTime={roundTime} countdownTime={countdownTime}/>
+        <Settings hostId={hostId} scoreTarget={scoreTarget} roundTime={roundTime} countdownTime={countdownTime}/>
         </div>
     )
 }

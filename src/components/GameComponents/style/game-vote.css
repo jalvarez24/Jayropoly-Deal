@@ -150,6 +150,10 @@
     justify-content: space-between;
 }
 
+.target-score-label{
+    margin: 10px;
+}
+
 .vote-buttons-div{
     background-color: cadetblue;
     width: 100%;
