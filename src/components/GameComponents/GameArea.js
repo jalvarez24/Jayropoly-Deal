@@ -15,7 +15,6 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
         }    
 
         return () => {
-            console.log("animation cancelled!")
             window.cancelAnimationFrame(roundEndReq.current);
         }
 
@@ -81,7 +80,6 @@ export default function GameArea({category, letter, roundStartTime, roundEndTime
         this.running = true;
         
         function draw(now) {  
-            console.log("animationframe call");
             if (!start) {
                 start = now;
                 //protects if animation called while browser was in background

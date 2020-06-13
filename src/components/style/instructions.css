@@ -66,7 +66,7 @@
     margin: 0 4%;
     padding: 4%;
     border-radius: 20px;
-    font-size: calc((5vh + 5vw)/2);
+    font-size: calc((4vh + 4vw)/2);
     display: flex;
     justify-items: center;
     align-content: center;
@@ -124,9 +124,66 @@
     padding-top: calc(15vh + 2vh);
 }
 
-/* gifs */
+/* media */
 .gif{
     height: calc((30vh + 30vw)/2);
     width: auto;
     max-height: none;
+}
+
+.pic{
+    height: calc((40vh + 40vw)/2);
+    width: auto;
+    max-height: none;
+}
+
+/* dev */
+.dev-section{
+    border-radius: 25px;
+    padding: 2%;
+    margin-bottom: 5%;
+    height: fit-content;
+    width: 85%;
+    border-style: solid;
+    background: #2EC4B6;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    animation-name: test-div-float;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.dev-section span{
+    background-color: rgba(248, 246, 247, 0.5);;
+    margin: 0 4%;
+    padding: 4%;
+    border-radius: 20px;
+    font-size: calc((3vh + 3vw)/2);
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.dev-links{
+    width: 50%;
+    height: 10%;
+    padding-top: 5%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.dev-links img{
+    height: calc((7vh + 7vw)/2);
+    width: auto;
+    border-radius: 50%;
+}
+
+.dev-links img:hover{
+    background-color: #FF3366;
+    cursor: pointer;
 }

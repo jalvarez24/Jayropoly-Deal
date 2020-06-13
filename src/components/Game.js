@@ -155,7 +155,7 @@ export default function Game() {
         }
       }
 
-      const submitAnswer = async (e) => {
+      async function submitAnswer(e) {
         if(e.key === "Enter") {
           let input = e.currentTarget.value;
           if(input === "") return;
@@ -170,7 +170,7 @@ export default function Game() {
         }
       }
 
-      const submitGiveUp = async (e) => {
+      async function submitGiveUp(e) {
         setLocalGaveUp(true);
         let gameRef =  await firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
         gameRef.once("value")

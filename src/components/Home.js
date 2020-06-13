@@ -4,8 +4,6 @@ import {Link, Redirect} from 'react-router-dom';
 import '../App.css';
 import {v4 as uuidv4} from 'uuid';
 
-import Categories from './categories.json'
-
 export default function Home() {
 
   //string

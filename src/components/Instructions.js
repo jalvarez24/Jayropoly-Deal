@@ -1,6 +1,15 @@
 import React, {useEffect} from 'react';
-import './style/instructions.css'
-import createLobby from './gifs/createlobby.gif'
+import './style/instructions.css';
+import createLobby from './gifs/createLobby.gif';
+import joinFriend from './gifs/joinFriend.gif';
+import updateSettings from './gifs/updateSettings.gif';
+import startGame from './gifs/startGame.gif';
+import chat from './gifs/chat.gif';
+import devPic from '../images/devpic.jpg';
+import github from '../images/github.png';
+import globe from '../images/globe.png';
+import reactlogo from '../images/reactlogo.png';
+import firebaselogo from '../images/firebaselogo.png';
 
 export default function Instructions() {
 
@@ -88,23 +97,30 @@ export default function Instructions() {
                 <div className="inactive-tab" id="howtoplay-tab">
                     <span className="instructions-label">how to play</span>
                     <div className="instructions-section">
+                    <img className="gif" src={createLobby} alt="loading"/>
                         <span>
                             Create a lobby or join a friend's lobby.
                         </span>
-                        <img className="gif" src={createLobby} alt="loading"/>
+                        
                     </div>
                     <div className="instructions-section">
                         <span>
+                            Share lobby code to have friends join.
+                        </span>
+                        <img className="gif" src={joinFriend} alt="loading"/>
+                    </div>
+                    <div className="instructions-section">
+                        <img className="gif" src={updateSettings} alt="loading"/>
+                        <span>
                             The host can update the game settings before starting the game.
                         </span>
-
                     </div>
                     <div className="instructions-section">
                         <span>
                             On game start, rounds will start loading. After initial countdown, a random category
                             and letter will appear.
                         </span>
-                        
+                        <img className="gif" src={startGame} alt="loading"/>
                     </div>
                     <div className="instructions-section">
                         <span>
@@ -112,7 +128,7 @@ export default function Instructions() {
                             point will be awarded. If majority votes yes, point awarded.
                             <br/>
                             If you are unable to come up with anything, click the 'Give Up' button. Point will be
-                            awarded to the first to 'Give Up' when no one submit answer for the given Category and Letter.
+                            awarded to the first to 'Give Up' when no one submits answer for the given Category and Letter.
                         </span>
                     </div>
                 </div>
@@ -121,19 +137,51 @@ export default function Instructions() {
                     <span className="instructions-label">features</span>
                     <div className="instructions-section">
                         <span>
-                            Create a lobby or join a friend's lobby.
+                            Real-time chat available at all times.
+                        </span>
+                        <img className="gif" src={chat} alt="loading"/>
+                    </div>
+                    <div className="instructions-section">
+                        <span>
+                            No need to sign up to play. Just use any username to go by
+                            and the application generates a unique userId and is saved
+                            as a cookie.
                         </span>
                         <img className="gif" src={createLobby} alt="loading"/>
+                    </div>
+                    <div className="instructions-section">
+                        <span>
+                            Front-End is built with React.js framework.
+                        </span>
+                        <img className="gif" src={reactlogo} alt="loading"/>
+                    </div>
+                    <div className="instructions-section">
+                    <img className="gif" src={firebaselogo} alt="loading"/>
+                        <span>
+                            Back-End is built with Google Firebase tools: Google Real-time Database & 
+                            Google Cloud Functions.
+                        </span>
                     </div>
                 </div>
 
                 <div className="inactive-tab" id="developer-tab">
                     <span className="instructions-label">developer</span>
-                    <div className="instructions-section">
-                        <span>
-                            Create a lobby or join a friend's lobby.
-                        </span>
-                        <img className="gif" src={createLobby} alt="loading"/>
+                    <div className="dev-section">
+                        <img className="pic" src={devPic} alt="loading"/>
+                        <div className="dev-info">
+                            <span>
+                                My name is Jayro and I am very passionate about software development.
+                                Feel free to check out my project's source code as well as my portfolio below!
+                                <div className="dev-links">
+                                    <a href="https://github.com/jalvarez24/i-got-it-fam/" target="_blank">
+                                        <img src={github} alt="loading"/>
+                                    </a>
+                                    <a href="https://jalvarez24.github.io/" target="_blank">
+                                        <img src={globe} alt="loading"/>
+                                    </a>
+                                </div>
+                            </span>   
+                        </div>
                     </div>
                 </div>
 
