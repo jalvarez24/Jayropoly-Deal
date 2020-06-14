@@ -5,11 +5,41 @@ import './style/settings.css';
 
 Modal.setAppElement('#root');
 
-export default function Settings({hostId, scoreTarget, roundTime, countdownTime}) {
+export default function Settings({hostId, scoreTarget, roundTime, countdownTime, setRedirect}) {
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const [inGame, setInGame] = useState(localStorage.getItem('inGame'));
+
+    function endGame() {
+        //update the database, delete entire instance of the lobby
+        let gameRef = firebase.database().ref().child(`lobbies/${localStorage.getItem('gameId')}`);
+    
+        gameRef.once("value")
+          .then((snapshot) =>{
+            if(snapshot.exists()) gameRef.remove();          
+            else {
+              console.log("Unable to end lobby.");
+              return;
+            }
+          });  
+      }
+    
+      function exitGame() {
+        let playerListRef = firebase.database().ref().child(`lobbies/${localStorage.getItem('gameId')}/players`);
+    
+        playerListRef.once("value")
+            .then(function(snapshot) {
+              if(snapshot.exists()) playerListRef.child(localStorage.getItem("userId")).remove();          
+            });   
+        //update localStorage
+        localStorage.removeItem("inLobby");
+        localStorage.removeItem("inGame");
+        localStorage.removeItem("gameId");
+               
+        //redirect back '/' (home)
+        setRedirect('/');
+      }
 
     async function updateInput(e) {
         //don't allow access if game has started || client is not host
@@ -80,13 +110,17 @@ export default function Settings({hostId, scoreTarget, roundTime, countdownTime}
                     <div className="menu-div">
                         <span className="menu-label">Menu</span>
                         <div className="menu-buttons-div">
-                            <button>Leave Game</button>
-                            <button>End Game</button>
+                            {
+                                localStorage.getItem('userId') === hostId ?
+                                <button onClick={endGame}>End Game</button>
+                                :
+                                <button onClick={exitGame}>Leave Game</button>
+                            }
                         </div>
                     </div>
                     <div className="settings-div">
                         <span className="settings-label">Game Settings</span>
-                        <span>Note: Only host can update game settings from lobby.</span>
+                        <span style={{textDecoration: "underline"}}>Note: Only host can update game settings from lobby.</span>
                         <div className="settings-content-div">
                             <div className="settings-item">
                                 <span className="settings-item-label">Score Target:</span>
