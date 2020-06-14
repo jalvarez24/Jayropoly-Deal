@@ -167,7 +167,12 @@ export default function Instructions() {
                 <div className="inactive-tab" id="developer-tab">
                     <span className="instructions-label">developer</span>
                     <div className="dev-section">
-                        <img className="pic" src={devPic} alt="loading"/>
+                        <div className="pic-container">
+                            <img className="pic" src={devPic} alt="loading"/>
+                            <div className="pic-caption">
+                                <div className="pic-text">Jayro Alvarez</div>
+                            </div>
+                        </div>
                         <div className="dev-info">
                             <span>
                                 My name is Jayro and I am very passionate about software development.
