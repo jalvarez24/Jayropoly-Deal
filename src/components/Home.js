@@ -106,6 +106,15 @@ export default function Home() {
     setReturningUser(null);
   }
 
+  function updateUsername(e) {
+    if(e.target.value.trim().length > 10) {
+      while(e.target.value.trim().length > 10) {
+        e.target.value = e.target.value.trim().substr(0, 10);
+      }
+    }
+    setUsername(e.target.value.trim());
+  }
+
   function preventEnter(keyEvent) {
     if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
       keyEvent.preventDefault();
@@ -155,7 +164,8 @@ export default function Home() {
               <>
                 <span>Enter a name to play: </span>
                 <div style={{position: "relative", display: "inline"}}>
-                  <input onChange={(e) => {setUsername(e.target.value.trim())}} type="text" placeholder="Name" spellCheck="false" required/>
+                  {/* <input onChange={(e) => {setUsername(e.target.value.trim())}} type="text" placeholder="Name" spellCheck="false" required/> */}
+                  <input onChange={(e) => {updateUsername(e)}} type="text" placeholder="Name" spellCheck="false" required/>
                   <span className="focus-border"></span>
                 </div>
               </>
