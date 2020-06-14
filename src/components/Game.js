@@ -87,9 +87,6 @@ export default function Game() {
                 setFunctionsLoaded(true);
               }
 
-              if(snapshot.child('winner').val() !== "")
-                setWinner(snapshot.child('winner').val());
-              
               if(snapshot.child('roundStartTime').exists() && snapshot.child('roundStartTime').val() > 0){
                 setRoundStartTime(snapshot.child('roundStartTime').val());
               }
@@ -127,6 +124,13 @@ export default function Game() {
                 }
               })
               setPlayerList(newList);
+
+              //update setRedirect if gameStarted is changed in db to false (send back to lobby)
+              if(snapshot.child('gameStarted').val() === false) {
+                localStorage.setItem("inLobby", true);
+                localStorage.setItem("inGame", false);
+                setRedirect("/lobby");
+              }
             }
           })
     
@@ -153,7 +157,7 @@ export default function Game() {
         for(let key of Object.keys(playerList)) {
           await gameRef.child('players').child(key).child('vote').set("");
         }
-      }
+      }   
 
       async function submitAnswer(e) {
         if(e.key === "Enter") {
@@ -179,6 +183,82 @@ export default function Game() {
               gameRef.child('giveUpId').set(localStorage.getItem('userId'));
             }
           })
+      }
+
+      //functions for winning screen:
+
+      //only works for host
+      function restartLobby() {
+        if(localStorage.getItem('userId') !== hostId)
+          return;
+        
+        //reset all game stats on db and redirect back to lobby
+        //  reset: 
+        //    category:""
+        //    letter:""
+        //    gameStarted:false
+        //    answer:{id:"", value:""}
+        //    all player scores to 0
+
+        //  delete: functionsLoaded, roundStartTime, roundEndTime
+
+        let gameRef = firebase.database().ref().child(`lobbies/${localStorage.getItem('gameId')}`);
+    
+        gameRef.once("value")
+          .then((snapshot) =>{
+            gameRef.child('category').set("");
+            gameRef.child('letter').set("");
+            gameRef.child('gameStarted').set(false);
+            gameRef.child('answer').child('id').set("");
+            gameRef.child('answer').child('value').set("");
+            for(let key of Object.keys(playerList)) {
+              gameRef.child('players').child(key).child('score').set(0);
+            }
+
+            gameRef.child('functionsLoaded').set(null);
+            gameRef.child('roundStartTime').set(null);
+            gameRef.child('roundEndTime').set(null);
+          });
+
+        // //update localStorage
+        // localStorage.setItem('inLobby', true);
+        // localStorage.setItem('inGame', false);
+        
+        // //redirect back '/lobby'
+        // setRedirect('/lobby');
+      }
+
+      function quitGame() {
+        //if host, end game on quit
+        if(localStorage.getItem('userId') === hostId) {
+          //update the database, delete entire instance of the lobby
+          let gameRef = firebase.database().ref().child(`lobbies/${localStorage.getItem('gameId')}`);
+      
+          gameRef.once("value")
+            .then((snapshot) =>{
+              if(snapshot.exists()) gameRef.remove();          
+              else {
+                console.log("Unable to end game as host.");
+                return;
+              }
+            });  
+        }
+        //else, just remove from game list
+        else {
+          let playerListRef = firebase.database().ref().child(`lobbies/${localStorage.getItem('gameId')}/players`);
+    
+          playerListRef.once("value")
+              .then(function(snapshot) {
+                if(snapshot.exists()) playerListRef.child(localStorage.getItem("userId")).remove();          
+              });   
+          //update localStorage
+          localStorage.removeItem("inLobby");
+          localStorage.removeItem("inGame");
+          localStorage.removeItem("gameId");
+                
+          //redirect back '/' (home)
+          setRedirect('/');
+        }
       }
 
     return(
@@ -226,6 +306,7 @@ export default function Game() {
                         <div className="game-players-container">
                             <GamePlayers 
                               playerList={playerList}
+                              scoreTarget={scoreTarget}
                             />
                         </div>
                     </div>
@@ -260,9 +341,16 @@ export default function Game() {
                         </span>
                       </span>
                       <div className="winner-buttons">
-                        <button style={{marginRight: "5%"}}>Back to Lobby</button>
-                        <button>Quit</button>
+                        <button 
+                          onClick={restartLobby} 
+                          className={localStorage.getItem('userId') !== hostId ? "button-disabled" : null}>
+                          Restart Lobby
+                        </button>
+                        <button onClick={quitGame}>
+                          Quit
+                        </button>
                       </div>
+                      <span style={{textDecoration: "underline"}}>Note: Only host can restart lobby.</span>
                     </div>
                   </div>
                 </div>
@@ -271,7 +359,6 @@ export default function Game() {
             <div className="game-right">
                 <Chat gameId={gameId} playerList={playerList}/>
             </div>
-            {/* <button style={{width: "60px", height: "30px", position: "absolute"}} onClick={createNewRound}>New</button> */} 
           </>     
           :
           <div className="game-loading">
@@ -286,7 +373,7 @@ export default function Game() {
             </div>
           </div>
         }
-        <Settings hostId={hostId} scoreTarget={scoreTarget} roundTime={roundTime} countdownTime={countdownTime}/>
+        <Settings hostId={hostId} scoreTarget={scoreTarget} roundTime={roundTime} countdownTime={countdownTime} setRedirect={setRedirect}/>
         </div>
     )
 }

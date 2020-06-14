@@ -57,8 +57,8 @@ export default function Lobby() {
 
           setPlayerList(newList);
           if(snapshot.child('gameStarted').val() === true) {
-            localStorage.setItem("inLobby", "false");
-            localStorage.setItem("inGame", "true");
+            localStorage.setItem("inLobby", false);
+            localStorage.setItem("inGame", true);
             setRedirect("/game");
           }
         }
@@ -93,16 +93,11 @@ export default function Lobby() {
   }
 
   function exitLobby() {
-    //update the database!!!
     let playerListRef = firebase.database().ref().child(`lobbies/${gameId}/players`);
 
     playerListRef.once("value")
         .then(function(snapshot) {
           if(snapshot.exists()) playerListRef.child(localStorage.getItem("userId")).remove();          
-          else {
-            console.log("unable to remove player in db.");
-            return;
-          }
         });   
     //update localStorage
     localStorage.removeItem("inLobby");
@@ -127,7 +122,6 @@ export default function Lobby() {
     let lobbiesRef = rootRef.child('lobbies');
     lobbiesRef.child(gameId).child('gameStarted').set(true);
     lobbiesRef.child(gameId).child('roundStartTime').set(0);
-    lobbiesRef.child(gameId).child('winner').set("");
   }
 
   return (
@@ -193,7 +187,7 @@ export default function Lobby() {
         <Chat gameId={gameId} playerList={playerList}/>
       </div>
 
-      <Settings hostId={hostId} scoreTarget={scoreTarget} roundTime={roundTime} countdownTime={countdownTime}/>
+      <Settings hostId={hostId} scoreTarget={scoreTarget} roundTime={roundTime} countdownTime={countdownTime} setRedirect={setRedirect}/>
       
     </div>
   )
