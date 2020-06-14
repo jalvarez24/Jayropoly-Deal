@@ -3,7 +3,7 @@ import '../style/game.css'
 import './style/game-players.css'
 import { isPending } from 'q';
 
-export default function GamePlayers({playerList}) {
+export default function GamePlayers({playerList, scoreTarget}) {
 
     return (
         <div className="game-component">
@@ -23,6 +23,7 @@ export default function GamePlayers({playerList}) {
                             </li>              
                         })
                     }
+                    <div className="players-target-score-label">Score Target: {scoreTarget}</div>
                     </ul>
                 </div>
             </div>
