@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import firebase from '../firebase';
 import Modal from 'react-modal'
 import './style/settings.css';
+import gear from '../images/gear.png';
 
 Modal.setAppElement('#root');
 
@@ -95,10 +96,14 @@ export default function Settings({hostId, scoreTarget, roundTime, countdownTime,
 
     return (
         <>
+            {/* <button className = "settings-container" onClick={() => {setModalIsOpen(true)}} style={{display: modalIsOpen ? "none" : null}}>
+                <div className="settings-bar"/>
+                <div className="settings-bar"/>
+                <div className="settings-bar"/>
+            </button> */}
+
             <button className = "settings-container" onClick={() => {setModalIsOpen(true)}} style={{display: modalIsOpen ? "none" : null}}>
-                <div className="settings-bar"/>
-                <div className="settings-bar"/>
-                <div className="settings-bar"/>
+                <img src={gear} alt="loading"></img>
             </button>
 
             <Modal 

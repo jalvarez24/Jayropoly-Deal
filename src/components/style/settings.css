@@ -14,19 +14,14 @@
     align-items: center;
 }
 
-.settings-bar{
-    width: 70%;
-    height: 8%;
-    background-color: black;
-    margin: 5% 0;
+.settings-container img{
+    width: calc((5vh + 5vw)/2);
+    height: calc((5vh + 5vw)/2);
 }
 
 .settings-container:hover{
-    background-color: #F6F7F8;
+    background-color: #2EC4B6;
     cursor: pointer;
-}
-.settings-container:hover div{
-    background-color: #FF3366;
 }
 
 /* modal */
