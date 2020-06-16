@@ -11,7 +11,7 @@ points by coming up with a word or term that fits the round's randomly generated
 letter combination. Only the first answer is accepted so think fast!
 
 <p align="middle">
-<img src="/src/components/gifs/startGame.gif" width="100px" height="auto"/>
+<img src="/src/components/gifs/startGame.gif"/>
 </p>
 
 ### Features Initial Release: 
