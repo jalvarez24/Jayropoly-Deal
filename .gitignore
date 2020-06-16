@@ -26,7 +26,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # other stuff
-/src/components/gifs
 /src/images
 /src/serviceWorker.js
 /src/setupTests.js
