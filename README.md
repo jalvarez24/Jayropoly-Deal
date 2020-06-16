@@ -10,7 +10,7 @@ to play this real-time creative-thinking game. The objective of the game is to g
 points by coming up with a word or term that fits the round's randomly generated category and
 letter combination. Only the first answer is accepted so think fast!
 
-![Gif Test](src/gifs/startGame.gif)
+![Gif Test](/src/components/gifs/startGame.gif)
 
 ### Features Initial Release: 
 - Real-time gameplay
