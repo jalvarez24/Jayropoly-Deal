@@ -56,6 +56,9 @@ letter combination. Only the first answer is accepted so think fast!
     <img width="75%" src="src/components/gifs/createlobby.gif"/>
 </div>
 
+<br/>
+<br/>
+
 <div align="middle" >
     <div>
         Share lobby code to have friends join.
@@ -63,12 +66,18 @@ letter combination. Only the first answer is accepted so think fast!
     <img width="75%" src="src/components/gifs/joinFriend.gif"/>
 </div>
 
+<br/>
+<br/>
+
 <div align="middle" >
     <div>
         The host can update the game settings before starting the game.
     </div>
     <img width="75%" src="src/components/gifs/updateSettings.gif"/>
 </div>
+
+<br/>
+<br/>
 
 <div align="middle" >
     <div>
@@ -78,12 +87,18 @@ letter combination. Only the first answer is accepted so think fast!
     <img width="75%" src="src/components/gifs/startGame.gif"/>
 </div>
 
+<br/>
+<br/>
+
 <div align="middle" >
     <div>
         The first answer submitted by any player will be voted on by other players to see if
         point will be awarded. If majority votes yes, point awarded.
     </div>
 </div>
+
+<br/>
+<br/>
 
 <div align="middle" >
     <div>
