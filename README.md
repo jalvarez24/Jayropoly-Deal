@@ -24,9 +24,9 @@ letter combination. Only the first answer is accepted so think fast!
         and the application generates a unique userId and is saved
         as a cookie.
     </span>
-    <img width="50%" src="src/components/gifs/createLobby.gif"/>
+    <img width="50%" src="src/components/gifs/createlobby.gif"/>
     </div>
-</div>v
+</div>
 
 <div align="middle" style="padding-bottom: 20px">
     <div style="display: flex; justify-content: center; align-items: center">
