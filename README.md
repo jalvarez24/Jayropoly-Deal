@@ -10,12 +10,15 @@ points by coming up with a word or term that fits the round's randomly generated
 letter combination. Only the first answer is accepted so think fast!
 
 ### Features: 
-<div align="middle" style="padding-bottom: 20px">
+<div align="middle" >
     <div>Real-time chat available at all times.</div>
     <img width="35%" src="src/components/gifs/chat.gif"/>
 </div>
 
-<div align="middle" style="padding-bottom: 20px">
+<br/>
+<br/>
+
+<div align="middle" >
     <div>
         No need to sign up to play. Just use any username to go by
         and the application generates a unique userId and is saved
@@ -24,14 +27,20 @@ letter combination. Only the first answer is accepted so think fast!
     <img width="75%" src="src/components/gifs/createlobby.gif"/>
 </div>
 
-<div align="middle" style="padding-bottom: 20px">
+<br/>
+<br/>
+
+<div align="middle" >
     <div>
         Front-End is built with React.js framework.
     </div>
     <img width="15%" src="src/images/reactlogo.png"/>
 </div>
 
-<div align="middle" style="padding-bottom: 20px">
+<br/>
+<br/>
+
+<div align="middle" >
     <div>
         Back-End is built with Google Firebase tools: Google Real-time Database & Google Cloud Functions.
     </div>
@@ -40,28 +49,28 @@ letter combination. Only the first answer is accepted so think fast!
 
 
 ### How To Play: 
-<div align="middle" style="padding-bottom: 20px">
+<div align="middle" >
     <div>
         Create a lobby or join a friend's lobby.
     </div>
     <img width="75%" src="src/components/gifs/createlobby.gif"/>
 </div>
 
-<div align="middle" style="padding-bottom: 20px">
+<div align="middle" >
     <div>
         Share lobby code to have friends join.
     </div>
     <img width="75%" src="src/components/gifs/joinFriend.gif"/>
 </div>
 
-<div align="middle" style="padding-bottom: 20px">
+<div align="middle" >
     <div>
         The host can update the game settings before starting the game.
     </div>
     <img width="75%" src="src/components/gifs/updateSettings.gif"/>
 </div>
 
-<div align="middle" style="padding-bottom: 20px">
+<div align="middle" >
     <div>
         On game start, rounds will start loading. After initial countdown, a random category
         and letter will appear.
@@ -69,14 +78,14 @@ letter combination. Only the first answer is accepted so think fast!
     <img width="75%" src="src/components/gifs/startGame.gif"/>
 </div>
 
-<div align="middle" style="padding-bottom: 20px">
+<div align="middle" >
     <div>
         The first answer submitted by any player will be voted on by other players to see if
         point will be awarded. If majority votes yes, point awarded.
     </div>
 </div>
 
-<div align="middle" style="padding-bottom: 20px">
+<div align="middle" >
     <div>
         If you are unable to come up with anything, click the 'Give Up' button. Point will be
         awarded to the first to 'Give Up' when no one submits answer for the given Category and Letter.
