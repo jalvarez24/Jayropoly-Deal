@@ -67,7 +67,6 @@ export default function Home() {
       showErrorMessage("Enter lobby id to join  a friend.")
       return;
     }
-    document.getElementById('username')
 
     let userId = localStorage.getItem('userId');
     let username = localStorage.getItem('username');
