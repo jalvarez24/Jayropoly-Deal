@@ -77,35 +77,24 @@ export default function Lobby() {
   const {playerList, hostId} = GetPlayerList();
 
   const [gameId] = useState(localStorage.getItem("gameId"));
-
-  function endLobby() {
-    //update the database, delete entire instance of the lobby
+  
+  function exitLobby() {
     let gameRef = firebase.database().ref().child(`lobbies/${gameId}`);
 
-    gameRef.once("value")
-      .then((snapshot) =>{
-        if(snapshot.exists()) gameRef.remove();          
-        else {
-          console.log("Unable to end lobby.");
-          return;
-        }
-      });  
-  }
-
-  function exitLobby() {
-    let playerListRef = firebase.database().ref().child(`lobbies/${gameId}/players`);
-
-    playerListRef.once("value")
-        .then(function(snapshot) {
-          if(snapshot.exists()) playerListRef.child(localStorage.getItem("userId")).remove();          
-        });   
-    //update localStorage
-    localStorage.removeItem("inLobby");
-    localStorage.removeItem("inGame");
-    localStorage.removeItem("gameId");
-           
-    //redirect back '/' (home)
-    setRedirect('/');
+    if(hostId === localStorage.getItem("userId")) {
+      gameRef.remove();   
+    }
+    else {
+      let playerListRef = gameRef.child('players');
+      playerListRef.child(localStorage.getItem('userId')).remove();   
+      //update localStorage
+      localStorage.removeItem('inLobby');
+      localStorage.removeItem('inGame');
+      localStorage.removeItem('gameId');
+            
+      //redirect back '/' (home)
+      setRedirect('/');
+    }
   }
 
   function copyLobbyId() {
@@ -160,7 +149,7 @@ export default function Lobby() {
           hostId === localStorage.getItem("userId") ?
 
           <div className="lobby-options">
-            <button onClick={endLobby}>End Lobby </button> 
+            <button onClick={exitLobby}>End Lobby </button> 
             <button className={Object.keys(playerList).length < 2 ? "button-disabled":null} 
             title={Object.keys(playerList).length < 2 ? "At least two players required.":""} 
             disabled={Object.keys(playerList).length < 2} onClick={startGame}>
