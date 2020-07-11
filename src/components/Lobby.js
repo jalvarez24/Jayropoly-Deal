@@ -77,13 +77,15 @@ export default function Lobby() {
   const {playerList, hostId} = GetPlayerList();
 
   const [gameId] = useState(localStorage.getItem("gameId"));
-  
+
   function exitLobby() {
     let gameRef = firebase.database().ref().child(`lobbies/${gameId}`);
 
+    //if host, end game (database.on() handles removing all players if entire game deleted)
     if(hostId === localStorage.getItem("userId")) {
       gameRef.remove();   
     }
+    //else remove from playerList and send them back home
     else {
       let playerListRef = gameRef.child('players');
       playerListRef.child(localStorage.getItem('userId')).remove();   
