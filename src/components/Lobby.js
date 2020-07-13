@@ -14,28 +14,28 @@ export default function Lobby() {
 
   const [redirect, setRedirect] = useState(() => {
 
-    let game = localStorage.getItem("inGame");
-    let lobby = localStorage.getItem("inLobby");
+    let game = localStorage.getItem('inGame');
+    let lobby = localStorage.getItem('inLobby');
 
-    if(lobby && lobby !== "false") {
+    if(lobby && lobby !== 'false') {
       return null;
     }
-    else if (game && game === "true") return '/game'
+    else if (game && game === 'true') return '/game'
     return '/'
   });
 
   function GetPlayerList() {
     const [playerList, setPlayerList] = useState({});
-    const [hostId, setHostId] = useState("");
+    const [hostId, setHostId] = useState('');
   
     useEffect(() => {
-      let gameRef =  firebase.database().ref().child(`lobbies/${localStorage.getItem("gameId")}`);
-      gameRef.on("value", (snapshot) => {
+      let gameRef =  firebase.database().ref().child(`lobbies/${localStorage.getItem('gameId')}`);
+      gameRef.on('value', (snapshot) => {
         if(!snapshot.exists()) {
-          localStorage.removeItem("gameId");
-          localStorage.removeItem("inLobby");
-          localStorage.removeItem("inGame");
-          setRedirect("/");
+          localStorage.removeItem('gameId');
+          localStorage.removeItem('inLobby');
+          localStorage.removeItem('inGame');
+          setRedirect('/');
         }
         else{
           setHostId(snapshot.child('hostId').val());
@@ -57,9 +57,9 @@ export default function Lobby() {
 
           setPlayerList(newList);
           if(snapshot.child('gameStarted').val() === true) {
-            localStorage.setItem("inLobby", false);
-            localStorage.setItem("inGame", true);
-            setRedirect("/game");
+            localStorage.setItem('inLobby', false);
+            localStorage.setItem('inGame', true);
+            setRedirect('/game');
           }
         }
       })
@@ -76,13 +76,13 @@ export default function Lobby() {
 
   const {playerList, hostId} = GetPlayerList();
 
-  const [gameId] = useState(localStorage.getItem("gameId"));
+  const [gameId] = useState(localStorage.getItem('gameId'));
 
   function exitLobby() {
     let gameRef = firebase.database().ref().child(`lobbies/${gameId}`);
 
     //if host, end game (database.on() handles removing all players if entire game deleted)
-    if(hostId === localStorage.getItem("userId")) {
+    if(hostId === localStorage.getItem('userId')) {
       gameRef.remove();   
     }
     //else remove from playerList and send them back home
@@ -119,41 +119,41 @@ export default function Lobby() {
     redirect?
     <Redirect to={redirect}/>
     :
-    <div className="lobby-container">
-      <div className="lobby">
-        <div className="invite">
+    <div className='lobby-container'>
+      <div className='lobby'>
+        <div className='invite'>
             <h3>Invite your friends! They can join lobby with code: </h3>
-            <h2 style={{marginBottom: "1vh", fontFamily: "Arial"}} id="lobbyIdElement">{gameId}</h2>
+            <h2 style={{marginBottom: '1vh', fontFamily: 'Arial'}} id='lobbyIdElement'>{gameId}</h2>
             <button onClick={copyLobbyId}>Copy Code</button>
         </div>
-        <div className="playerlist">
-          <h3 style={{marginTop: 0, marginBottom: "4px"}}>Players in Lobby</h3>
+        <div className='playerlist'>
+          <h3 style={{marginTop: 0, marginBottom: '4px'}}>Players in Lobby</h3>
           <ul>
               {     
               Object.entries(playerList).map(([key, value]) => {   
                 return <li key={key}>
-                  <span style={{fontWeight: "bold"}}>{value.name}</span>
-                  <span style={{color: "red", fontWeight: "bold"}}> 
-                  {key === hostId ? " Host": ""}
+                  <span style={{fontWeight: 'bold'}}>{value.name}</span>
+                  <span style={{color: 'red', fontWeight: 'bold'}}> 
+                  {key === hostId ? ' Host': ''}
                   </span>
                   <span>
-                    {key === localStorage.getItem("userId") ? " (You)" : ""}
+                    {key === localStorage.getItem('userId') ? ' (You)' : ''}
                   </span>
                 </li>              
               })
               }   
           </ul>
-          <div style={{marginTop: "5px"}}>
+          <div style={{marginTop: '5px'}}>
             <span>[{Object.keys(playerList).length}/6 Players]</span> 
           </div>  
           {
             
-          hostId === localStorage.getItem("userId") ?
+          hostId === localStorage.getItem('userId') ?
 
-          <div className="lobby-options">
+          <div className='lobby-options'>
             <button onClick={exitLobby}>End Lobby </button> 
-            <button className={Object.keys(playerList).length < 2 ? "button-disabled":null} 
-            title={Object.keys(playerList).length < 2 ? "At least two players required.":""} 
+            <button className={Object.keys(playerList).length < 2 ? 'button-disabled':null} 
+            title={Object.keys(playerList).length < 2 ? 'At least two players required.':''} 
             disabled={Object.keys(playerList).length < 2} onClick={startGame}>
                 Start Game
             </button>
@@ -161,9 +161,9 @@ export default function Lobby() {
 
           :
 
-          <div className="lobby-options">
+          <div className='lobby-options'>
             <button onClick={exitLobby}>Exit Lobby </button> 
-            <button title="Host must start game." className="button-disabled" disabled>
+            <button title='Host must start game.' className='button-disabled' disabled>
                 Start Game
             </button>
           </div>
@@ -174,7 +174,7 @@ export default function Lobby() {
       </div>
       </div>
 
-      <div className="chat">
+      <div className='chat'>
         <Chat gameId={gameId} playerList={playerList}/>
       </div>
 
