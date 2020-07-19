@@ -219,13 +219,6 @@ export default function Game() {
             gameRef.child('roundStartTime').set(null);
             gameRef.child('roundEndTime').set(null);
           });
-
-        // //update localStorage
-        // localStorage.setItem('inLobby', true);
-        // localStorage.setItem('inGame', false);
-        
-        // //redirect back '/lobby'
-        // setRedirect('/lobby');
       }
 
       function quitGame() {
