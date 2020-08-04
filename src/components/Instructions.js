@@ -181,7 +181,7 @@ export default function Instructions() {
                                     <a href="https://github.com/jalvarez24/i-got-it-fam/" target="_blank">
                                         <img src={github} alt="loading"/>
                                     </a>
-                                    <a href="https://jalvarez24.github.io/" target="_blank">
+                                    <a href="https://jayroalvarez.com/" target="_blank">
                                         <img src={globe} alt="loading"/>
                                     </a>
                                 </div>
