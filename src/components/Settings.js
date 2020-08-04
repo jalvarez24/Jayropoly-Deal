@@ -96,12 +96,6 @@ export default function Settings({hostId, scoreTarget, roundTime, countdownTime,
 
     return (
         <>
-            {/* <button className = "settings-container" onClick={() => {setModalIsOpen(true)}} style={{display: modalIsOpen ? "none" : null}}>
-                <div className="settings-bar"/>
-                <div className="settings-bar"/>
-                <div className="settings-bar"/>
-            </button> */}
-
             <button className = "settings-container" onClick={() => {setModalIsOpen(true)}} style={{display: modalIsOpen ? "none" : null}}>
                 <img src={gear} alt="loading"></img>
             </button>
