@@ -163,7 +163,6 @@ export default function Home() {
               <>
                 <span>Enter a name to play: </span>
                 <div style={{position: "relative", display: "inline"}}>
-                  {/* <input onChange={(e) => {setUsername(e.target.value.trim())}} type="text" placeholder="Name" spellCheck="false" required/> */}
                   <input onChange={(e) => {updateUsername(e)}} type="text" placeholder="Name" spellCheck="false" required/>
                   <span className="focus-border"></span>
                 </div>
@@ -175,7 +174,7 @@ export default function Home() {
               <span>Join a friend, enter their lobby id: </span>
               <div>
                 <div style={{position: "relative", display: "inline"}}>
-                  <input onChange={(e) => { setJoinLobbyId(e.target.value.trim())}} type="text" placeholder="Lobby" spellCheck="false"/>
+                  <input onChange={(e) => { setJoinLobbyId(e.target.value.trim())}} type="text" placeholder="Lobby" spellCheck="false" maxLength={5}/>
                   <span className="focus-border"></span>
                 </div>
                 {
