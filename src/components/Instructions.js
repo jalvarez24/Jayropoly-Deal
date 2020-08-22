@@ -5,7 +5,6 @@ import joinFriend from './gifs/joinFriend.gif';
 import updateSettings from './gifs/updateSettings.gif';
 import startGame from './gifs/startGame.gif';
 import chat from './gifs/chat.gif';
-import devPic from '../images/devpic.jpg';
 import github from '../images/github.png';
 import globe from '../images/globe.png';
 import reactlogo from '../images/reactlogo.png';
@@ -73,7 +72,7 @@ export default function Instructions() {
                     <a onClick={(e) => {switchTab(e, '#summary-tab')}} className="nav-button">summary</a>
                     <a onClick={(e) => {switchTab(e, '#howtoplay-tab')}} className="nav-button">how to play</a>
                     <a onClick={(e) => {switchTab(e, '#features-tab')}} className="nav-button">features</a>
-                    <a onClick={(e) => {switchTab(e, '#developer-tab')}} className="nav-button">developer</a>
+                    {/* <a onClick={(e) => {switchTab(e, '#developer-tab')}} className="nav-button">developer</a> */}
                 </div>
 
                 <div className="inactive-tab" id="summary-tab">
@@ -153,10 +152,10 @@ export default function Instructions() {
                         <span>
                             Front-End is built with React.js framework.
                         </span>
-                        <img className="gif" src={reactlogo} alt="loading"/>
+                        <img className="gif" src={reactlogo} alt="loading" style={{height: '90%', width: 'auto'}}/>
                     </div>
                     <div className="instructions-section">
-                    <img className="gif" src={firebaselogo} alt="loading"/>
+                    <img className="gif" src={firebaselogo} alt="loading" style={{height: '90%', width: 'auto'}}/>
                         <span>
                             Back-End is built with Google Firebase tools: Google Real-time Database & 
                             Google Cloud Functions.
@@ -166,7 +165,7 @@ export default function Instructions() {
 
                 <div className="inactive-tab" id="developer-tab">
                     <span className="instructions-label">developer</span>
-                    <div className="dev-section">
+                    {/* <div className="dev-section">
                         <div className="pic-container">
                             <img className="pic" src={devPic} alt="loading"/>
                             <div className="pic-caption">
@@ -187,7 +186,7 @@ export default function Instructions() {
                                 </div>
                             </span>   
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
             </div>
