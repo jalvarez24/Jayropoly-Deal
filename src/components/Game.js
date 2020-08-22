@@ -191,16 +191,6 @@ export default function Game() {
       function restartLobby() {
         if(localStorage.getItem('userId') !== hostId)
           return;
-        
-        //reset all game stats on db and redirect back to lobby
-        //  reset: 
-        //    category:""
-        //    letter:""
-        //    gameStarted:false
-        //    answer:{id:"", value:""}
-        //    all player scores to 0
-
-        //  delete: functionsLoaded, roundStartTime, roundEndTime
 
         let gameRef = firebase.database().ref().child(`lobbies/${localStorage.getItem('gameId')}`);
     
