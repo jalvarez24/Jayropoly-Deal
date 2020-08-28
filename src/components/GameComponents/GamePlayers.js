@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import '../style/game.css'
 import './style/game-players.css'
-import { isPending } from 'q';
 
 export default function GamePlayers({playerList, scoreTarget}) {
 
