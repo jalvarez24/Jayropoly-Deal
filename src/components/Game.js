@@ -319,7 +319,7 @@ export default function Game() {
                           {
                             playerList[winner] ?
                             " " + playerList[winner].name :
-                            "loading"
+                            "Player Left"
                           }
                         </span>
                       </span>
